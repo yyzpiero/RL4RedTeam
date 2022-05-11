@@ -64,18 +64,18 @@ def main():
 
     render = False  # If you want to display the image, set this to True. Turn this off if you run this in Google Collab
    
-    n_rollout_step_update = 512
+    n_rollout_step_update = 5000
 
     n_update = 8000 # How many ppo update you want to run
     n_init_episode = 1024 # default 1014
-    num_envs = 4
+    num_envs = 1
     seed = 450
     #############################################
 
 
-    gym_id = "nasim:Small-v0"
+    gym_id = "nasim:Medium-v0"
     log_dir = "./vevc_ppo_rnd/runs/" + gym_id + "/" "NUM_ENV_" + str(num_envs) + "/"
-    writer =  SummaryWriter(logdir=log_dir)
+    #writer =  SummaryWriter(logdir=log_dir)
     writer =  None
 
     envs = VecPyTorch(DummyVecEnv([make_env(gym_id, seed+i*100, i, wrapper=None) for i in range(num_envs)]), device)

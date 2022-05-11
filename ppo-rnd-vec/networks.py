@@ -11,10 +11,10 @@ class Linear_Coverage_Model(nn.Module):
     def __init__(self, input_dim, out_dim, device='cuda'):
         super(Linear_Coverage_Model, self).__init__()
 
-        self.linear_coverage = nn.Sequential(
-            nn.Linear(input_dim, 128),
+        self.linear_coverage = nn.Sequential(layer_init(
+            nn.Linear(input_dim, 128)),
             nn.ReLU(),
-            nn.Linear(128, out_dim)
+            layer_init(nn.Linear(128, out_dim))
         ).float().to(device)
         #nn.Linear(input_dim, out_dim,bias=True).to(device)
         #self.linear = nn.Linear(input_dim, out_dim,bias=True).to(device)
@@ -30,13 +30,13 @@ class Actor_Model_Coverage(nn.Module):
         self.nn_layer = nn.Sequential(
             layer_init(nn.Linear(state_dim[0], num_hidden), std=0.01),
             nn.ReLU(),
-            nn.Linear(num_hidden, num_hidden),
+            layer_init(nn.Linear(num_hidden, num_hidden)),
             nn.ReLU(),
-            nn.Linear(num_hidden, action_dim)
+            layer_init(nn.Linear(num_hidden, action_dim))
         ).float().to(device)
 
-        self.cw_learner = nn.Sequential(nn.Linear(state_dim[0], action_dim),nn.Tanh()).float().to(device)
-        self.aw_learner = nn.Sequential(nn.Linear(state_dim[0], action_dim),nn.Tanh()).float().to(device)
+        self.cw_learner = nn.Sequential(layer_init(nn.Linear(state_dim[0], action_dim)),nn.Tanh()).float().to(device)
+        self.aw_learner = nn.Sequential(layer_init(nn.Linear(state_dim[0], action_dim)),nn.Tanh()).float().to(device)
 
         self.linear_coverage = Linear_Coverage_Model(action_dim, action_dim).float().to(device)
         self.cout_activation = nn.Tanh().float().to(device)
@@ -123,11 +123,11 @@ class RND_Model(nn.Module):
         super(RND_Model, self).__init__()
 
         self.nn_layer = nn.Sequential(
-            nn.Linear(state_dim[0], num_hidden),
+            layer_init(nn.Linear(state_dim[0], num_hidden)),
             nn.ReLU(),
-            nn.Linear(num_hidden, num_hidden),
+            layer_init(nn.Linear(num_hidden, num_hidden)),
             nn.ReLU(),
-            nn.Linear(num_hidden, 1)
+            layer_init(nn.Linear(num_hidden, 1))
         ).float().to(device)
         
     def forward(self, states):

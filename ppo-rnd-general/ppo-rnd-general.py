@@ -1,11 +1,13 @@
-import cyborg
-import gym
+#import cyborg
 import numpy as np
 import matplotlib.pyplot as plt
 import random
-from gym.envs.registration import register
-from gym_minigrid.wrappers import *
+#from gym.envs.registration import register
+#from gym_minigrid.wrappers import *
 from tensorboardX import SummaryWriter
+from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
+from stable_baselines3.common.evaluation import evaluate_policy
+from stable_baselines3.common.env_util import make_vec_env
 import torch
 import torch.nn as nn
 from torch.distributions import Categorical
@@ -15,19 +17,14 @@ from torch.optim import Adam
 from typing import Optional
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
-import numpy
-import datetime
-import inspect
-from CybORG import CybORG
-from CybORG.Agents.Wrappers import *
+import gym
+#from CybORG import CybORG
+#from CybORG.Agents.Wrappers import *
 #from CybORG.Agents.MyDQNAgent.my_utils import polyak_update
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 dataType = torch.cuda.FloatTensor if torch.cuda.is_available() else torch.FloatTensor
 
-#from torch import einsum
-#from einops import  reduce
 
 class CategoricalMasked(Categorical):
     def __init__(self, probs=None, logits=None, validate_args=None, masks=[]):
@@ -49,8 +46,6 @@ class CategoricalMasked(Categorical):
     def sample(self):
         action_probs = torch.nn.functional.softmax(self.logits, 1).to(device)
         return Categorical(action_probs).sample()
-
-
 
 
 class Utils():
@@ -80,6 +75,7 @@ class Utils():
 
         return data_normalized
 
+
 class Linear_Coverage_Model(nn.Module):
     def __init__(self, input_dim, out_dim):
         super(Linear_Coverage_Model, self).__init__()
@@ -89,6 +85,7 @@ class Linear_Coverage_Model(nn.Module):
     def forward(self, C):
         out =  self.linear_coverage(C)   #+ self.linear(X)     
         return out
+
 
 class Actor_Model_Coverage(nn.Module):
     def __init__(self, state_dim, action_dim, mask_type):
@@ -211,7 +208,7 @@ class ObsMemory(Dataset):
         return np.array(self.observations[idx], dtype=np.float32)
 
     def get_all(self):
-        return torch.FloatTensor(self.observations)
+        return torch.FloatTensor(np.array(self.observations))
 
     def save_eps(self, obs):
         self.observations.append(obs)
@@ -364,16 +361,12 @@ class Agent():
         self.ex_critic_old = Critic_Model(state_dim, action_dim)
         self.ex_critic_optimizer = Adam(self.ex_critic.parameters(), lr=learning_rate)
 
-
-
         self.in_critic = Critic_Model(state_dim, action_dim)
         self.in_critic_old = Critic_Model(state_dim, action_dim)
-        self.in_critic_optimizer = Adam(
-            self.in_critic.parameters(), lr=learning_rate)
+        self.in_critic_optimizer = Adam(self.in_critic.parameters(), lr=learning_rate)
 
         self.rnd_predict = RND_Model(state_dim, action_dim)
-        self.rnd_predict_optimizer = Adam(
-            self.rnd_predict.parameters(), lr=learning_rate)
+        self.rnd_predict_optimizer = Adam(self.rnd_predict.parameters(), lr=learning_rate)
         self.rnd_target = RND_Model(state_dim, action_dim)
 
         self.memory = Memory()
@@ -384,7 +377,7 @@ class Agent():
             self.distributions = DistributionsMasked()
         else:
             self.distributions = Distributions()
-        #self.distributions = DistributionsMasked()
+
         self.utils = Utils()
 
 
@@ -413,7 +406,7 @@ class Agent():
         self.obs_memory.save_eps(obs)
 
     def update_obs_normalization_param(self, obs):
-        obs = torch.FloatTensor(obs).to(device).detach()
+        obs = torch.FloatTensor(np.array(obs)).to(device).detach()
 
         mean_obs = self.utils.count_new_mean(
             self.obs_memory.mean_obs, self.obs_memory.total_number_obs, obs)
@@ -511,8 +504,7 @@ class Agent():
 
         # We need to maximaze Policy Loss to make agent always find Better Rewards
         # and minimize Critic Loss
-        loss = (critic_loss * self.vf_loss_coef) - \
-            (dist_entropy * self.entropy_coef) - pg_loss 
+        loss = (critic_loss * self.vf_loss_coef) - (dist_entropy * self.entropy_coef) - pg_loss 
         return loss
 
     def act(self, state, action_mask_pro, coverage_hist):
@@ -558,9 +550,8 @@ class Agent():
 
         state_pred = self.rnd_predict(obs)
         state_target = self.rnd_target(obs)
-        #print("RND 1:{}".format(torch.cuda.memory_allocated(0)))
+        
         loss = self.get_rnd_loss(state_pred, state_target)
-        #print("RND 2:{}".format(torch.cuda.memory_allocated(0)))
         self.rnd_predict_optimizer.zero_grad()
         loss.backward()
         self.rnd_predict_optimizer.step()
@@ -569,23 +560,18 @@ class Agent():
     # Get loss and Do backpropagation
     def training_ppo(self, states, actions, rewards, dones, next_states, coverage_hist, mean_obs, std_obs, std_in_rewards):
         # Don't update rnd value
-        obs = self.utils.normalize(
-            next_states, mean_obs, std_obs, self.clip_normalization).detach()
+        obs = self.utils.normalize(next_states, mean_obs, std_obs, self.clip_normalization).detach()
         state_preds = self.rnd_predict(obs)
         state_targets = self.rnd_target(obs)
        
-        
-        #print("-1:{}".format(np.shape(states)))
         action_probs, ex_values, in_values = self.actor(
             states, coverage_hist), self.ex_critic(states),  self.in_critic(states)
-        #print("0:{}".format(torch.cuda.memory_allocated(0)))
+        
         old_action_probs, old_ex_values, old_in_values = self.actor_old(
             states, coverage_hist), self.ex_critic_old(states),  self.in_critic_old(states)
-        #print("1:{}".format(torch.cuda.memory_allocated(0)))
-        
+           
         next_ex_values, next_in_values = self.ex_critic(
             next_states),  self.in_critic(next_states)
-        #print("2:{}".format(torch.cuda.memory_allocated(0)))
 
         if self.coverage:
             loss = self.get_PPO_loss(action_probs, ex_values, old_action_probs, old_ex_values, next_ex_values, actions, rewards, dones,
@@ -594,7 +580,7 @@ class Agent():
             coverage_loss = torch.mean(torch.min(coverage_hist, torch.nn.functional.softmax(action_probs, 0)))
 
             self.coverage_loss = coverage_loss
-        #print("C_loss:{}".format(coverage_loss))
+        
             if self.coverage_coef:
                 loss = loss + self.coverage_coef * coverage_loss
             else:
@@ -603,7 +589,7 @@ class Agent():
             loss = self.get_PPO_loss(action_probs, ex_values, old_action_probs, old_ex_values, next_ex_values, actions, rewards, dones,
                                     state_preds, state_targets, in_values, old_in_values, next_in_values, std_in_rewards)
             self.coverage_loss = 0                        
-        #print("loss:{}".format(loss))
+        
 
         self.actor_optimizer.zero_grad()
         self.ex_critic_optimizer.zero_grad()
@@ -619,21 +605,16 @@ class Agent():
     def update_rnd(self):
         batch_size = int(len(self.obs_memory) / self.minibatch)
         dataloader = DataLoader(self.obs_memory, batch_size, shuffle=False)
-        #print("rnd bs:{}".format(batch_size))
+       
         # Optimize policy for K epochs:
         for _ in range(self.RND_epochs):
             for obs in dataloader:
                 self.training_rnd(obs.float().to(device), self.obs_memory.mean_obs.float().to(
                     device), self.obs_memory.std_obs.float().to(device))
-        
-        
        
-        #print("rnd 5:{}".format(torch.cuda.memory_allocated(0)))
         intrinsic_rewards = self.compute_intrinsic_reward(self.obs_memory.get_all().to(
             device), self.obs_memory.mean_obs.to(device), self.obs_memory.std_obs.to(device))
         
-        #torch.cuda.empty_cache()
-        #print("rnd 6:{}".format(torch.cuda.memory_allocated(0)))
         self.update_obs_normalization_param(self.obs_memory.observations)
         self.update_rwd_normalization_param(intrinsic_rewards)
        
@@ -644,14 +625,12 @@ class Agent():
     def update_ppo(self):
         batch_size = int(len(self.memory) / self.minibatch)
         dataloader = DataLoader(self.memory, batch_size, shuffle=False)
-        #print("ppo 30:{}".format(torch.cuda.memory_allocated(0)))
+        
         # Optimize policy for K epochs:
         for _ in range(self.PPO_epochs):
             for states, actions, rewards, dones, next_states, coverage_hist in dataloader:
                 self.training_ppo(states.float().to(device), actions.float().to(device), rewards.float().to(device), dones.float().to(device), next_states.float().to(device), coverage_hist.float().to(device),
                                   self.obs_memory.mean_obs.float().to(device), self.obs_memory.std_obs.float().to(device), self.obs_memory.std_in_rewards.float().to(device))
-        #print("ppo 31:{}".format(torch.cuda.memory_allocated(0)))
-        #torch.cuda.empty_cache()
         # Clear the memory
         self.memory.clear_memory()
 
@@ -659,63 +638,33 @@ class Agent():
         self.actor_old.load_state_dict(self.actor.state_dict())
         self.ex_critic_old.load_state_dict(self.ex_critic.state_dict())
         self.in_critic_old.load_state_dict(self.in_critic.state_dict())
-        # polyak_update(self.in_critic_old.parameters(),
-        #               self.in_critic.parameters())
-        # polyak_update(self.actor_old.parameters(),
-        #               self.actor.parameters())
-        # polyak_update(self.ex_critic_old.parameters(),
-        #               self.ex_critic.parameters())
-
+        
 
     def save_weights(self):
-        torch.save({
-            'model_state_dict': self.actor.state_dict(),
+        torch.save({'model_state_dict': self.actor.state_dict(),
             'optimizer_state_dict': self.actor_optimizer.state_dict(),
         }, '/test/My Drive/Bipedal4/actor.tar')
 
-        torch.save({
-            'model_state_dict': self.ex_critic.state_dict(),
+        torch.save({'model_state_dict': self.ex_critic.state_dict(),
             'optimizer_state_dict': self.ex_critic_optimizer.state_dict()
         }, '/test/My Drive/Bipedal4/ex_critic.tar')
 
-        torch.save({
-            'model_state_dict': self.in_critic.state_dict(),
+        torch.save({'model_state_dict': self.in_critic.state_dict(),
             'optimizer_state_dict': self.in_critic_optimizer.state_dict()
         }, '/test/My Drive/Bipedal4/in_critic.tar')
 
     def load_weights(self):
         actor_checkpoint = torch.load('/test/My Drive/Bipedal4/actor.tar')
         self.actor.load_state_dict(actor_checkpoint['model_state_dict'])
-        self.actor_optimizer.load_state_dict(
-            actor_checkpoint['optimizer_state_dict'])
+        self.actor_optimizer.load_state_dict(actor_checkpoint['optimizer_state_dict'])
 
-        ex_critic_checkpoint = torch.load(
-            '/test/My Drive/Bipedal4/ex_critic.tar')
-        self.ex_critic.load_state_dict(
-            ex_critic_checkpoint['model_state_dict'])
-        self.ex_critic_optimizer.load_state_dict(
-            ex_critic_checkpoint['optimizer_state_dict'])
+        ex_critic_checkpoint = torch.load('/test/My Drive/Bipedal4/ex_critic.tar')
+        self.ex_critic.load_state_dict(ex_critic_checkpoint['model_state_dict'])
+        self.ex_critic_optimizer.load_state_dict(ex_critic_checkpoint['optimizer_state_dict'])
 
-        in_critic_checkpoint = torch.load(
-            '/test/My Drive/Bipedal4/in_critic.tar')
-        self.in_critic.load_state_dict(
-            in_critic_checkpoint['model_state_dict'])
-        self.in_critic_optimizer.load_state_dict(
-            in_critic_checkpoint['optimizer_state_dict'])
-
-
-def plot(datas):
-    print('----------')
-
-    plt.plot(datas)
-    plt.plot()
-    plt.xlabel('Episode')
-    plt.ylabel('Datas')
-    plt.show()
-
-    print('Max :', np.max(datas))
-    print('Min :', np.min(datas))
-    print('Avg :', np.mean(datas))
+        in_critic_checkpoint = torch.load('/test/My Drive/Bipedal4/in_critic.tar')
+        self.in_critic.load_state_dict(in_critic_checkpoint['model_state_dict'])
+        self.in_critic_optimizer.load_state_dict(in_critic_checkpoint['optimizer_state_dict'])
 
 
 def run_inits_episode(env, agent, state_dim, render, n_init_episode):
@@ -754,12 +703,6 @@ def run_episode(env, agent, state_dim, action_dim, render, training_mode, t_upda
 
     while not done:
         
-        #if sum(episode_hist_action) !=0:
-        #    action_re_prob = np.ones(action_dim) - (episode_hist_action/sum(episode_hist_action))
-        #else:
-        #    action_re_prob = np.ones(action_dim) - episode_hist_action
-        
-        #action_re_mask = np.multiply(action_mask, action_re_prob)
         if agent.mask_type == "Hard":
             action_re_mask = action_mask
             action_re_mask_prob = np.array(action_re_mask )/sum(action_re_mask)
@@ -770,17 +713,12 @@ def run_episode(env, agent, state_dim, action_dim, render, training_mode, t_upda
         coverage_hist_norm = coverage_hist/np.sum(coverage_hist)
         action = int(agent.act(state, action_re_mask_prob, coverage_hist=coverage_hist_norm))
         
-        #action = int(agent.act(state))
-        
         next_state, reward, done, info = env.step(action)
-        #print(next_state)
         coverage_hist[action] = coverage_hist[action] + 1      
         
         if agent.mask_type is not None:
             action_mask = info['action_mask']
             agent.action_mask = torch.tensor(np.array(action_mask, dtype=bool), requires_grad=False).to(device=device)
-        
-        #agent.action_mask = torch.tensor(action_mask)
 
         eps_time += 1
         t_updates += 1
@@ -803,9 +741,7 @@ def run_episode(env, agent, state_dim, action_dim, render, training_mode, t_upda
             #torch.cuda.empty_cache()
 
         if done:
-            return total_reward, eps_time, t_updates, agent.entropy_loss, agent.vf_loss, agent.coverage_loss, coverage_hist_norm#, info['num_disrupted'], info['num_privesc'], coverage_hist_norm
-
-
+            return total_reward, eps_time, t_updates, agent.entropy_loss, agent.vf_loss, agent.coverage_loss, coverage_hist_norm
 
 
 
@@ -817,13 +753,12 @@ def main():
     training_mode = True
     # Set threshold for reward. The learning will stop if reward has pass threshold. Set none to sei this off
     reward_threshold = None
-    using_google_drive = False
-
+    
     render = False  # If you want to display the image, set this to True. Turn this off if you run this in Google Collab
     # How many steps before you update the RND. Recommended set to 128 for Discrete
     n_step_update = 1024
     # How many episode before you update the PPO. Recommended set to 5 for Discrete
-    n_eps_update = 1
+    n_eps_update = 5
     n_plot_batch = 10000000  # How many episode you want to plot the result
     n_episode = 5000  # How many episode you want to run
     n_init_episode = 1024  # default 1014
@@ -846,27 +781,14 @@ def main():
     coverage = None
     coverage_weight = None
 
-    # seed = 
-    # torch.manual_seed(seed)
-    # random.seed(seed)
-    # np.random.seed(seed)
-    ############################################
-
-
-    path_cyborg = str(inspect.getfile(CybORG))
-    path = path_cyborg[:-10] + "/Shared/Scenarios/Scenario1b.yaml"
-    file_name = '_'.join(['cyborg:CyborgENV-v1', "no_coverage_no_weight_no_fusion"])
-    # ENV_NAME = TRAIN_HYPERPARAMS["env_name"]
-    LOG_DIR = "./Coverage_Run/"+datetime.datetime.now().strftime("%m-%d-%H-%M") +"/"+file_name
-    writer = SummaryWriter(LOG_DIR)#CybORGENV-v1/ppo_rnd_mask_coverage_woLoss_SOO/', filename_suffix='_SOO')
+    writer = SummaryWriter()#CybORGENV-v1/ppo_rnd_mask_coverage_woLoss_SOO/', filename_suffix='_SOO')
     #writer = None
     #env = gym.make('cyborg:CyborgENV-v1')
-    env = gym.make('nasim:Small-v0')
+    #env = gym.make("nasim:Medium-v0")
+    #env = make_vec_env("nasim:Pocp2Gen-v0", n_envs=1, seed=142)
+    #env = gym.make("nasim:Pocp2Gen-v0")
+  
    
-    env = gym.make('MiniGrid-DoorKey-5x5-v0')
-    #env = RGBImgPartialObsWrapper(env) # Get pixel observations
-    env = FlatObsWrapper(env) # Get rid of the 'mission' field
-    #env.seed(seed)
     action_dim = env.action_space.n
     state_dim = env.observation_space.shape  # .n
     print("Action Dimension is {}".format(action_dim))
@@ -876,10 +798,7 @@ def main():
                   minibatch, PPO_epochs, gamma, lam, learning_rate, mask_type, coverage, coverage_weight)
     
     #############################################
-    if using_google_drive:
-        from google.colab import drive
-        drive.mount('/test')
-
+    
     if load_weights:
         agent.load_weights()
         print('Weight Loaded')
@@ -896,18 +815,16 @@ def main():
     #############################################
 
     if training_mode:
-        agent = run_inits_episode(
-            env, agent, state_dim, render, n_init_episode)
+        agent = run_inits_episode(env, agent, state_dim, render, n_init_episode)
 
     #############################################
 
     for i_episode in range(1, n_episode + 1):
-        # total_reward, time, t_updates, entropy_loss, vf_loss, coverage_loss, num_disrupted, num_privesc, coverage_set = run_episode(
-        #     env, agent, state_dim, action_dim, render, training_mode, t_updates, n_step_update)
+        
         total_reward, time, t_updates,  entropy_loss, vf_loss, coverage_loss, coverage_hist_norm = run_episode(
             env, agent, state_dim, action_dim, render, training_mode, t_updates, n_step_update)
         print('Episode {} \t t_reward: {} \t time: {} \t '.format(i_episode, total_reward, time))
-        #print(np.mean(coverage_hist_norm**2))
+        
         if writer is not None:
             writer.add_scalar('rewards', total_reward, i_episode)
             writer.add_scalar('steps', time, i_episode)

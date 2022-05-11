@@ -192,7 +192,7 @@ class PPO_Agent():
         # Don't use old value in backpropagation
         # Old_ex_values = old_ex_values.detach()
 
-              # Computing internal reward, then getting internal general advantages estimator
+        # Computing internal reward, then getting internal general advantages estimator
         with torch.no_grad():
             in_rewards = (state_targets - state_preds).pow(2) * \
                 0.5 / (std_in_rewards.mean() + 1e-8)
