@@ -58,7 +58,7 @@ class DQN_Agent():
         self.TAU = TAU
         self.GAMMA = GAMMA
         self.UPDATE_EVERY = 4
-        self.TARGET_UPDATE_EVERY = 10000
+        self.TARGET_UPDATE_EVERY = 2000
         self.worker = worker 
         self.BATCH_SIZE = BATCH_SIZE*worker
         self.Q_updates = 0
@@ -109,7 +109,7 @@ class DQN_Agent():
 
         # Initialize time step (for updating every UPDATE_EVERY steps)
         self.t_step = 0
-        self.train_time = []
+        # self.train_time = []
     
     def step(self, state, action, reward, next_state, done, writer):
         # Save experience in replay memory
@@ -122,17 +122,18 @@ class DQN_Agent():
             # If enough samples are available in memory, get random subset and learn
             
             if len(self.memory) > self.BATCH_SIZE:
-                experiences = self.memory.sample_new()
+                experiences = self.memory.sample()
                 if self.per == False:
-                    train_since = time.time()
+                    # train_since = time.time()
                     loss, icm_loss = self.learn(experiences)
-                    train_elapsed = time.time()-train_since
-                    self.train_time.append(train_elapsed)
-                    
-                    writer.add_scalar("ICM_loss", icm_loss, self.Q_updates)
+                    # train_elapsed = time.time()-train_since
+                    # self.train_time.append(train_elapsed)
+                    if writer:
+                        writer.add_scalar("ICM_loss", icm_loss, self.Q_updates)
                 else: 
                     loss = self.learn_per(experiences)
-                    writer.add_scalar("Q_loss", loss, self.Q_updates)
+                    if writer:
+                        writer.add_scalar("Q_loss", loss, self.Q_updates)
                 self.Q_updates += 1
         
                 
@@ -149,15 +150,12 @@ class DQN_Agent():
         # Epsilon-greedy action selection
         if random.random() > eps: # select greedy action if random number is higher than epsilon or noisy network is used!
             state = np.array(state)
-            if len(self.state_size) > 1:
-                state = torch.from_numpy(state).float().to(self.device)        
-            else:
-                state = torch.from_numpy(state).float().to(self.device)
-            self.qnetwork_local.eval()
-            with torch.no_grad():
-                action_values = self.qnetwork_local(state)
-            self.qnetwork_local.train()
-            action = np.argmax(action_values.cpu().data.numpy(), axis=1)
+            state = torch.from_numpy(state).float().to(self.device)
+            self.qnetwork_local.eval()        
+            action_values = self.qnetwork_local(state)
+            self.qnetwork_local.train()  
+            action = action_values.max(1)[1].cpu().data.numpy()
+            #action = np.argmax(action_values.cpu().data.numpy(), axis=1)
             return action
         else:
             if eval:
@@ -175,13 +173,7 @@ class DQN_Agent():
         """
         self.optimizer.zero_grad()
         states, actions, rewards, next_states, dones = experiences
-        states = torch.as_tensor(np.array(states,dtype=np.float32), device=self.device)  # states--> float32
-        actions = torch.as_tensor(np.array(actions,dtype=np.int64), device=self.device)   # action --> int64
-        next_states = torch.as_tensor(np.array(next_states, dtype=np.float32), device=self.device)   # next_state --> float32
-        rewards = torch.as_tensor(np.array(rewards,dtype=np.float32), device=self.device)   # rewards --> float32
-        dones = torch.as_tensor(np.array(dones, dtype=np.int8), dtype=torch.uint8, device=self.device)   # done --> int8
-        #weights = torch.FloatTensor(torch.ones(self.BATCH_SIZE)).to(self.device)
-
+       
         # calculate curiosity
         if self.curiosity != 0:
             forward_pred_err, inverse_pred_err = self.ICM.calc_errors(state1=states, state2=next_states, action=actions)
@@ -195,12 +187,19 @@ class DQN_Agent():
         # Get max predicted Q values (for next states) from target model
         double_max_action = self.qnetwork_local(next_states).max(1)[1].detach()
         target_output = self.qnetwork_target(next_states)
-        Q_targets_next = torch.gather(target_output, 1, double_max_action[:, None]).squeeze(-1).detach()  # NB: [:,None] add an extra dimension
+        Q_targets_next = torch.gather(target_output, 1, double_max_action[:, None]).detach()  # NB: [:,None] add an extra dimension
         #Q_targets_next = self.qnetwork_target(next_states).max(1)[0].detach()#.unsqueeze(1)
+        # Compute Q targets for current states 
+        #Q_targets = rewards + (self.GAMMA**self.n_step * Q_targets_next * (1 - dones))
+        # Get expected Q values from local model
+        #Q_expected = self.qnetwork_local(states).gather(1, actions)
+
+           # Get max predicted Q values (for next states) from target model
+        #Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
         # Compute Q targets for current states 
         Q_targets = rewards + (self.GAMMA**self.n_step * Q_targets_next * (1 - dones))
         # Get expected Q values from local model
-        Q_expected = self.qnetwork_local(states).gather(1, actions[:,None]).squeeze(-1)
+        Q_expected = self.qnetwork_local(states).gather(1, actions)
 
 
         icm_loss = 0
@@ -259,7 +258,7 @@ class DQN_Agent():
             rewards = torch.FloatTensor(rewards).to(self.device).unsqueeze(1) 
             dones = torch.FloatTensor(dones).to(self.device).unsqueeze(1)
             weights = torch.FloatTensor(weights).unsqueeze(1).to(self.device)
-
+      
             # Get max predicted Q values (for next states) from target model
             Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
             # Compute Q targets for current states 
@@ -281,7 +280,7 @@ class DQN_Agent():
                 else:
                     self.qnetwork_target.load_state_dict(self.qnetwork_local.state_dict())
                 # update per priorities
-                self.memory.update_priorities(idx, abs(td_error.data.cpu().numpy()))
+            self.memory.update_priorities(idx, abs(td_error.data.cpu().numpy()))
 
             return loss.detach().cpu().numpy()            
 
@@ -328,7 +327,8 @@ class DQN_C51Agent():
         self.TAU = TAU
         self.GAMMA = GAMMA
         self.curiosity = curiosity
-        self.UPDATE_EVERY = 1
+        self.UPDATE_EVERY = 4
+        self.TARGET_UPDATE_EVERY = 2000
         self.worker = worker
         self.BATCH_SIZE = BATCH_SIZE*worker
         self.Q_updates = 0
@@ -405,22 +405,24 @@ class DQN_C51Agent():
 
         return proj_dist
     
-    def step(self, state, action, reward, next_state, done, writer):
+    def step(self, state, action, reward, next_state, done, writer=None):
         # Save experience in replay memory
         self.memory.add(state, action, reward, next_state, done)
         
         # Learn every UPDATE_EVERY time steps.
-        self.t_step = (self.t_step + 1) % self.UPDATE_EVERY
-        if self.t_step == 0:
+        self.t_step +=1
+        # self.t_step = (self.t_step + 1) 
+        if self.t_step % self.UPDATE_EVERY == 0:
             # If enough samples are available in memory, get random subset and learn
             if len(self.memory) > self.BATCH_SIZE:
-                experiences = self.memory.sample_new()
+                experiences = self.memory.sample()
                 if self.per == False:
                     loss = self.learn(experiences) 
                 else:
                     loss = self.learn_per(experiences) 
                 self.Q_updates += 1
-                writer.add_scalar("Q_loss", loss, self.Q_updates)
+                if writer:
+                    writer.add_scalar("Q_loss", loss, self.Q_updates)
 
     def act(self, state, eps=0., eval=False):
         """Returns actions for given state as per current policy. Acting only every 4 frames!
@@ -435,15 +437,14 @@ class DQN_C51Agent():
         # Epsilon-greedy action selection
         if random.random() > eps: # select greedy action if random number is higher than epsilon or noisy network is used!
             state = np.array(state)
-            if len(self.state_size) > 1:
-                state = torch.from_numpy(state).float().to(self.device)        
-            else:
-                state = torch.from_numpy(state).float().to(self.device)
+            
+            state = torch.from_numpy(state).float().to(self.device)        
             self.qnetwork_local.eval()
             with torch.no_grad():
-                action_values = self.qnetwork_local(state)
+                action_values = self.qnetwork_local.act(state)
             self.qnetwork_local.train()
-            action = np.argmax(action_values.cpu().data.numpy(), axis=1)
+            #action = np.argmax(action_values.cpu().data.numpy(), axis=1)
+            action = action_values.max(1)[1].cpu().data.numpy()
             return action
         else:
             if eval:
@@ -463,10 +464,11 @@ class DQN_C51Agent():
         batch_size = len(states)
         self.optimizer.zero_grad()
         # next_state distribution
-        next_distr = self.qnetwork_target(next_states)
-        next_actions = self.qnetwork_target.act(next_states)
+        next_distr = self.qnetwork_local(next_states)
+        next_actions = self.qnetwork_local.act(next_states)
         #chose max action indx
         next_actions = next_actions.max(1)[1].data.cpu().numpy()
+        #next_actions = np.argmax(next_actions.cpu().data.numpy(), axis=1)
         # gather best distr
         next_best_distr = next_distr[range(batch_size), next_actions]
 
@@ -485,7 +487,12 @@ class DQN_C51Agent():
         self.optimizer.step()
 
         # ------------------- update target network ------------------- #
-        self.soft_update(self.qnetwork_local, self.qnetwork_target)
+        if self.t_step  % self.TARGET_UPDATE_EVERY==0:
+            if self.TAU < 1.0:
+                self.soft_update(self.qnetwork_local, self.qnetwork_target)
+            else:
+                self.qnetwork_target.load_state_dict(self.qnetwork_local.state_dict())
+
         return loss.detach().cpu().numpy()
 
     def learn_per(self, experiences):
@@ -504,13 +511,14 @@ class DQN_C51Agent():
         dones = torch.FloatTensor(dones).to(self.device).unsqueeze(1)
         weights = torch.FloatTensor(weights).unsqueeze(1).to(self.device)
 
-        batch_size = self.BATCH_SIZE
+        batch_size = len(states)
         self.optimizer.zero_grad()
         # next_state distribution
         next_distr = self.qnetwork_target(next_states)
         next_actions = self.qnetwork_target.act(next_states)    
         #chose max action indx
-        next_actions = next_actions.max(1)[1].data.cpu().numpy()
+        #next_actions = next_actions.max(1)[1].data.cpu().numpy()
+        next_actions = np.argmax(next_actions.cpu().data.numpy(), axis=1)
         # gather best distr
         next_best_distr = next_distr[range(batch_size), next_actions]
 
@@ -531,7 +539,12 @@ class DQN_C51Agent():
         self.optimizer.step()
 
         # ------------------- update target network ------------------- #
-        self.soft_update(self.qnetwork_local, self.qnetwork_target)
+        if self.t_step  % self.TARGET_UPDATE_EVERY==0:
+            if self.TAU < 1.0:
+                self.soft_update(self.qnetwork_local, self.qnetwork_target)
+            else:
+                self.qnetwork_target.load_state_dict(self.qnetwork_local.state_dict())
+        
         # update per priorities
         self.memory.update_priorities(idx, abs(loss_prio.data.cpu().numpy()))
         return loss.detach().cpu().numpy()                   

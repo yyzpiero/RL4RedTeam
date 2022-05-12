@@ -6,8 +6,7 @@ import random
 from collections import namedtuple, deque
 
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
+from distutils.util import strtobool
 from torch.utils.tensorboard import SummaryWriter
 from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
 from stable_baselines3.common.monitor import Monitor
@@ -25,14 +24,16 @@ def evaluate( eps, frame, eval_runs=5):
         state = eval_env.reset()
         rewards = 0
         while True:
-            action = agent.act(np.expand_dims(state, axis=0), 0.001, eval=True)
+            action = agent.act(np.expand_dims(state, axis=0), eps, eval=True)
+            #print(action)
             state, reward, done, _ = eval_env.step(action[0].item())
             rewards += reward
             if done:
                 break
         reward_batch.append(rewards)
     print("Episode Reward on Evaluation: {} at Frame: {}".format(np.mean(reward_batch), frame))
-    writer.add_scalar("Reward", np.mean(reward_batch), frame)
+    if writer:
+        writer.add_scalar("Reward", np.mean(reward_batch), frame)
 
 
 def run_random_policy(random_frames):
@@ -61,7 +62,7 @@ def run(frames=1000, eps_fixed=False, eps_frames=1e6, min_eps=0.01, eval_every=1
         eval_runs (int): number of evaluation runs
     """
     scores = []                        # list containing scores from each episode
-    scores_window = deque(maxlen=1)  # last 100 scores
+    scores_window = deque(maxlen=10)  # last 100 scores
     frame = 0
     if eps_fixed:
         eps = 0
@@ -93,14 +94,15 @@ def run(frames=1000, eps_fixed=False, eps_frames=1e6, min_eps=0.01, eval_every=1
         if done.any():
             scores_window.append(score)       # save most recent score
             scores.append(score)              # save most recent score
-            writer.add_scalar("Average100", np.mean(scores_window), i_episode)
+            if writer:
+                writer.add_scalar("Average100", np.mean(scores_window), i_episode)
             print('\rEpisode {}\tFrame {} \tAverage Score: {:.2f}'.format(i_episode*worker, frame*worker, np.mean(scores_window)), end="")
             if i_episode % 100 == 0:
                 print('\rEpisode {}\tFrame {}\tAverage Score: {:.2f}'.format(i_episode*worker, frame*worker, np.mean(scores_window)))
             i_episode +=1 
             state = envs.reset()
             score = 0              
-    print("Train Time: {}".format(np.mean(agent.train_time)))
+    #print("Train Time: {}".format(np.mean(agent.train_time)))
     return np.mean(scores_window)
 
 
@@ -122,34 +124,39 @@ if __name__ == "__main__":
                                                      "duelingc51+per", 
                                                      "noisy_duelingc51",
                                                      "noisy_duelingc51+per",
-                                                     "rainbow" ], default="dqn", help="Specify which type of DQN agent you want to train, default is DQN - baseline!")
+                                                     "rainbow" ], default="c51", help="Specify which type of DQN agent you want to train, default is DQN - baseline!")
     
     parser.add_argument("-env", type=str, default="nasim:Small-v0", help="Name of the atari Environment, default = Pong-v0")
     parser.add_argument("-frames", type=int, default=int(5e6), help="Number of frames to train, default = 5 mio")
     parser.add_argument("-seed", type=int, default=1, help="Random seed to replicate training runs, default = 1")
     parser.add_argument("-bs", "--batch_size", type=int, default=32, help="Batch size for updating the DQN, default = 32")
     parser.add_argument("-layer_size", type=int, default=512, help="Size of the hidden layer, default=512")
-    parser.add_argument("-n_step", type=int, default=1, help="Multistep DQN, default = 1")
+    parser.add_argument("-n_step", type=int, default=6, help="Multistep DQN, default = 1")
     parser.add_argument("-m", "--memory_size", type=int, default=int(1e5), help="Replay memory size, default = 1e5")
     parser.add_argument("-lr", type=float, default=0.00025, help="Learning rate, default = 0.00025")
     parser.add_argument("-g", "--gamma", type=float, default=0.99, help="Discount factor gamma, default = 0.99")
     parser.add_argument("-t", "--tau", type=float, default=1e-3, help="Soft update parameter tat, default = 1e-3")
     parser.add_argument("-eps_frames", type=int, default=1000000, help="Linear annealed frames for Epsilon, default = 1mio")
-    parser.add_argument("-eval_every", type=int, default=50000, help="Evaluate every x frames, default = 50000")
+    parser.add_argument("-eval_every", type=int, default=50, help="Evaluate every x frames, default = 50000")
     parser.add_argument("-eval_runs", type=int, default=5, help="Number of evaluation runs, default = 5")
     parser.add_argument("-min_eps", type=float, default = 0.1, help="Final epsilon greedy value, default = 0.1")
     parser.add_argument("-ic", "--intrinsic_curiosity", type=int, choices=[0,1,2], default=0, help="Adding intrinsic curiosity to the extrinsic reward. 0 - only reward and no curiosity, 1 - reward and curiosity, 2 - only curiosity, default = 0")
     parser.add_argument("-info", type=str, help="Name of the training run")
     parser.add_argument("--fill_buffer", type=int, default=50000, help="Adding samples to the replay buffer based on a random policy, before agent-env-interaction. Input numer of preadded frames to the buffer, default = 50000")
-    parser.add_argument("-w", "--worker", type=int, default=1, help="Number of parallel working environments, default is 1")
+    parser.add_argument("-w", "--worker", type=int, default=2, help="Number of parallel working environments, default is 1")
     parser.add_argument("-save_model", type=int, choices=[0,1], default=1, help="Specify if the trained network shall be saved or not, default is 1 - saved!")
+    parser.add_argument("-tb_track", type=lambda x: bool(strtobool(x)), default=False, nargs="?", const=True, 
+        help="if toggled, this experiment will be tracked with tensorboard")
 
     args = parser.parse_args()
     if args.agent == "rainbow":
         args.n_step = 2
         args.agent = "noisy_duelingc51+per"
 
-    writer = SummaryWriter("runs/"+str(args.info))
+    if args.tb_track:
+        writer = SummaryWriter("runs/"+str(args.info))
+    else:
+        writer = None
 
     BUFFER_SIZE = args.memory_size
     BATCH_SIZE = args.batch_size
@@ -169,7 +176,7 @@ if __name__ == "__main__":
     torch.manual_seed(seed)
     if "-ram" in args.env or args.env == "CartPole-v0" or args.env == "LunarLander-v2": 
         #envs = MultiPro.SubprocVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
-        envs = DummyVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
+        envs = MultiPro.SubprocVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
         eval_env = gym.make(args.env)
     elif "nasim" in args.env:
         envs = MultiPro.SubprocVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
@@ -189,7 +196,7 @@ if __name__ == "__main__":
     envs.seed(seed)
     eval_env.seed(seed+1)
 
-    action_size     = eval_env.action_space.n
+    action_size  = eval_env.action_space.n
     state_size = eval_env.observation_space.shape
     if state_size==None:
         state_size = eval_env.observation_space
@@ -256,4 +263,5 @@ if __name__ == "__main__":
                "min epsilon": args.min_eps,
                "random warmup": args.fill_buffer}
     metric = {"final average 100 reward": final_average100}
-    writer.add_hparams(hparams, metric)
+    if writer:
+        writer.add_hparams(hparams, metric)

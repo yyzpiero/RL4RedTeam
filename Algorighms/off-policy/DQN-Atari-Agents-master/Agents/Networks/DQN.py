@@ -10,37 +10,28 @@ def weight_init(layers):
 
 class NoisyLinear(nn.Linear):
     # Noisy Linear Layer for independent Gaussian Noise
-    def __init__(self, in_features, out_features, sigma_init=0.017, bias=True):
+    def __init__(self, in_features, out_features, sigma_zero=0.4, bias=True):
         super(NoisyLinear, self).__init__(in_features, out_features, bias=bias)
-        # make the sigmas trainable:
+        sigma_init = sigma_zero / math.sqrt(in_features)
         self.sigma_weight = nn.Parameter(torch.full((out_features, in_features), sigma_init))
-        # not trainable tensor for the nn.Module
-        self.register_buffer("epsilon_weight", torch.zeros(out_features, in_features))
-        # extra parameter for the bias and register buffer for the bias parameter
-        if bias: 
+        self.register_buffer("epsilon_input", torch.zeros(1, in_features))
+        self.register_buffer("epsilon_output", torch.zeros(out_features, 1))
+        if bias:
             self.sigma_bias = nn.Parameter(torch.full((out_features,), sigma_init))
-            self.register_buffer("epsilon_bias", torch.zeros(out_features))
-    
-        # reset parameter as initialization of the layer
-        self.reset_parameter()
-    
-    def reset_parameter(self):
-        """
-        initialize the parameter of the layer and bias
-        """
-        std = math.sqrt(3/self.in_features)
-        self.weight.data.uniform_(-std, std)
-        self.bias.data.uniform_(-std, std)
 
-    
     def forward(self, input):
-        # sample random noise in sigma weight buffer and bias buffer
-        self.epsilon_weight.normal_()
+        self.epsilon_input.normal_()
+        self.epsilon_output.normal_()
+
+        func = lambda x: torch.sign(x) * torch.sqrt(torch.abs(x))
+        eps_in = func(self.epsilon_input.data)
+        eps_out = func(self.epsilon_output.data)
+
         bias = self.bias
         if bias is not None:
-            self.epsilon_bias.normal_()
-            bias = bias + self.sigma_bias * self.epsilon_bias
-        return F.linear(input, self.weight + self.sigma_weight * self.epsilon_weight, bias)
+            bias = bias + self.sigma_bias * eps_out.t()
+        noise_v = torch.mul(eps_in, eps_out)
+        return F.linear(input, self.weight + self.sigma_weight * noise_v, bias)
 
 # class N_DQN(nn.Module):
 #     def __init__(self, state_size, action_size, layer_size, seed):

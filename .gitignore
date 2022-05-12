@@ -16,3 +16,10 @@ Algorighms/off-policy/d3qn/__pycache__/control.cpython-38.pyc
 Algorighms/off-policy/d3qn/__pycache__/environment.cpython-38.pyc
 Algorighms/off-policy/d3qn/__pycache__/my_utils.cpython-38.pyc
 Algorighms/off-policy/d3qn/__pycache__/nerual_network.cpython-38.pyc
+Algorighms/off-policy/DQN-Atari-Agents-master/Agents/__pycache__/dqn_agent.cpython-38.pyc
+Algorighms/off-policy/DQN-Atari-Agents-master/Agents/Networks/__pycache__/DQN.cpython-38.pyc
+.gitignore
+Algorighms/off-policy/DQN-Atari-Agents-master/Agents/__pycache__/dqn_agent.cpython-38.pyc
+Algorighms/off-policy/DQN-Atari-Agents-master/Agents/ReplayMemories/__pycache__/ReplayMemory.cpython-38.pyc
+Algorighms/off-policy/DQN-Atari-Agents-master/Agents/Networks/__pycache__/DQN.cpython-38.pyc
+Algorighms/off-policy/DQN-Atari-Agents-master/Agents/ReplayMemories/__pycache__/ReplayMemory.cpython-38.pyc
