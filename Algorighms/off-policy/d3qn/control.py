@@ -1,3 +1,4 @@
+import time
 import torch as torch
 import torch.nn as nn
 import numpy as np
@@ -143,11 +144,14 @@ class Controller:
         loss_v = loss.item()
 
         # do backpropagation
+        #bp_since = time.time()
         loss.backward()
         # for param in list(list(self.moving_q_nn.parameters())):
         #     param.grad.data.clamp_(-1, 1)
         # one step of optimization
         self.optimizer.step()
+        #bp_elapsed = time.time()-bp_since 
+        #print("BP Time: {}".format(bp_elapsed))
         # self.scheduler.step()
         if self.noisy_net:
             self.moving_q_nn.reset_noise()
@@ -185,22 +189,15 @@ class Controller:
 
             # Next state value with Double DQN. (i.e. get the value predicted by the target nn, of the best action predicted by the moving nn)
             if self.double_DQN:
-                double_max_action = self.moving_q_nn(next_states_t, self.dueling).max(
-                    1
-                )[1]
+                double_max_action = self.moving_q_nn(next_states_t, self.dueling).max(1)[1]
                 double_max_action = double_max_action.detach()
                 target_output = self.target_q_nn(next_states_t, self.dueling)
-                next_state_values = torch.gather(
-                    target_output, 1, double_max_action[:, None]
-                ).squeeze(
-                    -1
-                )  # NB: [:,None] add an extra dimension
+                next_state_values = torch.gather(target_output, 1, double_max_action[:, None]
+                ).squeeze(-1)  # NB: [:,None] add an extra dimension
 
             # Next state value in the normal configuration
             else:
-                next_state_values = self.target_q_nn(next_states_t, self.dueling).max(
-                    1
-                )[0]
+                next_state_values = self.target_q_nn(next_states_t, self.dueling).max(1)[0]
 
             next_state_values = next_state_values.detach()  # No backprop
 

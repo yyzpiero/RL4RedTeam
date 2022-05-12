@@ -47,18 +47,50 @@ class ReplayBuffer:
         return n_step_buffer[0][0], n_step_buffer[0][1], Return, n_step_buffer[-1][3], n_step_buffer[-1][4]
         
     
-    
-    def sample(self):
-        """Randomly sample a batch of experiences from memory."""
-        experiences = random.sample(self.memory, k=self.batch_size)
+    def sample_new(self):
+        indices = np.random.choice(len(self.memory), self.batch_size, replace=False)
 
-        states = torch.from_numpy(np.stack([e.state for e in experiences if e is not None])).float().to(self.device)
-        actions = torch.from_numpy(np.vstack([e.action for e in experiences if e is not None])).long().to(self.device)
-        rewards = torch.from_numpy(np.vstack([e.reward for e in experiences if e is not None])).float().to(self.device)
-        next_states = torch.from_numpy(np.stack([e.next_state for e in experiences if e is not None])).float().to(self.device)
-        dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None]).astype(np.uint8)).float().to(self.device)
-  
-        return (states, actions, rewards, next_states, dones)
+        states = []
+        actions = []
+        next_states = []
+        rewards = []
+        dones = []
+
+        # for each indices
+        for i in indices:
+            sum_reward = 0
+            # Populate the arrays with the next_state, reward and dones just computed
+            states.append(self.memory[i].state)
+            actions.append(self.memory[i].action)
+            next_states.append(self.memory[i].next_state)
+            rewards.append(self.memory[i].reward)
+            dones.append(self.memory[i].done)
+
+        sampled_states = (np.array(states,dtype=np.float32))  # states--> float32
+        sampled_actions = (np.array(actions,dtype=np.int64))  # action --> int64
+        sampled_next_states = (np.array(next_states, dtype=np.float32))  # next_state --> float32
+        sampled_rewards = (np.array(rewards,dtype=np.float32))  # rewards --> float32
+        sampled_dones = (np.array(dones, dtype=np.int8))  # done --> int8
+        samples = (sampled_states, sampled_actions, sampled_rewards, sampled_next_states, sampled_dones)
+        return samples
+
+    # def sample(self):
+    #     """Randomly sample a batch of experiences from memory."""
+    #     experiences = random.sample(self.memory, k=self.batch_size)
+
+    #     # states = torch.from_numpy(np.stack([e.state for e in experiences if e is not None])).float().to(self.device)
+    #     # actions = torch.from_numpy(np.vstack([e.action for e in experiences if e is not None])).long().to(self.device)
+    #     # rewards = torch.from_numpy(np.vstack([e.reward for e in experiences if e is not None])).float().to(self.device)
+    #     # next_states = torch.from_numpy(np.stack([e.next_state for e in experiences if e is not None])).float().to(self.device)
+    #     # dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None]).astype(np.uint8)).float().to(self.device)
+
+    #     states = torch.as_tensor(np.stack([e.state for e in experiences if e is not None]), device=self.device)
+    #     actions = torch.as_tensor(np.stack([e.action for e in experiences if e is not None]), device=self.device)
+    #     rewards = torch.as_tensor(np.stack([e.reward for e in experiences if e is not None]), device=self.device)
+    #     next_states = torch.as_tensor(np.stack([e.next_state for e in experiences if e is not None]), device=self.device)
+    #     dones = torch.as_tensor(np.stack([e.done for e in experiences if e is not None]), dtype=torch.uint8, device=self.device)
+
+    #     return (states, actions, rewards, next_states, dones)
 
     def __len__(self):
         """Return the current size of internal memory."""

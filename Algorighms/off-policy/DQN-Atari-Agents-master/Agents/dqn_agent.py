@@ -2,6 +2,7 @@ from .ReplayMemories.ReplayMemory import ReplayBuffer, PrioritizedReplay
 from .Networks import DQN
 from .IntrinsicCuriosityModule import ICM, Inverse, Forward
 
+import time
 import numpy as np
 import torch
 import torch.nn
@@ -56,7 +57,8 @@ class DQN_Agent():
         self.device = device
         self.TAU = TAU
         self.GAMMA = GAMMA
-        self.UPDATE_EVERY = 1
+        self.UPDATE_EVERY = 4
+        self.TARGET_UPDATE_EVERY = 10000
         self.worker = worker 
         self.BATCH_SIZE = BATCH_SIZE*worker
         self.Q_updates = 0
@@ -80,8 +82,10 @@ class DQN_Agent():
             self.qnetwork_local = DQN.DDQN(state_size, action_size, layer_size, n_step, seed, layer_type="noisy").to(device)
             self.qnetwork_target = DQN.DDQN(state_size, action_size, layer_size, seed, layer_type="noisy").to(device)
         if Network == "dqn":
-                self.qnetwork_local = DQN.DDQN(state_size, action_size,layer_size, n_step, seed).to(device)
-                self.qnetwork_target = DQN.DDQN(state_size, action_size,layer_size, n_step, seed).to(device)
+            self.qnetwork_local = DQN.DDQN(state_size, action_size,layer_size, n_step, seed).to(device)
+            self.qnetwork_target = DQN.DDQN(state_size, action_size,layer_size, n_step, seed).to(device)
+            # self.qnetwork_local = DQN.N_DQN(state_size, action_size, layer_size, seed).to(device)
+            # self.qnetwork_target = DQN.N_DQN(state_size, action_size, layer_size, seed).to(device)
         if Network == "noisy_dueling":
             self.qnetwork_local = DQN.Dueling_QNetwork(state_size, action_size,layer_size, n_step, seed, layer_type="noisy").to(device)
             self.qnetwork_target = DQN.Dueling_QNetwork(state_size, action_size,layer_size, n_step, seed, layer_type="noisy").to(device)
@@ -105,25 +109,33 @@ class DQN_Agent():
 
         # Initialize time step (for updating every UPDATE_EVERY steps)
         self.t_step = 0
+        self.train_time = []
     
     def step(self, state, action, reward, next_state, done, writer):
         # Save experience in replay memory
         self.memory.add(state, action, reward, next_state, done)
         
         # Learn every UPDATE_EVERY time steps.
-        self.t_step = (self.t_step + 1) % self.UPDATE_EVERY
-        if self.t_step == 0:
+        #self.t_step = (self.t_step + 1) % self.UPDATE_EVERY
+        self.t_step = self.t_step + 1
+        if self.t_step % self.UPDATE_EVERY == 0:
             # If enough samples are available in memory, get random subset and learn
+            
             if len(self.memory) > self.BATCH_SIZE:
-                experiences = self.memory.sample()
+                experiences = self.memory.sample_new()
                 if self.per == False:
+                    train_since = time.time()
                     loss, icm_loss = self.learn(experiences)
+                    train_elapsed = time.time()-train_since
+                    self.train_time.append(train_elapsed)
+                    
+                    writer.add_scalar("ICM_loss", icm_loss, self.Q_updates)
                 else: 
                     loss = self.learn_per(experiences)
+                    writer.add_scalar("Q_loss", loss, self.Q_updates)
                 self.Q_updates += 1
-                writer.add_scalar("Q_loss", loss, self.Q_updates)
-                writer.add_scalar("ICM_loss", icm_loss, self.Q_updates)
-
+        
+                
     def act(self, state, eps=0., eval=False):
         """Returns actions for given state as per current policy. Acting only every 4 frames!
         
@@ -163,6 +175,12 @@ class DQN_Agent():
         """
         self.optimizer.zero_grad()
         states, actions, rewards, next_states, dones = experiences
+        states = torch.as_tensor(np.array(states,dtype=np.float32), device=self.device)  # states--> float32
+        actions = torch.as_tensor(np.array(actions,dtype=np.int64), device=self.device)   # action --> int64
+        next_states = torch.as_tensor(np.array(next_states, dtype=np.float32), device=self.device)   # next_state --> float32
+        rewards = torch.as_tensor(np.array(rewards,dtype=np.float32), device=self.device)   # rewards --> float32
+        dones = torch.as_tensor(np.array(dones, dtype=np.int8), dtype=torch.uint8, device=self.device)   # done --> int8
+        #weights = torch.FloatTensor(torch.ones(self.BATCH_SIZE)).to(self.device)
 
         # calculate curiosity
         if self.curiosity != 0:
@@ -175,11 +193,14 @@ class DQN_Agent():
                 rewards = r_i.detach()
 
         # Get max predicted Q values (for next states) from target model
-        Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
+        double_max_action = self.qnetwork_local(next_states).max(1)[1].detach()
+        target_output = self.qnetwork_target(next_states)
+        Q_targets_next = torch.gather(target_output, 1, double_max_action[:, None]).squeeze(-1).detach()  # NB: [:,None] add an extra dimension
+        #Q_targets_next = self.qnetwork_target(next_states).max(1)[0].detach()#.unsqueeze(1)
         # Compute Q targets for current states 
         Q_targets = rewards + (self.GAMMA**self.n_step * Q_targets_next * (1 - dones))
         # Get expected Q values from local model
-        Q_expected = self.qnetwork_local(states).gather(1, actions)
+        Q_expected = self.qnetwork_local(states).gather(1, actions[:,None]).squeeze(-1)
 
 
         icm_loss = 0
@@ -187,14 +208,27 @@ class DQN_Agent():
             icm_loss = self.ICM.update_ICM(forward_pred_err, inverse_pred_err)
         
         # Compute loss
-        loss = F.mse_loss(Q_expected, Q_targets) 
+        #loss = F.mse_loss(Q_expected, Q_targets) 
+        criterion = torch.nn.SmoothL1Loss()
+        loss = criterion(Q_expected, Q_targets)
+        #loss = (loss * weights).mean()
+        
         # Minimize the loss
+        #bp_since = time.time()
         loss.backward()
         clip_grad_norm_(self.qnetwork_local.parameters(),1)
         self.optimizer.step()
+        # bp_elapsed = time.time()-bp_since 
+        # print("BP Time: {}".format(bp_elapsed))
 
         # ------------------- update target network ------------------- #
-        self.soft_update(self.qnetwork_local, self.qnetwork_target)
+        if self.t_step  % self.TARGET_UPDATE_EVERY==0:
+            if self.TAU < 1.0:
+                self.soft_update(self.qnetwork_local, self.qnetwork_target)
+            else:
+                self.qnetwork_target.load_state_dict(self.qnetwork_local.state_dict())
+        #return loss.detach().cpu().numpy(),  icm_loss 
+
         return loss.detach().cpu().numpy(),  icm_loss            
 
     def soft_update(self, local_model, target_model):
@@ -241,9 +275,13 @@ class DQN_Agent():
             self.optimizer.step()
 
             # ------------------- update target network ------------------- #
-            self.soft_update(self.qnetwork_local, self.qnetwork_target)
-            # update per priorities
-            self.memory.update_priorities(idx, abs(td_error.data.cpu().numpy()))
+            if self.t_step  % self.TARGET_UPDATE_EVERY==0:
+                if self.TAU < 1.0:
+                    self.soft_update(self.qnetwork_local, self.qnetwork_target)
+                else:
+                    self.qnetwork_target.load_state_dict(self.qnetwork_local.state_dict())
+                # update per priorities
+                self.memory.update_priorities(idx, abs(td_error.data.cpu().numpy()))
 
             return loss.detach().cpu().numpy()            
 
@@ -320,14 +358,14 @@ class DQN_C51Agent():
             self.qnetwork_local = DQN.DDQN_C51(state_size, action_size,layer_size, n_step, seed, layer_type="noisy").to(device)
             self.qnetwork_target = DQN.DDQN_C51(state_size, action_size,layer_size, n_step, seed, layer_type="noisy").to(device)
         if Network == "c51":
-                self.qnetwork_local = DQN.DDQN_C51(state_size, action_size,layer_size, n_step, seed).to(device)
-                self.qnetwork_target = DQN.DDQN_C51(state_size, action_size,layer_size, n_step, seed).to(device)
+            self.qnetwork_local = DQN.DDQN_C51(state_size, action_size,layer_size, n_step, seed).to(device)
+            self.qnetwork_target = DQN.DDQN_C51(state_size, action_size,layer_size, n_step, seed).to(device)
         if Network == "noisy_duelingc51":
             self.qnetwork_local = DQN.Dueling_C51Network(state_size, action_size,layer_size, n_step, seed, layer_type="noisy").to(device)
             self.qnetwork_target = DQN.Dueling_C51Network(state_size, action_size,layer_size, n_step, seed, layer_type="noisy").to(device)
         if Network == "duelingc51":
-                self.qnetwork_local = DQN.Dueling_C51Network(state_size, action_size,layer_size, n_step, seed).to(device)
-                self.qnetwork_target = DQN.Dueling_C51Network(state_size, action_size,layer_size, n_step, seed).to(device)
+            self.qnetwork_local = DQN.Dueling_C51Network(state_size, action_size,layer_size, n_step, seed).to(device)
+            self.qnetwork_target = DQN.Dueling_C51Network(state_size, action_size,layer_size, n_step, seed).to(device)
 
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
         print(self.qnetwork_local)
@@ -376,7 +414,7 @@ class DQN_C51Agent():
         if self.t_step == 0:
             # If enough samples are available in memory, get random subset and learn
             if len(self.memory) > self.BATCH_SIZE:
-                experiences = self.memory.sample()
+                experiences = self.memory.sample_new()
                 if self.per == False:
                     loss = self.learn(experiences) 
                 else:

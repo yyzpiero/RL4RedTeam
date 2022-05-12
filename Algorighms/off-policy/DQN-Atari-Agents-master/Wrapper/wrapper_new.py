@@ -2,7 +2,7 @@ import collections
 import numpy as np
 import gym.spaces
 import gym
-import cv2
+#import cv2
 
 class FireResetEnv(gym.Wrapper):
     def __init__(self, env=None):

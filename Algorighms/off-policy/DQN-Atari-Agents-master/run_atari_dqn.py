@@ -9,9 +9,12 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.tensorboard import SummaryWriter
+from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
+from stable_baselines3.common.monitor import Monitor
 import gym
 import argparse 
 import time
+from gym_minigrid.wrappers import *
 
 def evaluate( eps, frame, eval_runs=5):
     """
@@ -28,7 +31,7 @@ def evaluate( eps, frame, eval_runs=5):
             if done:
                 break
         reward_batch.append(rewards)
-        
+    print("Episode Reward on Evaluation: {} at Frame: {}".format(np.mean(reward_batch), frame))
     writer.add_scalar("Reward", np.mean(reward_batch), frame)
 
 
@@ -58,7 +61,7 @@ def run(frames=1000, eps_fixed=False, eps_frames=1e6, min_eps=0.01, eval_every=1
         eval_runs (int): number of evaluation runs
     """
     scores = []                        # list containing scores from each episode
-    scores_window = deque(maxlen=100)  # last 100 scores
+    scores_window = deque(maxlen=1)  # last 100 scores
     frame = 0
     if eps_fixed:
         eps = 0
@@ -72,18 +75,19 @@ def run(frames=1000, eps_fixed=False, eps_frames=1e6, min_eps=0.01, eval_every=1
     for frame in range(1, frames+1):
 
         action = agent.act(state, eps)
+        #print(action)
         next_state, reward, done, _ = envs.step(action)
         for s, a, r, ns, d in zip(state, action, reward, next_state, done):
             agent.step(s, a, r, ns, d, writer)
         state = next_state
-        score += reward
+        score = score + reward
         # linear annealing to the min epsilon value until eps_frames and from there slowly decease epsilon to 0 until the end of training
         if eps_fixed == False:
             eps = max(eps_start - ((frame*d_eps)/eps_frames), min_eps)
 
 
         # evaluation runs
-        if frame % eval_every == 0 or frame == 1:
+        if frame % eval_every == 0 and frame != 1:
             evaluate(eps, frame*worker, eval_runs)
 
         if done.any():
@@ -96,7 +100,7 @@ def run(frames=1000, eps_fixed=False, eps_frames=1e6, min_eps=0.01, eval_every=1
             i_episode +=1 
             state = envs.reset()
             score = 0              
-
+    print("Train Time: {}".format(np.mean(agent.train_time)))
     return np.mean(scores_window)
 
 
@@ -120,7 +124,7 @@ if __name__ == "__main__":
                                                      "noisy_duelingc51+per",
                                                      "rainbow" ], default="dqn", help="Specify which type of DQN agent you want to train, default is DQN - baseline!")
     
-    parser.add_argument("-env", type=str, default="PongNoFrameskip-v4", help="Name of the atari Environment, default = Pong-v0")
+    parser.add_argument("-env", type=str, default="nasim:Small-v0", help="Name of the atari Environment, default = Pong-v0")
     parser.add_argument("-frames", type=int, default=int(5e6), help="Number of frames to train, default = 5 mio")
     parser.add_argument("-seed", type=int, default=1, help="Random seed to replicate training runs, default = 1")
     parser.add_argument("-bs", "--batch_size", type=int, default=32, help="Batch size for updating the DQN, default = 32")
@@ -156,6 +160,7 @@ if __name__ == "__main__":
     n_step = args.n_step
     env_name = args.env
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    #device = "cpu"
     print("Using ", device)
 
     torch.autograd.set_detect_anomaly(True)
@@ -163,8 +168,21 @@ if __name__ == "__main__":
     random.seed(seed)
     torch.manual_seed(seed)
     if "-ram" in args.env or args.env == "CartPole-v0" or args.env == "LunarLander-v2": 
-        envs = MultiPro.SubprocVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
+        #envs = MultiPro.SubprocVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
+        envs = DummyVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
         eval_env = gym.make(args.env)
+    elif "nasim" in args.env:
+        envs = MultiPro.SubprocVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
+        # envs = VecNormalize(envs, norm_obs=True, norm_reward=True)
+        # eval_env = gym.make(args.env)
+        
+        #envs = MultiPro.SubprocVecEnv([lambda: gym.make(args.env) for i in range(args.worker)])
+        #envs = gym.make(args.env)
+        eval_env = gym.make(args.env)
+    elif "MiniGrid" in args.env:
+        envs = MultiPro.SubprocVecEnv([lambda: FlatObsWrapper(OneHotPartialObsWrapper(gym.make(args.env))) for i in range(args.worker)])
+        #envs = VecNormalize(envs, norm_obs=True, norm_reward=True)
+        eval_env = FlatObsWrapper(OneHotPartialObsWrapper(gym.make(args.env)))
     else:
         envs = MultiPro.SubprocVecEnv([lambda: wrapper_new.make_env(args.env) for i in range(args.worker)])
         eval_env = wrapper_new.make_env(args.env)
@@ -173,6 +191,8 @@ if __name__ == "__main__":
 
     action_size     = eval_env.action_space.n
     state_size = eval_env.observation_space.shape
+    if state_size==None:
+        state_size = eval_env.observation_space
 
     if not "c51" in args.agent:
         agent = DQN_Agent(state_size=state_size,    

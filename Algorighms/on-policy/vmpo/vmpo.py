@@ -145,9 +145,6 @@ class VMPO:
          
             
             L_alpha = torch.mean(self.alpha*(self.eps_alpha-KL.detach())+self.alpha.detach()*KL)
-        
-            
-            
             
             loss = L_pi + L_eta + L_alpha + 0.5*self.MseLoss(state_values, rewards) 
 
@@ -166,7 +163,7 @@ class VMPO:
 def main():
     ############## Hyperparameters ##############
     #env_name = "CartPole-v1"
-    env_name = "nasim:Medium-v0"
+    env_name = "nasim:Medium-PO-v0"
     # creating environment
     env = gym.make(env_name)
     state_dim = env.observation_space.shape[0]

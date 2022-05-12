@@ -36,7 +36,7 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:Small-PO-v0",
+    parser.add_argument("--env-id", type=str, default="nasim:Small-v0",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=100000,
         help="total timesteps of the experiments")
@@ -72,7 +72,7 @@ def parse_args():
         help="the maximum norm for the gradient clipping")
     parser.add_argument("--target-kl", type=float, default=None,
         help="the target KL divergence threshold")
-    parser.add_argument("--hidden-size", type=int, default=256,
+    parser.add_argument("--hidden-size", type=int, default=128,
         help="hidden layer size of the neural networks")
     args = parser.parse_args()
     args.batch_size = int(args.num_envs * args.num_steps)
@@ -109,7 +109,7 @@ class Agent(nn.Module):
         return action, probs.log_prob(action), probs.entropy(), self.critic(x)
 
 
-if __name__ == "__main__":
+def main():
     args = parse_args()
     run_name = f"{args.env_id}__{args.exp_name}__{args.seed}__{int(time.time())}"
     
@@ -301,3 +301,9 @@ if __name__ == "__main__":
     envs.close()
     if writer is not None:
         writer.close()
+
+if __name__ == '__main__':
+    since = time.time()
+    main()
+    time_elapsed = time.time()-since
+    print("Total Run Time: {}".format(time_elapsed))

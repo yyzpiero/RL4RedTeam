@@ -24,12 +24,12 @@ since = time.time()
 # os.makedirs(log_dir, exist_ok=True)
 
 # Create environment
-env = gym.make("nasim:HugeGen-v0")
-env = DummyVecEnv([lambda:env])
+# env = gym.make("nasim:HugeGen-v0")
+# env = DummyVecEnv([lambda:env])
 
-env = make_vec_env("nasim:Pocp2Gen-v0", n_envs=4, seed=142)
-env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.)
-
+env = make_vec_env("nasim:Small-v0", n_envs=4, seed=142)
+# env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.)
+#env = gym.make('nasim:Small-v0')
 # test_env = gym.make('nasim:Small-PO-v0')
 # env = gym.make('MiniGrid-DoorKey-5x5-v0')
 # env = RGBImgPartialObsWrapper(env)
@@ -39,12 +39,12 @@ env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.)
 #env = env_create(env_id="nasim:Medium-v0")
 #env = Monitor(gym.make("nasim:Tiny-PO-v0"),allow_early_resets=False)
 # Instantiate the agent
-model = PPO('MlpPolicy', env, verbose=1)
+model = DQN('MlpPolicy', env, learning_starts=5000, buffer_size=10000, verbose=1)
 model.gamma = 0.9
 #callback = SaveOnBestTrainingRewardCallback(check_freq=20, log_dir=log_dir, verbose=0, idx=0)
 
 # Train the agent
-model.learn(total_timesteps=int(10000))#, callback=callback)
+model.learn(total_timesteps=int(100000))#, callback=callback)
 
 #params = model.get_parameters()
 

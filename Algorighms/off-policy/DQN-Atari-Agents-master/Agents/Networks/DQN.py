@@ -42,6 +42,23 @@ class NoisyLinear(nn.Linear):
             bias = bias + self.sigma_bias * self.epsilon_bias
         return F.linear(input, self.weight + self.sigma_weight * self.epsilon_weight, bias)
 
+# class N_DQN(nn.Module):
+#     def __init__(self, state_size, action_size, layer_size, seed):
+#         super(N_DQN, self).__init__()
+#         self.activation_fn = nn.ReLU
+#         self.num_actions = action_size
+#         self.input_shape = state_size
+#         self.seed = torch.manual_seed(seed)
+#         modules = [nn.Linear(self.input_shape[0], layer_size), \
+#                 self.activation_fn(),
+#             ]
+#         modules.append(nn.Linear(layer_size, layer_size))
+#         modules.append(self.activation_fn())    
+#         modules.append(nn.Linear(layer_size, self.num_actions))
+#         self.q_net = nn.Sequential(*modules)
+#     def forward(self, input):
+#         return self.q_net(input)
+
 class DDQN(nn.Module):
     def __init__(self, state_size, action_size,layer_size, n_step, seed, layer_type="ff"):
         super(DDQN, self).__init__()
