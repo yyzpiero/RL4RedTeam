@@ -327,7 +327,7 @@ class DQN_C51Agent():
         self.TAU = TAU
         self.GAMMA = GAMMA
         self.curiosity = curiosity
-        self.UPDATE_EVERY = 4
+        self.UPDATE_EVERY = 20
         self.TARGET_UPDATE_EVERY = 2000
         self.worker = worker
         self.BATCH_SIZE = BATCH_SIZE*worker
