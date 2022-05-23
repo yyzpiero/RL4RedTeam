@@ -23,3 +23,13 @@ Algorighms/off-policy/DQN-Atari-Agents-master/Agents/__pycache__/dqn_agent.cpyth
 Algorighms/off-policy/DQN-Atari-Agents-master/Agents/ReplayMemories/__pycache__/ReplayMemory.cpython-38.pyc
 Algorighms/off-policy/DQN-Atari-Agents-master/Agents/Networks/__pycache__/DQN.cpython-38.pyc
 Algorighms/off-policy/DQN-Atari-Agents-master/Agents/ReplayMemories/__pycache__/ReplayMemory.cpython-38.pyc
+runs/DuelingDQN+C51+PER_nasim:HugeGen/events.out.tfevents.1652349945.crossduo-beijing.1705469.0
+runs/DuelingDQN+C51+PER_nasim:HugeGen/1652353208.6464958/events.out.tfevents.1652353208.crossduo-beijing.1705469.1
+runs/DuelingDQN+PER+IC_nasim:Huge/events.out.tfevents.1652344784.crossduo-beijing.1668777.0
+runs/DuelingDQN+PER_MiniGrid:DoorKey-5x5/events.out.tfevents.1652346226.crossduo-beijing.1678099.0
+runs/DuelingDQN+PER_MiniGrid:DoorKey-5x5/events.out.tfevents.1652346240.crossduo-beijing.1678185.0
+runs/DuelingDQN+PER_MiniGrid:DoorKey-5x5/events.out.tfevents.1652346299.crossduo-beijing.1678511.0
+runs/DuelingDQN+PER_MiniGrid:DoorKey-5x5/events.out.tfevents.1652346365.crossduo-beijing.1678738.0
+runs/DuelingDQN+PER_MiniGrid:DoorKey-5x5/1652347287.4791925/events.out.tfevents.1652347287.crossduo-beijing.1678738.1
+runs/DuelingDQN+PER_nasim:Large/events.out.tfevents.1652344865.crossduo-beijing.1669036.0
+runs/DuelingDQN+PER_nasim:Large/1652345641.715159/events.out.tfevents.1652345641.crossduo-beijing.1669036.1
