@@ -7,7 +7,6 @@ authors = ["yyzpiero <yyzpiero@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 torch = "^1.11.0"
-nasim = "^0.9.0"
 stable-baselines3 = "^1.5.0"
 gym = "^0.21"
 numpy = "^1.22.3"

@@ -104,7 +104,7 @@ class Graph():
         with open(fname, mode='w') as f:
             for line in self.generate_gml():
                 line += '\n'
-                f.write(line.encode('latin-1'))
+                f.write(line)
 
 
 def check_num_edges(nodes, num_edges, loops, multigraph, digraph):
@@ -469,14 +469,17 @@ def subnet_topology(n_nodes, subnet_size="small", domain_size="small", loops=Tru
         total_graph.add_edges(subnet_graph_edges)
         total_graph.add_edge((dm_idx, random.choice(subnet_nodes)))
         l +=1
-    #total_graph.sort_edges()
+    total_graph.sort_edges()
     pprint(total_graph.edges)
-    # print("Number of Backbone Streams:", backbone_graph.size-1)
-    # print("Number of Domains:", domain_graph.size - backbone_graph.size)
-    # print("Number of Subnets:", len(total_graph.nodes)-total_vn_nodes)
+    print("Number of Backbone Streams:", backbone_graph.size-1)
+    print("Number of Domains:", domain_graph.size - backbone_graph.size)
+    print("Number of Subnets:", len(total_graph.nodes)-total_vn_nodes)
+    return total_graph
 
 if __name__ == '__main__':
     #n_nodes = 40
     #g,g = random_group_assgin(150, 15, 5)
     #print(g)
-    subnet_topology(n_nodes=100)
+    graph = subnet_topology(n_nodes=100)
+
+    graph.write_gml("topology")
