@@ -1,0 +1,3 @@
+[submodule "NetworkAttackSimulator"]
+	path = NetworkAttackSimulator
+	url = https://gitee.com/LordRayleigh/NetworkAttackSimulator

@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "rl4redteam"
+version = "0.1.0"
+description = ""
+authors = ["yyzpiero <yyzpiero@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+torch = "^1.11.0"
+stable-baselines3 = "^1.5.0"
+gym = "^0.21"
+numpy = "^1.22.3"
+gym-minigrid = "^1.0.3"
+tensorboard = "^2.9.0"
+tensorboardX = "^2.5"
+scipy = "^1.8.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

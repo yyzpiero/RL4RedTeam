@@ -124,14 +124,14 @@ if __name__ == "__main__":
                                                      "duelingc51+per", 
                                                      "noisy_duelingc51",
                                                      "noisy_duelingc51+per",
-                                                     "rainbow" ], default="c51", help="Specify which type of DQN agent you want to train, default is DQN - baseline!")
+                                                     "rainbow" ], default="dueling+per", help="Specify which type of DQN agent you want to train, default is DQN - baseline!")
     
-    parser.add_argument("-env", type=str, default="nasim:Small-v0", help="Name of the atari Environment, default = Pong-v0")
+    parser.add_argument("-env", type=str, default="CatPole-v0", help="Name of the atari Environment, default = Pong-v0")
     parser.add_argument("-frames", type=int, default=int(5e6), help="Number of frames to train, default = 5 mio")
     parser.add_argument("-seed", type=int, default=1, help="Random seed to replicate training runs, default = 1")
     parser.add_argument("-bs", "--batch_size", type=int, default=32, help="Batch size for updating the DQN, default = 32")
     parser.add_argument("-layer_size", type=int, default=512, help="Size of the hidden layer, default=512")
-    parser.add_argument("-n_step", type=int, default=6, help="Multistep DQN, default = 1")
+    parser.add_argument("-n_step", type=int, default=5, help="Multistep DQN, default = 1")
     parser.add_argument("-m", "--memory_size", type=int, default=int(1e5), help="Replay memory size, default = 1e5")
     parser.add_argument("-lr", type=float, default=0.00025, help="Learning rate, default = 0.00025")
     parser.add_argument("-g", "--gamma", type=float, default=0.99, help="Discount factor gamma, default = 0.99")
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     parser.add_argument("-ic", "--intrinsic_curiosity", type=int, choices=[0,1,2], default=0, help="Adding intrinsic curiosity to the extrinsic reward. 0 - only reward and no curiosity, 1 - reward and curiosity, 2 - only curiosity, default = 0")
     parser.add_argument("-info", type=str, help="Name of the training run")
     parser.add_argument("--fill_buffer", type=int, default=50000, help="Adding samples to the replay buffer based on a random policy, before agent-env-interaction. Input numer of preadded frames to the buffer, default = 50000")
-    parser.add_argument("-w", "--worker", type=int, default=2, help="Number of parallel working environments, default is 1")
+    parser.add_argument("-w", "--worker", type=int, default=8, help="Number of parallel working environments, default is 1")
     parser.add_argument("-save_model", type=int, choices=[0,1], default=1, help="Specify if the trained network shall be saved or not, default is 1 - saved!")
     parser.add_argument("-tb_track", type=lambda x: bool(strtobool(x)), default=False, nargs="?", const=True, 
         help="if toggled, this experiment will be tracked with tensorboard")

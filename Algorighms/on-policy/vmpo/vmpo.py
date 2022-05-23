@@ -163,22 +163,22 @@ class VMPO:
 def main():
     ############## Hyperparameters ##############
     #env_name = "CartPole-v1"
-    env_name = "nasim:Medium-PO-v0"
+    env_name = "nasim:Medium-v0"
     # creating environment
     env = gym.make(env_name)
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n
     render = False
-    solved_reward = 230         # stop training if avg_reward > solved_reward
+    solved_reward = 495         # stop training if avg_reward > solved_reward
     log_interval = 1          # print avg reward in the interval
     max_episodes = 50000        # max training episodes
     max_timesteps = 10000         # max timesteps in one episode
-    n_latent_var = 512          # number of variables in hidden layer
-    update_timestep = 5000      # update policy every n timesteps
-    lr = 0.001
+    n_latent_var = 64          # number of variables in hidden layer
+    update_timestep = 512     # update policy every n timesteps
+    lr = 0.0025
     betas = (0.9, 0.999)
     gamma = 0.99                # discount factor
-    K_epochs = 8            # update policy for K epochs
+    K_epochs = 4            # update policy for K epochs
     eps_clip = 0.2              # clip parameter for PPO
     random_seed = None
     #############################################
@@ -218,8 +218,8 @@ def main():
                 timestep = 0
             
             running_reward += reward
-            if render or running_reward > (log_interval*solved_reward)*0.8:
-                env.render()
+            #if render or running_reward > (log_interval*solved_reward)*0.8:
+                #env.render()
             if done:
                 break
                 

@@ -29,13 +29,13 @@ def make_env(env_id, seed, idx):
             return env
 
         if env_id[0:7] == "nasim:c":
-            env = nasim.generate(num_hosts=40, num_services=5, num_os=3, num_processes=2, \
+            env = nasim.generate(num_hosts=26, num_services=5, num_os=3, num_processes=2, \
                     num_exploits=None, num_privescs=None, r_sensitive=10, r_user=10, \
                     exploit_cost=1, exploit_probs="mixed", privesc_cost=1, privesc_probs=1.0, \
                     service_scan_cost=1, os_scan_cost=1, subnet_scan_cost=1, process_scan_cost=1,\
                     uniform=False, alpha_H=2.0, alpha_V=2.0, lambda_V=1.0, restrictiveness=3, \
                     random_goal=True, base_host_value=1, host_discovery_value=1, \
-                    seed=None, name=None, step_limit=10000, address_space_bounds=None)
+                    seed=None, name=None, step_limit=10000, address_space_bounds=None, yz_gen=True)
             env = gym.wrappers.RecordEpisodeStatistics(env)
             env.seed(seed)
             env.action_space.seed(seed)
