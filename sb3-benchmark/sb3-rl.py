@@ -9,7 +9,7 @@ from stable_baselines3 import DQN, PPO
 from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.env_util import make_vec_env
-
+import nasim
 # from utils.rl_tools import SaveOnBestTrainingRewardCallback, env_create, eval_agent
 # from gym_minigrid.wrappers import *
 
@@ -24,10 +24,17 @@ since = time.time()
 # os.makedirs(log_dir, exist_ok=True)
 
 # Create environment
-# env = gym.make("nasim:HugeGen-v0")
+#env = gym.make("nasim:Small-v0")
 # env = DummyVecEnv([lambda:env])
 
-env = make_vec_env("nasim:Small-v0", n_envs=4, seed=142)
+env = nasim.generate(num_hosts=26, num_services=5, num_os=3, num_processes=2, \
+                    num_exploits=None, num_privescs=None, r_sensitive=10, r_user=10, \
+                    exploit_cost=1, exploit_probs="mixed", privesc_cost=1, privesc_probs=1.0, \
+                    service_scan_cost=1, os_scan_cost=1, subnet_scan_cost=1, process_scan_cost=1,\
+                    uniform=False, alpha_H=2.0, alpha_V=2.0, lambda_V=1.0, restrictiveness=3, \
+                    random_goal=True, base_host_value=1, host_discovery_value=1, \
+                    seed=None, name=None, step_limit=10000, address_space_bounds=None, yz_gen=True)
+env = gym.wrappers.RecordEpisodeStatistics(env)
 # env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.)
 #env = gym.make('nasim:Small-v0')
 # test_env = gym.make('nasim:Small-PO-v0')
@@ -39,7 +46,7 @@ env = make_vec_env("nasim:Small-v0", n_envs=4, seed=142)
 #env = env_create(env_id="nasim:Medium-v0")
 #env = Monitor(gym.make("nasim:Tiny-PO-v0"),allow_early_resets=False)
 # Instantiate the agent
-model = DQN('MlpPolicy', env, learning_starts=5000, buffer_size=10000, verbose=1)
+model = PPO('MlpPolicy', env, verbose=1)
 model.gamma = 0.9
 #callback = SaveOnBestTrainingRewardCallback(check_freq=20, log_dir=log_dir, verbose=0, idx=0)
 
