@@ -11,11 +11,6 @@ from operator import itemgetter
 import matplotlib.pyplot as plt
 import networkx as nx
 
-#from NetworkAttackSimulator import nasim
-
-   #faster solution
-
-
 
 class Graph():
     def __init__(self, nodes, edges=None, loops=False, multigraph=False,
@@ -23,7 +18,6 @@ class Graph():
         self.nodes = nodes
         if edges:
             self.edges = edges
-            #self.edge_set = self._compute_edge_set()
         else:
             self.edges = []
             self.edge_set = set()
@@ -34,10 +28,6 @@ class Graph():
     @property
     def size(self):
         return len(self.nodes)
-
-
-    def _compute_edge_set(self):
-        raise NotImplementedError()
 
     def add_edge(self, edge):
         """Add the edge if the graph type allows it."""
@@ -266,80 +256,6 @@ def wilsons_algo(nodes, num_edges, loops=False, multigraph=False, digraph=False)
 
     raise NotImplementedError()
 
-
-# if __name__ == '__main__':
-#     parser = argparse.ArgumentParser(description=__doc__)
-#     parser.add_argument('nodes',
-#                         help='filename containing node labels (one per line) '
-#                              'OR integer number of nodes to generate')
-#     parser.add_argument('-e', '--edges', type=int,
-#                         help='number of edges (default is minimum possible)')
-#     parser.add_argument('-l', '--loops', action='store_true',
-#                         help='allow self-loop edges')
-#     parser.add_argument('-m', '--multigraph', action='store_true',
-#                         help='allow parallel edges between nodes')
-#     parser.add_argument('-d', '--digraph', action='store_true',
-#                         help='make edges unidirectional')
-#     parser.add_argument('-w', '--wilson', action='store_const',
-#                         const='wilsons_algo', dest='approach',
-#                         help="use wilson's generation algorithm (best)")
-#     parser.add_argument('-r', '--random-walk', action='store_const',
-#                         const='random_walk', dest='approach',
-#                         help='use a random-walk generation algorithm (default)')
-#     parser.add_argument('-n', '--naive', action='store_const',
-#                         const='naive', dest='approach',
-#                         help='use a naive generation algorithm (slower)')
-#     parser.add_argument('-t', '--partition', action='store_const',
-#                         const='partition', dest='approach',
-#                         help='use a partition-based generation algorithm (biased)')
-#     parser.add_argument('--no-output', action='store_true',
-#                         help='do not display any output')
-#     parser.add_argument('-p', '--pretty', action='store_true',
-#                         help='print large graphs with each edge on a new line')
-#     parser.add_argument('-g', '--gml',  default=False,
-#                         help='filename to save the graph to in GML format')
-#     args = parser.parse_args()
-
-#     # Nodes
-#     try:
-#         nodes = []
-#         with open(args.nodes) as f:
-#             for line in f:
-#                 nodes.append(line.strip())
-#     except IOError:
-#         try:
-#             nodes = [x for x in range(int(args.nodes))]
-#         except ValueError:
-#             raise TypeError('nodes argument must be a filename or an integer')
-
-#     # Edges
-#     if args.edges is None:
-#         num_edges = len(nodes) - 1
-#     else:
-#         num_edges = args.edges
-
-#     # Approach
-#     if args.approach:
-#         print('Setting approach:', args.approach)
-#         approach = locals()[args.approach]
-#     else:
-#         approach = random_walk
-
-#     # Run
-#     graph = approach(nodes, num_edges, args.loops, args.multigraph,
-#                      args.digraph)
-
-#     # Display
-#     if not args.no_output:
-#         graph.sort_edges()
-#         if args.pretty:
-#             pprint(graph.edges)
-#         else:
-#             print(graph.edges)
-
-#     # Save to GML
-#     if args.gml:
-#         graph.write_gml(args.gml)
 def draw_random_normal_int(low:int, high:int):
 
     # generate a random normal number (float)
@@ -398,83 +314,49 @@ def subnet_topology(n_nodes, subnet_size="small", domain_size="small", loops=Tru
     Default Example
     100 Hosts,  
     '''
-    avg_subnet_size = 4
-    _bias = 3
+    avg_subnet_size = 2
+    _bias = 1
     n_user_subnets, subnets_assign = random_group_assgin(n_nodes, avg_subnet_size, bias=_bias)
 
-    
-    # print("Number of User SubNets:", n_user_subnets)
-    avg_domain_size = random.randint(3, 8)
+    avg_domain_size = random.randint(1, 3)
 
     n_domains, domains_assign =  random_group_assgin(n_user_subnets, avg_domain_size, bias=2)
-    # print("Number of Domains:", n_domains)
-    print(domains_assign)
 
     N_DOMAIN_PER_STREAM = 2
-    n_backbone_streams, streams_assign =  random_group_assgin(n_domains, N_DOMAIN_PER_STREAM, bias=1)
-    #n_backbone_nodes = np.ceil((n_domain)/N_DOMAIN_PER_STREAM)
-    print("Number of Backbone Streams:", n_backbone_streams)
-    print(streams_assign)
-    
+    n_backbone_streams, streams_assign =  random_group_assgin(n_domains, N_DOMAIN_PER_STREAM, bias=1) 
 
     n_backbone_edges = n_backbone_streams + 1 
-
     backbone_nodes = [x+1 for x in range(int( n_backbone_streams))]
-
     backbone_graph = random_walk(backbone_nodes, n_backbone_edges, loops, multigraph, digraph)
-
-    #backbone_graph.sort_edges()
-    #pprint(backbone_graph.edges)
    
     n_vn_backbone_nodes = backbone_graph.size
     
-    # print("Number of Backbone Streams:", backbone_graph.size)
-    #print("VN for Backbone Streams:", vn_backbone_nodes)
-    #print("Number of Subnet Routers:", (n_user_subnet/n_subnets_per_routers))
-     # Add Intital Foothold on Randomly choosen DMZ Router
+    # Add Intital Foothold on Randomly choosen DMZ Router
     backbone_graph.add_edge((0,random.randint(1, backbone_graph.size)))
-    #backbone_graph.nodes.insert(0,0)
-    #pprint(backbone_graph.edge_set)
-    #pprint(backbone_graph.edges)
+    
     domain_graph = Graph(nodes=backbone_graph.nodes.copy(), edges=backbone_graph.edges.copy(), loops=loops, multigraph=multigraph, digraph=digraph)
     domain_graph.edge_set = backbone_graph.edge_set#.copy()
     domain_graph.sort_edges()
-
     source_domain_id = backbone_graph.size
-    #print(backbone_graph.nodes)
-    #print(source_domain_id)
+
     for vn_idx in range(1, n_vn_backbone_nodes+1):
-        #print(streams_assign[vn_idx])
-        #print(len(n_vn_backbone_nodes))
+
         for _ in streams_assign[vn_idx-1]:
-            #print(vn_idx)
             domain_graph.add_edge((vn_idx, source_domain_id))
             source_domain_id +=1
-    
-    #pprint(domain_graph.edges)
-    
-
-    #pprint(backbone_graph.size)
+   
     total_vn_nodes = domain_graph.size
-    # print("Number of VN:", total_vn_nodes)
     total_graph = Graph(nodes=domain_graph.nodes.copy(), edges=domain_graph.edges.copy(), loops=loops, multigraph=multigraph, digraph=digraph)
     total_graph.edge_set = domain_graph.edge_set#.copy()
     total_graph.sort_edges()
-    #print(total_graph.edges)
-    l = 0
-    
-    for dm_idx in range(backbone_graph.size, total_graph.size):
-        #print(dm_idx)
-        subnet_nodes = [x+total_vn_nodes for x in domains_assign[l]]
-        subnet_graph_edges = random_walk(subnet_nodes, len(domains_assign[l]), loops, multigraph, digraph).edges
-        
-            # print(subnets_idx)
-            # subnets_idx = [x+total_vn_nodes for x in subnets_idx]
-            # print(subnets_idx)
-        #print(subnet_nodes)
+
+    for i, dm_idx in enumerate(range(backbone_graph.size, total_graph.size)):
+
+        subnet_nodes = [x+total_vn_nodes for x in domains_assign[i]]
+        subnet_graph_edges = random_walk(subnet_nodes, len(domains_assign[i]), loops, multigraph, digraph).edges
         total_graph.add_edges(subnet_graph_edges)
         total_graph.add_edge((dm_idx, random.choice(subnet_nodes)))
-        l +=1
+
     total_graph.sort_edges()
     pprint(total_graph.edges)
     total_graph.n_vitrual_nodes =  domain_graph.size
@@ -490,10 +372,8 @@ def subnet_topology(n_nodes, subnet_size="small", domain_size="small", loops=Tru
             topology_matrix[i][j] = 1
         return total_graph, subnets_assign, topology_matrix
 
-
     return total_graph, subnets_assign
 
-# def nasim_subnet_vec(subnet_graph, n_nodes, subnets_assign=None, n_subnets=None):
 
 def hosts_topology_from_subnet(subnet_graph, n_nodes, subnets_assign=None, n_subnets=None, return_vec=False, return_matrix=False):
     
@@ -502,15 +382,11 @@ def hosts_topology_from_subnet(subnet_graph, n_nodes, subnets_assign=None, n_sub
     if not subnets_assign:
         n_subnets, subnets_assign = random_group_assgin(n_user_host, avg_subnet_size=4, bias=1)
     else:
-        
         assert n_subnets is None, "When Subnet Assignment is given, n_subnet is not required"
-        
+
         n_subnets = subnet_graph.n_subnets
-
         assert (n_subnets == len(subnets_assign)), "Wrong Number of Subnets"
-        #print(sum([len(x) for x in subnets_assign]))
 
-        #assert sum([len(x) for x in subnets_assign]) == n_user_host, "Subnet Assigment Error, Please Check the way user hosts are assigned in subnets"
             
     for idx, host_idx_vec in enumerate(subnets_assign):
         subnet_idx = idx + n_subnets
@@ -524,8 +400,6 @@ def hosts_topology_from_subnet(subnet_graph, n_nodes, subnets_assign=None, n_sub
         for _ in range(subnet_graph.n_vitrual_nodes): 
             subnet_vec.append(1)
         for i, idx in enumerate(range(subnet_graph.n_vitrual_nodes, n_control_nodes)):
-            #print(i)
-            #print(idx)
             subnet_vec.append(len(subnets_assign[i]))
         if not return_matrix:
             return subnet_graph, subnet_vec
@@ -539,27 +413,25 @@ def hosts_topology_from_subnet(subnet_graph, n_nodes, subnets_assign=None, n_sub
    
 
 def plot_topology(topology_matrix, filename="./fig.png"):
+
     G = nx.Graph(topology_matrix) 
     G.remove_edges_from(nx.selfloop_edges(G))
-    #adjacency_matrix = nx.adjacency_matrix(topology_matrix)
     pos = nx.kamada_kawai_layout(G)
-    # The actual work
-    # You may prefer `nx.from_numpy_matrix`.
-    #G2 = nx.from_scipy_sparse_matrix(adjacency_matrix)
+
     nx.draw(G, pos=pos, node_size=100, with_labels=True)
-   
     plt.axis('equal')
     plt.savefig(filename)
 
 
+def nasim_toplogy_subnet(n_nodes):
+    subnet_graph, subnets_assign, topology= subnet_topology(n_nodes=n_nodes, return_matrix=True)
+    _, subnet = hosts_topology_from_subnet(subnet_graph, n_nodes=n_nodes, subnets_assign=subnets_assign, n_subnets=None, return_vec=True)
+    return subnet, topology
+
 
 if __name__ == '__main__':
-    n_nodes = 5000
-    #g,g = random_group_assgin(150, 15, 5)
-    #print(g)
+    n_nodes = 10
+
     subnet_graph, subnets_assign, subnet_topology_matrix = subnet_topology(n_nodes=n_nodes, return_matrix=True)
     subnet_graph, subnet_vec, host_topology_matrix = hosts_topology_from_subnet(subnet_graph, n_nodes=n_nodes, subnets_assign=subnets_assign, n_subnets=None, return_vec=True, return_matrix=True)
     plot_topology(subnet_topology_matrix)
-    print(subnet_vec)
-    print(subnets_assign)
-    #graph.write_gml("topology")
