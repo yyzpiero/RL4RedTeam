@@ -11,7 +11,7 @@ env = nasim.generate(num_hosts = 200,
                      num_processes = 3,
                      restrictiveness = 5,
                      step_limit = 300000,
-                    yz_gen=False)
+                     yz_gen=False, save_fig=True)
 #env = gym.make("nasim:Pocp2Gen-v0")
 env = gym.wrappers.RecordEpisodeStatistics(env)
 
