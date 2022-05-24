@@ -314,13 +314,13 @@ def subnet_topology(n_nodes, subnet_size="small", domain_size="small", loops=Tru
     Default Example
     100 Hosts,  
     '''
-    avg_subnet_size = 2
-    _bias = 1
+    avg_subnet_size = 5
+    _bias = 2
     n_user_subnets, subnets_assign = random_group_assgin(n_nodes, avg_subnet_size, bias=_bias)
 
-    avg_domain_size = random.randint(1, 3)
+    avg_domain_size = random.randint(3, 6)
 
-    n_domains, domains_assign =  random_group_assgin(n_user_subnets, avg_domain_size, bias=2)
+    n_domains, domains_assign =  random_group_assgin(n_user_subnets, avg_domain_size, bias=1)
 
     N_DOMAIN_PER_STREAM = 2
     n_backbone_streams, streams_assign =  random_group_assgin(n_domains, N_DOMAIN_PER_STREAM, bias=1) 
@@ -430,8 +430,8 @@ def nasim_toplogy_subnet(n_nodes):
 
 
 if __name__ == '__main__':
-    n_nodes = 10
+    n_nodes = 95
 
     subnet_graph, subnets_assign, subnet_topology_matrix = subnet_topology(n_nodes=n_nodes, return_matrix=True)
     subnet_graph, subnet_vec, host_topology_matrix = hosts_topology_from_subnet(subnet_graph, n_nodes=n_nodes, subnets_assign=subnets_assign, n_subnets=None, return_vec=True, return_matrix=True)
-    plot_topology(subnet_topology_matrix)
+    #plot_topology(subnet_topology_matrix)
