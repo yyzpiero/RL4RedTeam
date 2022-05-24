@@ -1,9 +1,6 @@
-d3qn/__pycache__/agent.cpython-38.pyc
-d3qn/__pycache__/buffer.cpython-38.pyc
-d3qn/__pycache__/control.cpython-38.pyc
-d3qn/__pycache__/environment.cpython-38.pyc
-d3qn/__pycache__/my_utils.cpython-38.pyc
-d3qn/__pycache__/nerual_network.cpython-38.pyc
+.gitignore
+runs/
+venv/
 ppo-rnd-vec/__pycache__/agent.cpython-38.pyc
 ppo-rnd-vec/__pycache__/distribution.cpython-38.pyc
 ppo-rnd-vec/__pycache__/eps_control.cpython-38.pyc
@@ -20036,3 +20033,4 @@ Yz:1000.png
 fig.png
 fig.png
 NetworkAttackSimulator
+fig22.png
