@@ -163,7 +163,7 @@ class VMPO:
 def main():
     ############## Hyperparameters ##############
     #env_name = "CartPole-v1"
-    env_name = "nasim:Medium-v0"
+    env_name = "Acrobot-v1"
     # creating environment
     env = gym.make(env_name)
     state_dim = env.observation_space.shape[0]
@@ -228,7 +228,7 @@ def main():
         # stop training if avg_reward > solved_reward
         if running_reward > (log_interval*solved_reward):
             print("########## Solved! ##########")
-            torch.save(ppo.policy.state_dict(), './PPO_{}.pth'.format(env_name))
+            #torch.save(ppo.policy.state_dict(), './PPO_{}.pth'.format(env_name))
             break
             
         # logging

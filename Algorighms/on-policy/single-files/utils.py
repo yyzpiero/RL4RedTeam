@@ -1,7 +1,40 @@
 from gym_minigrid.wrappers import *
 import torch
 import gym
+import copy
 import nasim
+
+def make_env_list_random(env_id, seed, num_envs):
+    if env_id[0:7] == "nasim:c":
+        _fix_env = nasim.generate(num_hosts = 500, 
+                    num_os = 3,
+                    num_services = 10,
+                    num_exploits = 30,
+                    num_processes = 3,
+                    restrictiveness = 5,
+                    step_limit = 500000,
+                yz_gen=True, save_fig=True)
+    else:
+        _fix_env = gym.make(env_id)
+    _fix_env = gym.wrappers.RecordEpisodeStatistics(_fix_env)
+    _fix_env.seed(seed)
+    _fix_env.action_space.seed(seed)
+    _fix_env.observation_space.seed(seed)
+    
+   
+        
+    def _env_make(fix_env, idx):
+        if idx == 0:
+            return lambda: fix_env
+        else:
+            env = copy.deepcopy(fix_env)
+            env.seed(seed+idx)
+            env.action_space.seed(seed+idx)
+            env.observation_space.seed(seed+idx)
+            return lambda: env
+    
+    return [_env_make(_fix_env,i) for i in range(num_envs)]
+    
 
 def make_env(env_id, seed, idx):
     def thunk():
@@ -42,8 +75,8 @@ def make_env(env_id, seed, idx):
                      num_exploits = 30,
                      num_processes = 3,
                      restrictiveness = 5,
-                     step_limit = 50000,
-                    yz_gen=True, save_fig=True)
+                     step_limit = 30000,
+                    yz_gen=False, save_fig=True)
             env = gym.wrappers.RecordEpisodeStatistics(env)
             env.seed(seed)
             env.action_space.seed(seed)

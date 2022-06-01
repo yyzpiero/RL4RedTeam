@@ -3,6 +3,7 @@
 import argparse
 import os
 import random
+import copy
 import time
 from distutils.util import strtobool
 
@@ -13,7 +14,7 @@ import torch.optim as optim
 from torch.distributions.categorical import Categorical
 from tensorboardX import SummaryWriter
 from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
-from utils import make_env, layer_init
+from utils import make_env, layer_init, make_env_list_random
 
 def parse_args():
     # fmt: off
@@ -26,7 +27,7 @@ def parse_args():
         help="if toggled, `torch.backends.cudnn.deterministic=False`")
     parser.add_argument("--cuda", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="if toggled, cuda will be enabled by default")
-    parser.add_argument("--track", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
+    parser.add_argument("--track", type=lambda x: bool(strtobool(x)), default=False, nargs="?", const=True,
         help="if toggled, this experiment will be tracked with tensorboard")
     # parser.add_argument("--wandb-project-name", type=str, default="cleanRL",
     #     help="the wandb's project name")
@@ -42,9 +43,9 @@ def parse_args():
         help="total timesteps of the experiments")
     parser.add_argument("--learning-rate", type=float, default=2.5e-4,
         help="the learning rate of the optimizer")
-    parser.add_argument("--num-envs", type=int, default=1,
+    parser.add_argument("--num-envs", type=int, default=12,
         help="the number of parallel game environments")
-    parser.add_argument("--num-steps", type=int, default=128,
+    parser.add_argument("--num-steps", type=int, default=256,
         help="the number of steps to run in each environment per policy rollout")
     parser.add_argument("--anneal-lr", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="Toggle learning rate annealing for policy and value networks")
@@ -72,7 +73,7 @@ def parse_args():
         help="the maximum norm for the gradient clipping")
     parser.add_argument("--target-kl", type=float, default=None,
         help="the target KL divergence threshold")
-    parser.add_argument("--hidden-size", type=int, default=128,
+    parser.add_argument("--hidden-size", type=int, default=512,
         help="hidden layer size of the neural networks")
     args = parser.parse_args()
     args.batch_size = int(args.num_envs * args.num_steps)
@@ -135,7 +136,11 @@ def main():
     #      [make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)]
     # )
     #env = DummyVecEnv([lambda:env])
-    envs = DummyVecEnv([make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)])
+    if args.env_id[0:7] == "nasim:c":
+        envs_list = make_env_list_random(args.env_id, args.seed, args.num_envs)
+        envs = DummyVecEnv(envs_list)
+    else:
+        envs = DummyVecEnv([make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)])
     envs = VecNormalize(envs, norm_obs=True, norm_reward=True)
     #assert isinstance(envs.single_action_space, gym.spaces.Discrete), "only discrete action space is supported"
 
