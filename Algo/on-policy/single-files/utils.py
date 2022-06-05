@@ -3,6 +3,7 @@ import torch
 import gym
 import copy
 import nasim
+import torch.nn as nn
 
 def make_env_list_random(env_id, seed, num_envs):
     if env_id[0:7] == "nasim:c":
@@ -13,7 +14,7 @@ def make_env_list_random(env_id, seed, num_envs):
                     num_processes = 3,
                     restrictiveness = 5,
                     step_limit = 500000,
-                yz_gen=True, save_fig=True)
+                yz_gen=False, save_fig=True)
     else:
         _fix_env = gym.make(env_id)
     _fix_env = gym.wrappers.RecordEpisodeStatistics(_fix_env)
@@ -122,3 +123,14 @@ def matrix_norm(v, axis=1):
     norm = np.divide(v , np.tile(np.sum(v, axis), (v.shape[axis], axis)).transpose())
     
     return norm
+
+class FastGLU(nn.Module):
+    def __init__(self, in_size):
+        super().__init__()
+        self.in_size = in_size
+        self.linear = layer_init(nn.Linear(in_size, in_size * 2))
+    
+    def forward(self, x):
+        x = self.linear(x)
+        out = x[:, self.in_size:] * x[:, :self.in_size].sigmoid()
+        return out

@@ -14,7 +14,7 @@ from torch.distributions.categorical import Categorical
 from tensorboardX import SummaryWriter
 from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
 from stable_baselines3.common.monitor import Monitor
-from utils import make_env, layer_init, matrix_norm, make_env_list_random
+from utils import make_env, layer_init, matrix_norm, make_env_list_random, FastGLU
 
 
 
@@ -45,7 +45,7 @@ def parse_args():
         help="total timesteps of the experiments")
     parser.add_argument("--learning-rate", type=float, default=2.5e-4,
         help="the learning rate of the optimizer")
-    parser.add_argument("--num-envs", type=int, default=16,
+    parser.add_argument("--num-envs", type=int, default=8,
         help="the number of parallel game environments")
     parser.add_argument("--num-steps", type=int, default=256,
         help="the number of steps to run in each environment per policy rollout")
@@ -75,7 +75,7 @@ def parse_args():
         help="the maximum norm for the gradient clipping")
     parser.add_argument("--target-kl", type=float, default=None,
         help="the target KL divergence threshold")
-    parser.add_argument("--hidden-size", type=int, default=512,
+    parser.add_argument("--hidden-size", type=int, default=256,
         help="hidden layer size of the neural networks")
     parser.add_argument("--coverage", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="Toggles whether or not to use coverage mechanism as per the paper.")
@@ -100,6 +100,7 @@ class Agent(nn.Module):
             nn.Tanh(),
             layer_init(nn.Linear(hidden_size, hidden_size)),
             nn.Tanh(),
+            FastGLU(hidden_size),
             layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01)
         )
         self.coverage = nn.Sequential(
@@ -109,7 +110,7 @@ class Agent(nn.Module):
         )
         self.cw_learner = nn.Sequential(
             layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
-            nn.LeakyReLU(),
+            nn.Tanh(),
             layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01)
         )
     def get_value(self, x):

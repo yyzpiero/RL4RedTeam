@@ -12,11 +12,10 @@ import nasim
 #                      restrictiveness = 5,
 #                      step_limit = 300000,
 #                      yz_gen=True, save_fig=False)
-env = gym.make("nasim:Small-v0")
+env = gym.make("nasim:Small-v2")
 env = gym.wrappers.RecordEpisodeStatistics(env)
 print(env.get_score_upper_bound())
-
-action_space_size = env.action_space.n
+print(env.action_space.nvec)
 
 sps = []
 steps = []
@@ -27,11 +26,11 @@ for i in range(1):
     since = time.time()
     while not done:
         mask = env.get_action_mask()
-        action = int(np.random.randint(low=0, high=action_space_size))
+
+        #action = int(np.random.randint(low=0, high=action_space_size))
         
         ob, reward, done, info = env.step(action)
         num_sample += 1
-
 
         if done:
             print("===Done====")

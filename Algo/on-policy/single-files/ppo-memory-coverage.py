@@ -3,7 +3,6 @@
 import argparse
 import os
 import random
-import copy
 import time
 from distutils.util import strtobool
 
@@ -14,14 +13,14 @@ import torch.optim as optim
 from torch.distributions.categorical import Categorical
 from tensorboardX import SummaryWriter
 from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
-from utils import make_env, layer_init, make_env_list_random
+from utils import make_env, layer_init, matrix_norm, FastGLU
 
 def parse_args():
     # fmt: off
     parser = argparse.ArgumentParser()
     parser.add_argument("--exp-name", type=str, default=os.path.basename(__file__).rstrip(".py"),
         help="the name of this experiment")
-    parser.add_argument("--seed", type=int, default=142,
+    parser.add_argument("--seed", type=int, default=13,
         help="seed of the experiment")
     parser.add_argument("--torch-deterministic", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="if toggled, `torch.backends.cudnn.deterministic=False`")
@@ -37,15 +36,15 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:c",
+    parser.add_argument("--env-id", type=str, default="nasim:LargeGen-v0",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=5000000,
         help="total timesteps of the experiments")
     parser.add_argument("--learning-rate", type=float, default=2.5e-4,
         help="the learning rate of the optimizer")
-    parser.add_argument("--num-envs", type=int, default=12,
+    parser.add_argument("--num-envs", type=int, default=8,
         help="the number of parallel game environments")
-    parser.add_argument("--num-steps", type=int, default=256,
+    parser.add_argument("--num-steps", type=int, default=128,
         help="the number of steps to run in each environment per policy rollout")
     parser.add_argument("--anneal-lr", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="Toggle learning rate annealing for policy and value networks")
@@ -55,7 +54,7 @@ def parse_args():
         help="the discount factor gamma")
     parser.add_argument("--gae-lambda", type=float, default=0.95,
         help="the lambda for the general advantage estimation")
-    parser.add_argument("--num-minibatches", type=int, default=4,
+    parser.add_argument("--num-minibatches", type=int, default=1,
         help="the number of mini-batches")
     parser.add_argument("--update-epochs", type=int, default=4,
         help="the K epochs to update the policy")
@@ -73,44 +72,110 @@ def parse_args():
         help="the maximum norm for the gradient clipping")
     parser.add_argument("--target-kl", type=float, default=None,
         help="the target KL divergence threshold")
-    parser.add_argument("--hidden-size", type=int, default=512,
+    parser.add_argument("--hidden-size", type=int, default=128,
         help="hidden layer size of the neural networks")
+    parser.add_argument("--coverage", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
+        help="Toggles whether or not to use coverage mechanism as per the paper.")
     args = parser.parse_args()
     args.batch_size = int(args.num_envs * args.num_steps)
     args.minibatch_size = int(args.batch_size // args.num_minibatches)
     # fmt: on
     return args
 
-class Agent(nn.Module):
+
+
+class Agent_Memory(nn.Module):
+    '''
+    When RNN policy is enabled, critic and actor share the first several input/preception layers.
+
+    Please find https://github.com/lcswillems/rl-starter-files/tree/e604b36915a13e25ac8a8a912f9a9a15e2d4a170#modelpy 
+    for more description.
+    '''
     def __init__(self, envs, hidden_size):
+        
         super().__init__()
-        self.critic = nn.Sequential(
+        self.shared_network = nn.Sequential(
             layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
             nn.Tanh(),
             layer_init(nn.Linear(hidden_size, hidden_size)),
             nn.Tanh(),
-            layer_init(nn.Linear(hidden_size, 1), std=1.0),
+        )
+
+        self.lstm = nn.LSTM(hidden_size, hidden_size)
+        
+        for name, param in self.lstm.named_parameters():
+            if "bias" in name:
+                nn.init.zeros_(param.data)
+            elif "weight" in name:
+                nn.init.xavier_uniform_(param.data)
+
+        self.critic = nn.Sequential(
+            layer_init(nn.Linear(hidden_size, hidden_size)),
+            nn.Tanh(),
+            layer_init(nn.Linear(hidden_size, 1), std=1.0)
         )
         self.actor = nn.Sequential(
-            layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
-            nn.Tanh(),
+            FastGLU(hidden_size),
             layer_init(nn.Linear(hidden_size, hidden_size)),
             nn.Tanh(),
-            layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01),
+            layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01)
+        )
+        self.coverage = nn.Sequential(
+            layer_init(nn.Linear(envs.action_space.n, hidden_size)),
+            nn.Tanh(),
+            layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01)
+        )    
+        self.cw_learner = nn.Sequential(
+            FastGLU(hidden_size),
+            layer_init(nn.Linear(hidden_size, hidden_size)),
+            nn.Tanh(),
+            layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01)
         )
 
-    def get_value(self, x):
-        return self.critic(x)
+    def get_states(self, x, lstm_state, done):
+        hidden = self.shared_network(x)
 
-    def get_action_and_value(self, x, action=None):
-        logits = self.actor(x)
-        probs = Categorical(logits=logits)
+        # LSTM logic
+        batch_size = lstm_state[0].shape[1]
+        hidden = hidden.reshape((-1, batch_size, self.lstm.input_size))
+        done = done.reshape((-1, batch_size))
+        new_hidden = []
+        for h, d in zip(hidden, done):
+            h, lstm_state = self.lstm(
+                h.unsqueeze(0),
+                (
+                    (1.0 - d).view(1, -1, 1) * lstm_state[0],
+                    (1.0 - d).view(1, -1, 1) * lstm_state[1],
+                ),
+            )
+            new_hidden += [h]
+        new_hidden = torch.flatten(torch.cat(new_hidden), 0, 1)
+        return new_hidden, lstm_state
+    
+    def get_value(self, x, lstm_state, done):
+        hidden, _ = self.get_states(x, lstm_state, done)
+        return self.critic(hidden)
+
+    def get_action_and_value(self, x, lstm_state, done, action=None, coverage_hist=None):
+        hidden, lstm_state = self.get_states(x, lstm_state, done)
+        
+        if coverage_hist is None:
+            logits = self.actor(hidden)
+        else:
+            logits = self.actor(hidden)
+            c_w = self.cw_learner(hidden)
+            c_out = self.coverage(coverage_hist)
+            logits = logits + c_w * c_out
+
+        action_probs = Categorical(logits=logits)
         if action is None:
-            action = probs.sample()
-        return action, probs.log_prob(action), probs.entropy(), self.critic(x)
+            action = action_probs .sample()
+            return action, action_probs.log_prob(action), action_probs.entropy(), self.critic(hidden), lstm_state
+        else:
+            return action_probs.probs, action_probs.log_prob(action), action_probs.entropy(), self.critic(hidden), lstm_state
 
 
-def main():
+if __name__ == "__main__":
     args = parse_args()
     run_name = f"{args.env_id}__{args.exp_name}__{args.seed}__{int(time.time())}"
     
@@ -136,15 +201,11 @@ def main():
     #      [make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)]
     # )
     #env = DummyVecEnv([lambda:env])
-    if args.env_id[0:7] == "nasim:c":
-        envs_list = make_env_list_random(args.env_id, args.seed, args.num_envs)
-        envs = DummyVecEnv(envs_list)
-    else:
-        envs = DummyVecEnv([make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)])
+    envs = DummyVecEnv([make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)])
     envs = VecNormalize(envs, norm_obs=True, norm_reward=True)
-    #assert isinstance(envs.single_action_space, gym.spaces.Discrete), "only discrete action space is supported"
+    #assert isinstance(envs.action_space, gym.spaces.Discrete), "only discrete action space is supported"
 
-    agent = Agent(envs, args.hidden_size).to(device)
+    agent = Agent_Memory(envs, args.hidden_size).to(device)
     optimizer = optim.Adam(agent.parameters(), lr=args.learning_rate, eps=1e-5)
 
     # ALGO Logic: Storage setup
@@ -160,14 +221,24 @@ def main():
     start_time = time.time()
     next_obs = torch.Tensor(envs.reset()).to(device)
     next_done = torch.zeros(args.num_envs).to(device)
+    next_lstm_state = (
+        torch.zeros(agent.lstm.num_layers, args.num_envs, agent.lstm.hidden_size).to(device),
+        torch.zeros(agent.lstm.num_layers, args.num_envs, agent.lstm.hidden_size).to(device),
+    )  # hidden and cell states (see https://youtu.be/8HyCNIVRbSU)
     num_updates = args.total_timesteps // args.batch_size
 
     for update in range(1, num_updates + 1):
+        initial_lstm_state = (next_lstm_state[0].clone(), next_lstm_state[1].clone())
         # Annealing the rate if instructed to do so.
         if args.anneal_lr:
             frac = 1.0 - (update - 1.0) / num_updates
             lrnow = frac * args.learning_rate
             optimizer.param_groups[0]["lr"] = lrnow
+        
+        if args.coverage:
+            coverage_hist = np.zeros((args.num_envs, envs.action_space.n))
+        else:
+            coverage_hist = None
 
         for step in range(0, args.num_steps):
             global_step += 1 * args.num_envs
@@ -176,7 +247,14 @@ def main():
 
             # ALGO LOGIC: action logic
             with torch.no_grad():
-                action, logprob, _, value = agent.get_action_and_value(next_obs)
+                #action, logprob, _, value = agent.get_action_and_value(next_obs)
+                if coverage_hist is None:
+                    action, logprob, _, value, next_lstm_state = agent.get_action_and_value(next_obs, next_lstm_state, next_done)
+                else:
+                    coverage_hist_norm = matrix_norm(coverage_hist)
+                    coverage_hist_norm = torch.FloatTensor(coverage_hist_norm).to(device).detach()
+                    action, logprob, _, value, next_lstm_state = agent.get_action_and_value(next_obs, next_lstm_state, next_done, coverage_hist=coverage_hist_norm)
+                    coverage_hist[range(args.num_envs), action.cpu()] += 1 
                 values[step] = value.flatten()
             actions[step] = action
             logprobs[step] = logprob
@@ -196,7 +274,12 @@ def main():
 
         # bootstrap value if not done
         with torch.no_grad():
-            next_value = agent.get_value(next_obs).reshape(1, -1)
+            #next_value = agent.get_value(next_obs).reshape(1, -1)
+            next_value = agent.get_value(
+                next_obs,
+                next_lstm_state,
+                next_done,
+            ).reshape(1, -1)
             if args.gae:
                 advantages = torch.zeros_like(rewards).to(device)
                 lastgaelam = 0
@@ -229,17 +312,28 @@ def main():
         b_advantages = advantages.reshape(-1)
         b_returns = returns.reshape(-1)
         b_values = values.reshape(-1)
+        b_dones = dones.reshape(-1)
 
         # Optimizing the policy and value network
-        b_inds = np.arange(args.batch_size)
+        #b_inds = np.arange(args.batch_size)
+        assert args.num_envs % args.num_minibatches == 0
+        envsperbatch = args.num_envs // args.num_minibatches
+        envinds = np.arange(args.num_envs)
+        flatinds = np.arange(args.batch_size).reshape(args.num_steps, args.num_envs)
         clipfracs = []
         for epoch in range(args.update_epochs):
-            np.random.shuffle(b_inds)
-            for start in range(0, args.batch_size, args.minibatch_size):
-                end = start + args.minibatch_size
-                mb_inds = b_inds[start:end]
+            np.random.shuffle(envinds)
+            for start in range(0, args.num_envs, envsperbatch):
+                end = start + envsperbatch
+                mbenvinds = envinds[start:end]
+                mb_inds = flatinds[:, mbenvinds].ravel()  # be really careful about the index
 
-                _, newlogprob, entropy, newvalue = agent.get_action_and_value(b_obs[mb_inds], b_actions.long()[mb_inds])
+                new_a_prob, newlogprob, entropy, newvalue, _ = agent.get_action_and_value(
+                    b_obs[mb_inds],
+                    (initial_lstm_state[0][:, mbenvinds], initial_lstm_state[1][:, mbenvinds]),
+                    b_dones[mb_inds],
+                    b_actions.long()[mb_inds],
+                )
                 logratio = newlogprob - b_logprobs[mb_inds]
                 ratio = logratio.exp()
 
@@ -274,7 +368,12 @@ def main():
                     v_loss = 0.5 * ((newvalue - b_returns[mb_inds]) ** 2).mean()
 
                 entropy_loss = entropy.mean()
-                loss = pg_loss - args.ent_coef * entropy_loss + v_loss * args.vf_coef
+                
+                if coverage_hist is None:
+                    loss = pg_loss - args.ent_coef * entropy_loss + v_loss * args.vf_coef#+ coverage_loss * 0.025
+                else:    
+                    coverage_loss = torch.mean(torch.min(torch.mean(coverage_hist_norm, 0) , torch.mean(new_a_prob, 0)))
+                    loss = pg_loss - args.ent_coef * entropy_loss + v_loss * args.vf_coef + coverage_loss * 0.025              
 
                 optimizer.zero_grad()
                 loss.backward()
@@ -306,9 +405,3 @@ def main():
     envs.close()
     if writer is not None:
         writer.close()
-
-if __name__ == '__main__':
-    since = time.time()
-    main()
-    time_elapsed = time.time()-since
-    print("Total Run Time: {}".format(time_elapsed))
