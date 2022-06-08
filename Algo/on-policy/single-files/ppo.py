@@ -6,7 +6,7 @@ import random
 import copy
 import time
 from distutils.util import strtobool
-
+import torch.nn.functional as F
 import numpy as np
 import torch
 import torch.nn as nn
@@ -14,7 +14,7 @@ import torch.optim as optim
 from torch.distributions.categorical import Categorical
 from tensorboardX import SummaryWriter
 from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
-from utils import make_env, layer_init, make_env_list_random, FastGLU
+from utils import make_env, layer_init, make_env_list_random, FastGLU, Transformer
 
 def parse_args():
     # fmt: off
@@ -37,7 +37,7 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:Medium-v0",
+    parser.add_argument("--env-id", type=str, default="nasim:LargeGen-v1",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=500000,
         help="total timesteps of the experiments")
@@ -84,31 +84,69 @@ def parse_args():
 class Agent(nn.Module):
     def __init__(self, envs, hidden_size):
         super().__init__()
+        self.transformer = Transformer(d_model=hidden_size, d_inner=256,
+                                       n_layers=3, n_head=2, d_k=128, 
+                                       d_v=128, 
+                                       dropout=0.)  # make dropout=0 to make training and testing consistent
+
         self.critic = nn.Sequential(
-            layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
-            nn.Mish(),
             layer_init(nn.Linear(hidden_size, hidden_size)),
             nn.Tanh(),
-            layer_init(nn.Linear(hidden_size, 1), std=1.0),
+            layer_init(nn.Linear(hidden_size, 1), std=1.0)
         )
-        self.actor = nn.Sequential(
-            layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
-            nn.Tanh(),
+        
+        self.preception_value = nn.Sequential(
+            layer_init(nn.Linear(np.array(envs.observation_space.shape)[-1], hidden_size)),
+            nn.Tanh()
+        )
+        
+        self.actor = nn.Sequential(    
             layer_init(nn.Linear(hidden_size, hidden_size)),
             nn.Tanh(),
-            FastGLU(hidden_size),
-            layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01),
+            #FastGLU(hidden_size),
+            layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01)
         )
+
+        self.preception_actor = nn.Sequential(
+            layer_init(nn.Linear(np.array(envs.observation_space.shape)[-1], hidden_size)),
+            nn.Tanh()
+        )
+        
+        self.conv1 = nn.Conv1d(hidden_size, hidden_size, kernel_size=1, stride=1,
+                               padding=0, bias=True)
+        
+        self.convs = nn.ModuleList([
+                nn.Sequential(nn.Conv1d(in_channels=hidden_size, 
+                                        out_channels=hidden_size, 
+                                        kernel_size=h),
+#                              nn.BatchNorm1d(num_features=config.feature_size), 
+                              nn.ReLU(),
+                              nn.AvgPool1d(kernel_size=np.array(envs.observation_space.shape)[0]-h+1))
+                     for h in [5]
+                    ])
 
     def get_value(self, x):
-        return self.critic(x)
+        precepted = self.preception_value(x)
+        
+        trans_out = precepted.sum(dim=1, keepdim=False)
+
+        return self.critic(trans_out)
 
     def get_action_and_value(self, x, action=None):
-        logits = self.actor(x)
+        precepted = self.preception_actor(x)
+        trans_out = self.transformer(precepted).transpose(-2, -1)
+        #trans_out
+        #conv_out = F.relu(self.conv1(trans_out.transpose(-2, -1))).transpose(-1, -2) # IDK why, but AlphaStar uses this "trick", conv over 256 embedded features
+        #conv_out = conv_out.sum(dim=1, keepdim=False)
+        conv_out = [conv(trans_out) for conv in self.convs]
+        conv_out = torch.cat(conv_out, dim=1)
+        conv_out = conv_out.view(-1, conv_out.size(1)) 
+        #conv_out = trans_out.mean(dim=1, keepdim=False)
+        logits = self.actor(conv_out)
         probs = Categorical(logits=logits)
         if action is None:
             action = probs.sample()
-        return action, probs.log_prob(action), probs.entropy(), self.critic(x)
+        return action, probs.log_prob(action), probs.entropy(), self.get_value(x)
 
 
 

@@ -20040,3 +20040,7 @@ figure/wireball_500_ppo_coverage.png
 .gitignore
 logs/print_logs/wireball_500_ppo_coverage.out
 logs/print_logs/nasim-500-ppo-coverage.out
+logs/print_logs/nasim-500-ppo-as-attention.out
+logs/print_logs/nasim-HugeGen-ppo-as-attention.out
+Algo/on-policy/single-files/__pycache__/utils.cpython-38.pyc
+Algo/on-policy/single-files/__pycache__/utils.cpython-38.pyc

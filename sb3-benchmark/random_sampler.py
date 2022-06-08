@@ -12,22 +12,26 @@ import nasim
 #                      restrictiveness = 5,
 #                      step_limit = 300000,
 #                      yz_gen=True, save_fig=False)
-env = gym.make("nasim:Small-v2")
-env = gym.wrappers.RecordEpisodeStatistics(env)
-print(env.get_score_upper_bound())
-print(env.action_space.nvec)
+env = gym.make("CartPole-v1")
+#env = gym.wrappers.RecordEpisodeStatistics(env)
+#print(env.get_score_upper_bound()) # Score Upper Bound need to be fixed
+#print(env.action_space.nvec)
+
+print(env._max_episode_steps)
+
 
 sps = []
 steps = []
 for i in range(1):
-    ob = env.reset()
+    obs = env.reset()
+    print(obs)
     done = False
     num_sample = 0
     since = time.time()
     while not done:
         mask = env.get_action_mask()
 
-        #action = int(np.random.randint(low=0, high=action_space_size))
+        action = int(np.random.randint(low=0, high=env.action_space.n))
         
         ob, reward, done, info = env.step(action)
         num_sample += 1
