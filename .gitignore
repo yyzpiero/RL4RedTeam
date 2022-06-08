@@ -20044,3 +20044,7 @@ logs/print_logs/nasim-500-ppo-as-attention.out
 logs/print_logs/nasim-HugeGen-ppo-as-attention.out
 Algo/on-policy/single-files/__pycache__/utils.cpython-38.pyc
 Algo/on-policy/single-files/__pycache__/utils.cpython-38.pyc
+logs/print_logs/nasim-HugeGen-ppo-as-attention+cnn.out
+logs/print_logs/nasim-HugeGen-ppo-as-attention+cnn+GLU.out
+logs/print_logs/nasim-HugeGen-ppo-as-attention+cnn+lstm+glu.out
+logs/print_logs/nasim-Pocp2Gen-ppo-as-attention+cnn+lstm+glu2.out

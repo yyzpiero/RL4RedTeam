@@ -37,7 +37,7 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:LargeGen-v1",
+    parser.add_argument("--env-id", type=str, default="nasim:Medium-v1",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=500000,
         help="total timesteps of the experiments")
@@ -73,7 +73,7 @@ def parse_args():
         help="the maximum norm for the gradient clipping")
     parser.add_argument("--target-kl", type=float, default=None,
         help="the target KL divergence threshold")
-    parser.add_argument("--hidden-size", type=int, default=512,
+    parser.add_argument("--hidden-size", type=int, default=256,
         help="hidden layer size of the neural networks")
     args = parser.parse_args()
     args.batch_size = int(args.num_envs * args.num_steps)
@@ -102,8 +102,10 @@ class Agent(nn.Module):
         
         self.actor = nn.Sequential(    
             layer_init(nn.Linear(hidden_size, hidden_size)),
+            nn.ReLU(),
+            FastGLU(hidden_size),
+            layer_init(nn.Linear(hidden_size, hidden_size)),
             nn.Tanh(),
-            #FastGLU(hidden_size),
             layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01)
         )
 
@@ -134,14 +136,14 @@ class Agent(nn.Module):
 
     def get_action_and_value(self, x, action=None):
         precepted = self.preception_actor(x)
-        trans_out = self.transformer(precepted).transpose(-2, -1)
-        #trans_out
-        #conv_out = F.relu(self.conv1(trans_out.transpose(-2, -1))).transpose(-1, -2) # IDK why, but AlphaStar uses this "trick", conv over 256 embedded features
-        #conv_out = conv_out.sum(dim=1, keepdim=False)
-        conv_out = [conv(trans_out) for conv in self.convs]
-        conv_out = torch.cat(conv_out, dim=1)
-        conv_out = conv_out.view(-1, conv_out.size(1)) 
-        #conv_out = trans_out.mean(dim=1, keepdim=False)
+        #trans_out = self.transformer(precepted).transpose(-2, -1)
+        trans_out = self.transformer(precepted)
+        conv_out = F.relu(self.conv1(trans_out.transpose(-2, -1))).transpose(-1, -2) # IDK why, but AlphaStar uses this "trick", conv over 256 embedded features
+        conv_out = conv_out.mean(dim=1, keepdim=False)
+        # conv_out = [conv(trans_out) for conv in self.convs]
+        # conv_out = torch.cat(conv_out, dim=1)
+        # conv_out = conv_out.view(-1, conv_out.size(1)) 
+        #trans_out = trans_out.mean(dim=1, keepdim=False)
         logits = self.actor(conv_out)
         probs = Categorical(logits=logits)
         if action is None:
