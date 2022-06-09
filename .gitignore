@@ -20048,3 +20048,4 @@ logs/print_logs/nasim-HugeGen-ppo-as-attention+cnn.out
 logs/print_logs/nasim-HugeGen-ppo-as-attention+cnn+GLU.out
 logs/print_logs/nasim-HugeGen-ppo-as-attention+cnn+lstm+glu.out
 logs/print_logs/nasim-Pocp2Gen-ppo-as-attention+cnn+lstm+glu2.out
+logs/
