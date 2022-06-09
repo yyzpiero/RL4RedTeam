@@ -102,8 +102,8 @@ class Agent(nn.Module):
         
         self.actor = nn.Sequential(    
             layer_init(nn.Linear(hidden_size, hidden_size)),
-            nn.ReLU(),
-            FastGLU(hidden_size),
+            nn.Tanh(),
+            # FastGLU(hidden_size),
             layer_init(nn.Linear(hidden_size, hidden_size)),
             nn.Tanh(),
             layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01)

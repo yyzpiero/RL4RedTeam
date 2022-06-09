@@ -1,0 +1,4135 @@
+nohup: ignoring input
+/home/yangyizhou/Codes/AutoRedAgent-v0.2/NetworkAttackSimulator/nasim/envs/render.py:17: UserWarning: Unable to import Matplotlib with TkAgg backend due to following exception: "<class 'ImportError'> Cannot load backend 'TkAgg' which requires the 'tk' interactive framework, as 'headless' is currently running". NASIM can still run but GUI functionallity may not work as expected.
+  warnings.warn(
+SPS: 584
+SPS: 607
+SPS: 608
+SPS: 620
+SPS: 628
+SPS: 632
+SPS: 636
+SPS: 639
+SPS: 641
+SPS: 641
+SPS: 643
+SPS: 644
+SPS: 645
+SPS: 645
+SPS: 646
+SPS: 643
+SPS: 643
+SPS: 643
+SPS: 644
+SPS: 644
+SPS: 645
+SPS: 645
+SPS: 645
+SPS: 645
+SPS: 645
+SPS: 645
+SPS: 645
+SPS: 646
+SPS: 646
+SPS: 646
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 644
+SPS: 643
+SPS: 643
+SPS: 643
+SPS: 642
+SPS: 642
+SPS: 641
+SPS: 641
+SPS: 640
+SPS: 640
+SPS: 640
+SPS: 639
+SPS: 639
+SPS: 639
+SPS: 638
+SPS: 638
+SPS: 637
+SPS: 637
+global_step=129248, episodic_return=-15858.0, episodic_length=16156
+SPS: 636
+SPS: 636
+SPS: 636
+SPS: 635
+SPS: 635
+SPS: 635
+SPS: 634
+SPS: 634
+SPS: 634
+SPS: 633
+SPS: 633
+SPS: 633
+SPS: 633
+SPS: 632
+SPS: 632
+SPS: 631
+SPS: 631
+SPS: 631
+SPS: 630
+SPS: 630
+SPS: 630
+SPS: 629
+SPS: 629
+SPS: 629
+SPS: 629
+SPS: 629
+global_step=182296, episodic_return=-22449.0, episodic_length=22787
+SPS: 629
+SPS: 628
+SPS: 628
+SPS: 628
+SPS: 628
+SPS: 628
+SPS: 627
+SPS: 627
+SPS: 627
+SPS: 627
+SPS: 627
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+global_step=213416, episodic_return=-26362.0, episodic_length=26677
+SPS: 626
+SPS: 626
+SPS: 625
+SPS: 625
+SPS: 625
+global_step=223280, episodic_return=-27532.0, episodic_length=27910
+SPS: 625
+SPS: 625
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 623
+global_step=237456, episodic_return=-29301.0, episodic_length=29682
+SPS: 623
+SPS: 623
+global_step=240000, episodic_return=-29754.0, episodic_length=30000
+SPS: 623
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+global_step=300688, episodic_return=-21080.0, episodic_length=21430
+global_step=300752, episodic_return=-9325.0, episodic_length=9684
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+global_step=307792, episodic_return=-8163.0, episodic_length=8474
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 626
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+global_step=384528, episodic_return=-24941.0, episodic_length=25279
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 625
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 624
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+global_step=427456, episodic_return=-15498.0, episodic_length=15838
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+global_step=453416, episodic_return=-29765.0, episodic_length=30000
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 621
+SPS: 621
+SPS: 621
+global_step=467696, episodic_return=-28104.0, episodic_length=28462
+SPS: 621
+global_step=470128, episodic_return=-19936.0, episodic_length=20292
+SPS: 621
+SPS: 621
+SPS: 621
+global_step=475608, episodic_return=-29087.0, episodic_length=29451
+SPS: 621
+global_step=477456, episodic_return=-29721.0, episodic_length=30000
+SPS: 621
+SPS: 621
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+global_step=491136, episodic_return=-13009.0, episodic_length=13326
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+global_step=540688, episodic_return=-29779.0, episodic_length=30000
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 623
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+global_step=600816, episodic_return=-16027.0, episodic_length=16336
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+global_step=616496, episodic_return=-23280.0, episodic_length=23630
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 622
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 621
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 619
+global_step=693416, episodic_return=-29798.0, episodic_length=30000
+SPS: 619
+SPS: 619
+global_step=697552, episodic_return=-25438.0, episodic_length=25802
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=707696, episodic_return=-29762.0, episodic_length=30000
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=715608, episodic_return=-29765.0, episodic_length=30000
+SPS: 619
+global_step=717456, episodic_return=-29718.0, episodic_length=30000
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=735808, episodic_return=-24039.0, episodic_length=24390
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=745128, episodic_return=-17718.0, episodic_length=18039
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 620
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=821552, episodic_return=-25255.0, episodic_length=25632
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=835520, episodic_return=-12149.0, episodic_length=12464
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=874352, episodic_return=-21741.0, episodic_length=22100
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 618
+SPS: 618
+global_step=891984, episodic_return=-18008.0, episodic_length=18357
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=912328, episodic_return=-27021.0, episodic_length=27364
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=947032, episodic_return=-15327.0, episodic_length=15685
+global_step=947696, episodic_return=-29853.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=955608, episodic_return=-29745.0, episodic_length=30000
+SPS: 618
+global_step=957456, episodic_return=-29719.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=999920, episodic_return=-13164.0, episodic_length=13492
+SPS: 619
+global_step=1003280, episodic_return=-15803.0, episodic_length=16116
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=1029696, episodic_return=-9985.0, episodic_length=10333
+SPS: 619
+global_step=1031120, episodic_return=-24100.0, episodic_length=24450
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=1107104, episodic_return=-13071.0, episodic_length=13398
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=1141200, episodic_return=-13564.0, episodic_length=13938
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=1152328, episodic_return=-29787.0, episodic_length=30000
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1187696, episodic_return=-29752.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1195608, episodic_return=-29732.0, episodic_length=30000
+SPS: 618
+global_step=1197456, episodic_return=-29723.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1208632, episodic_return=-21865.0, episodic_length=22189
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1234248, episodic_return=-15526.0, episodic_length=15893
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1243280, episodic_return=-29745.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=1266656, episodic_return=-15321.0, episodic_length=15682
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=1292440, episodic_return=-11518.0, episodic_length=11873
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=1346240, episodic_return=-16872.0, episodic_length=17201
+SPS: 619
+SPS: 619
+SPS: 619
+global_step=1351944, episodic_return=-14360.0, episodic_length=14712
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 619
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1392328, episodic_return=-29756.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1399304, episodic_return=-16225.0, episodic_length=16581
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1427696, episodic_return=-29755.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1435608, episodic_return=-29748.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1444304, episodic_return=-5349.0, episodic_length=5625
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1481992, episodic_return=-23317.0, episodic_length=23694
+SPS: 618
+global_step=1483280, episodic_return=-29733.0, episodic_length=30000
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1491032, episodic_return=-12004.0, episodic_length=12338
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1527368, episodic_return=-22289.0, episodic_length=22641
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1536488, episodic_return=-22690.0, episodic_length=23068
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+global_step=1555584, episodic_return=-13550.0, episodic_length=13910
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 618
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+global_step=1605520, episodic_return=-8292.0, episodic_length=8629
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+SPS: 617
+global_step=1614504, episodic_return=-23030.0, episodic_length=23351
+SPS: 617
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1629096, episodic_return=-8841.0, episodic_length=9189
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1647632, episodic_return=-14685.0, episodic_length=15033
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1660848, episodic_return=-6588.0, episodic_length=6916
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1672688, episodic_return=-22364.0, episodic_length=22707
+SPS: 616
+SPS: 616
+global_step=1675608, episodic_return=-29740.0, episodic_length=30000
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1710688, episodic_return=-9845.0, episodic_length=10199
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1720096, episodic_return=-7071.0, episodic_length=7406
+SPS: 616
+global_step=1721992, episodic_return=-29727.0, episodic_length=30000
+SPS: 616
+global_step=1723280, episodic_return=-29730.0, episodic_length=30000
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1738392, episodic_return=-7526.0, episodic_length=7848
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1744632, episodic_return=-3918.0, episodic_length=4243
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+global_step=1756680, episodic_return=-4243.0, episodic_length=4573
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 616
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1790576, episodic_return=-14397.0, episodic_length=14736
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1800712, episodic_return=-22918.0, episodic_length=23276
+global_step=1801896, episodic_return=-6836.0, episodic_length=7158
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1855160, episodic_return=-16276.0, episodic_length=16646
+SPS: 615
+SPS: 615
+global_step=1857600, episodic_return=-6624.0, episodic_length=6963
+SPS: 615
+global_step=1861096, episodic_return=-16891.0, episodic_length=17227
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1872872, episodic_return=-14181.0, episodic_length=14524
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1878728, episodic_return=-2326.0, episodic_length=2641
+SPS: 615
+SPS: 615
+global_step=1882400, episodic_return=-11155.0, episodic_length=11478
+SPS: 615
+SPS: 615
+global_step=1887632, episodic_return=-29745.0, episodic_length=30000
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1898456, episodic_return=-19660.0, episodic_length=20008
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1912896, episodic_return=-3938.0, episodic_length=4271
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1922096, episodic_return=-8035.0, episodic_length=8367
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1940976, episodic_return=-3217.0, episodic_length=3510
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1947448, episodic_return=-8983.0, episodic_length=9322
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1977680, episodic_return=-21773.0, episodic_length=22121
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=1985328, episodic_return=-5196.0, episodic_length=5544
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+SPS: 615
+global_step=2006920, episodic_return=-7099.0, episodic_length=7434
+SPS: 614
+SPS: 614
+global_step=2010096, episodic_return=-10633.0, episodic_length=11000
+SPS: 614
+global_step=2012656, episodic_return=-15942.0, episodic_length=16282
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2030072, episodic_return=-5260.0, episodic_length=5593
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2051304, episodic_return=-4895.0, episodic_length=5151
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2063512, episodic_return=-3861.0, episodic_length=4180
+SPS: 614
+global_step=2065312, episodic_return=-6949.0, episodic_length=7299
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2084440, episodic_return=-27554.0, episodic_length=27918
+SPS: 614
+SPS: 614
+global_step=2088720, episodic_return=-2606.0, episodic_length=2926
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2093936, episodic_return=-5069.0, episodic_length=5329
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2100952, episodic_return=-4374.0, episodic_length=4680
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2114000, episodic_return=-2862.0, episodic_length=3160
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2127632, episodic_return=-29740.0, episodic_length=30000
+SPS: 614
+SPS: 614
+global_step=2130984, episodic_return=-14451.0, episodic_length=14791
+SPS: 614
+SPS: 614
+global_step=2136032, episodic_return=-2425.0, episodic_length=2754
+SPS: 614
+SPS: 614
+global_step=2138456, episodic_return=-29742.0, episodic_length=30000
+SPS: 614
+SPS: 614
+SPS: 614
+global_step=2145560, episodic_return=-5247.0, episodic_length=5576
+SPS: 614
+global_step=2146464, episodic_return=-1022.0, episodic_length=1304
+SPS: 614
+global_step=2149864, episodic_return=-6682.0, episodic_length=6991
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 614
+SPS: 613
+SPS: 613
+global_step=2173688, episodic_return=-3193.0, episodic_length=3516
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2200464, episodic_return=-8770.0, episodic_length=9104
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2206960, episodic_return=-28300.0, episodic_length=28660
+SPS: 613
+global_step=2208136, episodic_return=-3973.0, episodic_length=4306
+SPS: 613
+SPS: 613
+global_step=2212080, episodic_return=-7856.0, episodic_length=8202
+global_step=2212856, episodic_return=-7533.0, episodic_length=7874
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2225592, episodic_return=-1881.0, episodic_length=2182
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2232632, episodic_return=-2206.0, episodic_length=2472
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2238936, episodic_return=-1370.0, episodic_length=1668
+global_step=2239720, episodic_return=-13250.0, episodic_length=13592
+SPS: 613
+SPS: 613
+global_step=2243096, episodic_return=-3590.0, episodic_length=3877
+SPS: 613
+SPS: 613
+global_step=2247280, episodic_return=-1565.0, episodic_length=1831
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2259904, episodic_return=-1326.0, episodic_length=1578
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2268360, episodic_return=-22650.0, episodic_length=22990
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2279016, episodic_return=-4676.0, episodic_length=5010
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2293648, episodic_return=-3952.0, episodic_length=4218
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2298608, episodic_return=-2126.0, episodic_length=2449
+SPS: 613
+global_step=2300184, episodic_return=-6783.0, episodic_length=7136
+global_step=2301832, episodic_return=-20082.0, episodic_length=20422
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2311120, episodic_return=-1260.0, episodic_length=1564
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2322208, episodic_return=-3305.0, episodic_length=3570
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2327192, episodic_return=-3056.0, episodic_length=3376
+global_step=2328408, episodic_return=-10746.0, episodic_length=11086
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2337072, episodic_return=-2913.0, episodic_length=3244
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+global_step=2346288, episodic_return=-2731.0, episodic_length=3010
+SPS: 613
+global_step=2348648, episodic_return=-1178.0, episodic_length=1447
+global_step=2348856, episodic_return=-2376.0, episodic_length=2708
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 613
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2362584, episodic_return=-1417.0, episodic_length=1716
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2368000, episodic_return=-2121.0, episodic_length=2419
+SPS: 612
+SPS: 612
+global_step=2371632, episodic_return=-2846.0, episodic_length=3168
+global_step=2373616, episodic_return=-1112.0, episodic_length=1379
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2381504, episodic_return=-1375.0, episodic_length=1688
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2387200, episodic_return=-7014.0, episodic_length=7349
+SPS: 612
+global_step=2388408, episodic_return=-1564.0, episodic_length=1849
+global_step=2389280, episodic_return=-1932.0, episodic_length=2206
+SPS: 612
+global_step=2390128, episodic_return=-783.0, episodic_length=1078
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2402384, episodic_return=-1365.0, episodic_length=1638
+global_step=2403776, episodic_return=-1593.0, episodic_length=1921
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2413080, episodic_return=-1074.0, episodic_length=1337
+global_step=2413392, episodic_return=-2584.0, episodic_length=2908
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2420800, episodic_return=-26371.0, episodic_length=26730
+global_step=2421696, episodic_return=-1951.0, episodic_length=2240
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2433872, episodic_return=-1224.0, episodic_length=1522
+global_step=2434560, episodic_return=-2330.0, episodic_length=2646
+SPS: 612
+global_step=2435272, episodic_return=-2484.0, episodic_length=2774
+global_step=2435808, episodic_return=-20583.0, episodic_length=20931
+SPS: 612
+SPS: 612
+global_step=2440464, episodic_return=-29744.0, episodic_length=30000
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2458408, episodic_return=-2744.0, episodic_length=3067
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2464952, episodic_return=-9378.0, episodic_length=9719
+global_step=2465768, episodic_return=-3570.0, episodic_length=3901
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+SPS: 612
+global_step=2482088, episodic_return=-2640.0, episodic_length=2960
+SPS: 612
+global_step=2484136, episodic_return=-5774.0, episodic_length=6108
+SPS: 612
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2497288, episodic_return=-1379.0, episodic_length=1644
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2506256, episodic_return=-4724.0, episodic_length=5061
+SPS: 611
+global_step=2507032, episodic_return=-2802.0, episodic_length=3118
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2522408, episodic_return=-2814.0, episodic_length=3140
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2535400, episodic_return=-3337.0, episodic_length=3643
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2541832, episodic_return=-29753.0, episodic_length=30000
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2553976, episodic_return=-3629.0, episodic_length=3946
+global_step=2555024, episodic_return=-10918.0, episodic_length=11259
+SPS: 611
+global_step=2556136, episodic_return=-5804.0, episodic_length=6138
+SPS: 611
+SPS: 611
+global_step=2561904, episodic_return=-2994.0, episodic_length=3313
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2571976, episodic_return=-1937.0, episodic_length=2250
+SPS: 611
+SPS: 611
+global_step=2576000, episodic_return=-243.0, episodic_length=503
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2587376, episodic_return=-2910.0, episodic_length=3184
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2594272, episodic_return=-19475.0, episodic_length=19808
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2602600, episodic_return=-5612.0, episodic_length=5947
+SPS: 611
+global_step=2603600, episodic_return=-3167.0, episodic_length=3450
+global_step=2603792, episodic_return=-1743.0, episodic_length=2052
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2614912, episodic_return=-1148.0, episodic_length=1414
+SPS: 611
+SPS: 611
+global_step=2619344, episodic_return=-304.0, episodic_length=554
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+SPS: 611
+global_step=2629112, episodic_return=-922.0, episodic_length=1221
+SPS: 611
+SPS: 611
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2640160, episodic_return=-1120.0, episodic_length=1381
+SPS: 610
+global_step=2643528, episodic_return=-10605.0, episodic_length=10924
+global_step=2643944, episodic_return=-4849.0, episodic_length=5168
+SPS: 610
+SPS: 610
+global_step=2647744, episodic_return=-12913.0, episodic_length=13239
+SPS: 610
+SPS: 610
+global_step=2651520, episodic_return=-28491.0, episodic_length=28840
+SPS: 610
+global_step=2653128, episodic_return=-5823.0, episodic_length=6167
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2663192, episodic_return=-2585.0, episodic_length=2879
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2675464, episodic_return=-3632.0, episodic_length=3940
+global_step=2676016, episodic_return=-2545.0, episodic_length=2861
+SPS: 610
+global_step=2678328, episodic_return=-1604.0, episodic_length=1892
+SPS: 610
+global_step=2680464, episodic_return=-29753.0, episodic_length=30000
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2685152, episodic_return=-4873.0, episodic_length=5203
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2697880, episodic_return=-2152.0, episodic_length=2444
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2706504, episodic_return=-804.0, episodic_length=1078
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2719224, episodic_return=-1340.0, episodic_length=1590
+SPS: 610
+global_step=2721336, episodic_return=-5322.0, episodic_length=5665
+SPS: 610
+SPS: 610
+global_step=2724632, episodic_return=-427.0, episodic_length=676
+SPS: 610
+global_step=2727800, episodic_return=-16357.0, episodic_length=16691
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2744264, episodic_return=-8264.0, episodic_length=8600
+SPS: 610
+global_step=2746064, episodic_return=-7301.0, episodic_length=7614
+SPS: 610
+global_step=2746816, episodic_return=-2498.0, episodic_length=2773
+SPS: 610
+SPS: 610
+global_step=2751040, episodic_return=-3397.0, episodic_length=3713
+SPS: 610
+global_step=2753400, episodic_return=-572.0, episodic_length=823
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2765824, episodic_return=-1276.0, episodic_length=1553
+SPS: 610
+global_step=2768488, episodic_return=-1865.0, episodic_length=2181
+SPS: 610
+SPS: 610
+global_step=2772944, episodic_return=-626.0, episodic_length=890
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2778056, episodic_return=-3685.0, episodic_length=3999
+SPS: 610
+global_step=2779312, episodic_return=-524.0, episodic_length=796
+SPS: 610
+global_step=2781456, episodic_return=-1309.0, episodic_length=1621
+global_step=2781832, episodic_return=-4365.0, episodic_length=4696
+SPS: 610
+SPS: 610
+global_step=2786512, episodic_return=-648.0, episodic_length=900
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2791696, episodic_return=-387.0, episodic_length=648
+SPS: 610
+SPS: 610
+SPS: 610
+global_step=2799312, episodic_return=-698.0, episodic_length=952
+SPS: 610
+SPS: 610
+SPS: 609
+global_step=2804472, episodic_return=-2553.0, episodic_length=2877
+SPS: 609
+SPS: 609
+global_step=2808624, episodic_return=-900.0, episodic_length=1164
+SPS: 609
+SPS: 609
+global_step=2813184, episodic_return=-808.0, episodic_length=1089
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2821400, episodic_return=-1331.0, episodic_length=1597
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2831184, episodic_return=-960.0, episodic_length=1223
+global_step=2831496, episodic_return=-5874.0, episodic_length=6208
+SPS: 609
+global_step=2834128, episodic_return=-2341.0, episodic_length=2618
+SPS: 609
+global_step=2835400, episodic_return=-278.0, episodic_length=527
+SPS: 609
+SPS: 609
+global_step=2839120, episodic_return=-214.0, episodic_length=465
+SPS: 609
+SPS: 609
+global_step=2842936, episodic_return=-7775.0, episodic_length=8110
+SPS: 609
+global_step=2845280, episodic_return=-14354.0, episodic_length=14685
+SPS: 609
+global_step=2847360, episodic_return=-778.0, episodic_length=1030
+SPS: 609
+SPS: 609
+global_step=2851936, episodic_return=-324.0, episodic_length=572
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2858048, episodic_return=-2670.0, episodic_length=2990
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2868816, episodic_return=-1823.0, episodic_length=2110
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2873512, episodic_return=-1667.0, episodic_length=1933
+global_step=2874200, episodic_return=-5007.0, episodic_length=5338
+SPS: 609
+SPS: 609
+global_step=2879016, episodic_return=-1025.0, episodic_length=1275
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2885784, episodic_return=-595.0, episodic_length=846
+SPS: 609
+global_step=2887744, episodic_return=-29795.0, episodic_length=30000
+global_step=2887760, episodic_return=-1472.0, episodic_length=1781
+SPS: 609
+global_step=2891520, episodic_return=-29746.0, episodic_length=30000
+global_step=2891712, episodic_return=-492.0, episodic_length=741
+SPS: 609
+SPS: 609
+global_step=2895680, episodic_return=-2388.0, episodic_length=2685
+SPS: 609
+global_step=2897048, episodic_return=-418.0, episodic_length=667
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2905256, episodic_return=-776.0, episodic_length=1026
+global_step=2905560, episodic_return=-1957.0, episodic_length=2225
+SPS: 609
+SPS: 609
+global_step=2910032, episodic_return=-8093.0, episodic_length=8387
+SPS: 609
+global_step=2911128, episodic_return=-1655.0, episodic_length=1931
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2916600, episodic_return=-1166.0, episodic_length=1418
+global_step=2918232, episodic_return=-1304.0, episodic_length=1584
+SPS: 609
+SPS: 609
+global_step=2920464, episodic_return=-29745.0, episodic_length=30000
+SPS: 609
+SPS: 609
+global_step=2925464, episodic_return=-835.0, episodic_length=1108
+global_step=2926024, episodic_return=-684.0, episodic_length=974
+global_step=2926160, episodic_return=-1599.0, episodic_length=1879
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2931272, episodic_return=-476.0, episodic_length=726
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2939464, episodic_return=-760.0, episodic_length=1024
+SPS: 609
+SPS: 609
+global_step=2943224, episodic_return=-1867.0, episodic_length=2150
+SPS: 609
+SPS: 609
+global_step=2947624, episodic_return=-2369.0, episodic_length=2683
+global_step=2947792, episodic_return=-767.0, episodic_length=1041
+SPS: 609
+global_step=2950888, episodic_return=-685.0, episodic_length=958
+SPS: 609
+SPS: 609
+global_step=2954104, episodic_return=-541.0, episodic_length=789
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2959736, episodic_return=-5910.0, episodic_length=6213
+SPS: 609
+global_step=2961912, episodic_return=-725.0, episodic_length=976
+global_step=2962032, episodic_return=-1104.0, episodic_length=1393
+SPS: 609
+SPS: 609
+global_step=2967240, episodic_return=-2147.0, episodic_length=2452
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2974896, episodic_return=-1372.0, episodic_length=1623
+SPS: 609
+global_step=2975784, episodic_return=-1415.0, episodic_length=1719
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=2990280, episodic_return=-2558.0, episodic_length=2880
+global_step=2991168, episodic_return=-1744.0, episodic_length=2034
+SPS: 609
+global_step=2993544, episodic_return=-3931.0, episodic_length=4226
+SPS: 609
+global_step=2994872, episodic_return=-2131.0, episodic_length=2386
+SPS: 609
+global_step=2997712, episodic_return=-643.0, episodic_length=929
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3004864, episodic_return=-607.0, episodic_length=894
+global_step=3005688, episodic_return=-1084.0, episodic_length=1352
+global_step=3006088, episodic_return=-1600.0, episodic_length=1865
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3011024, episodic_return=-393.0, episodic_length=667
+SPS: 609
+global_step=3013304, episodic_return=-2189.0, episodic_length=2470
+SPS: 609
+SPS: 609
+global_step=3018368, episodic_return=-1268.0, episodic_length=1535
+SPS: 609
+global_step=3019808, episodic_return=-1564.0, episodic_length=1868
+global_step=3020208, episodic_return=-21530.0, episodic_length=21866
+SPS: 609
+SPS: 609
+global_step=3022976, episodic_return=-1187.0, episodic_length=1494
+global_step=3023000, episodic_return=-16106.0, episodic_length=16435
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3029944, episodic_return=-1185.0, episodic_length=1447
+SPS: 609
+SPS: 609
+global_step=3034928, episodic_return=-1229.0, episodic_length=1494
+SPS: 609
+SPS: 609
+global_step=3037528, episodic_return=-694.0, episodic_length=948
+SPS: 609
+SPS: 609
+global_step=3042512, episodic_return=-2532.0, episodic_length=2838
+SPS: 609
+SPS: 609
+global_step=3046744, episodic_return=-1212.0, episodic_length=1477
+SPS: 609
+global_step=3048000, episodic_return=-1045.0, episodic_length=1309
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3056480, episodic_return=-5119.0, episodic_length=5397
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3062384, episodic_return=-2167.0, episodic_length=2484
+global_step=3062448, episodic_return=-1524.0, episodic_length=1806
+global_step=3062696, episodic_return=-1684.0, episodic_length=1994
+SPS: 609
+SPS: 609
+global_step=3067488, episodic_return=-321.0, episodic_length=599
+SPS: 609
+global_step=3068456, episodic_return=-488.0, episodic_length=751
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3075088, episodic_return=-1325.0, episodic_length=1588
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3080848, episodic_return=-1386.0, episodic_length=1670
+SPS: 609
+global_step=3082248, episodic_return=-1438.0, episodic_length=1724
+SPS: 609
+SPS: 609
+global_step=3086928, episodic_return=-3493.0, episodic_length=3806
+global_step=3087488, episodic_return=-567.0, episodic_length=830
+SPS: 609
+global_step=3089608, episodic_return=-669.0, episodic_length=920
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3096392, episodic_return=-588.0, episodic_length=848
+SPS: 609
+global_step=3097816, episodic_return=-2567.0, episodic_length=2841
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3103056, episodic_return=-1644.0, episodic_length=1946
+SPS: 609
+global_step=3105696, episodic_return=-911.0, episodic_length=1163
+SPS: 609
+SPS: 609
+global_step=3110408, episodic_return=-314.0, episodic_length=589
+SPS: 609
+global_step=3111416, episodic_return=-2784.0, episodic_length=3061
+SPS: 609
+global_step=3113688, episodic_return=-1047.0, episodic_length=1329
+SPS: 609
+SPS: 609
+global_step=3118520, episodic_return=-762.0, episodic_length=1014
+SPS: 609
+global_step=3119312, episodic_return=-2424.0, episodic_length=2687
+global_step=3120648, episodic_return=-592.0, episodic_length=870
+SPS: 609
+SPS: 609
+global_step=3124080, episodic_return=-433.0, episodic_length=695
+SPS: 609
+SPS: 609
+global_step=3127744, episodic_return=-29790.0, episodic_length=30000
+global_step=3128592, episodic_return=-734.0, episodic_length=993
+SPS: 609
+global_step=3130736, episodic_return=-20.0, episodic_length=268
+SPS: 609
+SPS: 609
+global_step=3133840, episodic_return=-956.0, episodic_length=1220
+global_step=3134032, episodic_return=-2546.0, episodic_length=2827
+SPS: 609
+global_step=3135984, episodic_return=-407.0, episodic_length=656
+SPS: 609
+global_step=3137704, episodic_return=-223.0, episodic_length=483
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3151488, episodic_return=-1458.0, episodic_length=1723
+SPS: 609
+global_step=3153856, episodic_return=-1932.0, episodic_length=2234
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3160464, episodic_return=-29749.0, episodic_length=30000
+global_step=3160936, episodic_return=-4890.0, episodic_length=5203
+global_step=3160960, episodic_return=-908.0, episodic_length=1184
+SPS: 609
+SPS: 609
+global_step=3166144, episodic_return=-386.0, episodic_length=648
+global_step=3166184, episodic_return=-1252.0, episodic_length=1541
+SPS: 609
+SPS: 609
+global_step=3169168, episodic_return=-716.0, episodic_length=1029
+SPS: 609
+global_step=3171272, episodic_return=-4368.0, episodic_length=4655
+global_step=3171320, episodic_return=-399.0, episodic_length=647
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3177408, episodic_return=-1137.0, episodic_length=1403
+SPS: 609
+SPS: 609
+global_step=3182320, episodic_return=-1115.0, episodic_length=1375
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3187864, episodic_return=-2030.0, episodic_length=2337
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3193384, episodic_return=-1699.0, episodic_length=1997
+SPS: 609
+global_step=3195616, episodic_return=-1399.0, episodic_length=1662
+SPS: 609
+global_step=3196976, episodic_return=-2923.0, episodic_length=3213
+SPS: 609
+SPS: 609
+global_step=3203032, episodic_return=-680.0, episodic_length=927
+SPS: 609
+SPS: 609
+global_step=3205256, episodic_return=-1194.0, episodic_length=1484
+global_step=3205856, episodic_return=-1946.0, episodic_length=2249
+SPS: 609
+global_step=3208088, episodic_return=-386.0, episodic_length=632
+SPS: 609
+SPS: 609
+global_step=3213072, episodic_return=-693.0, episodic_length=977
+SPS: 609
+SPS: 609
+global_step=3216400, episodic_return=-23853.0, episodic_length=24175
+global_step=3217368, episodic_return=-898.0, episodic_length=1160
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3223072, episodic_return=-464.0, episodic_length=713
+SPS: 609
+SPS: 609
+global_step=3227448, episodic_return=-1506.0, episodic_length=1797
+SPS: 609
+global_step=3227776, episodic_return=-2429.0, episodic_length=2740
+global_step=3228880, episodic_return=-465.0, episodic_length=726
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3235184, episodic_return=-540.0, episodic_length=788
+global_step=3235440, episodic_return=-711.0, episodic_length=999
+SPS: 609
+global_step=3236936, episodic_return=-4680.0, episodic_length=4995
+SPS: 609
+SPS: 609
+global_step=3240840, episodic_return=-460.0, episodic_length=707
+SPS: 609
+SPS: 609
+global_step=3245792, episodic_return=-983.0, episodic_length=1294
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3250960, episodic_return=-362.0, episodic_length=646
+SPS: 609
+global_step=3253768, episodic_return=-2927.0, episodic_length=3249
+SPS: 609
+global_step=3256224, episodic_return=-1671.0, episodic_length=1923
+SPS: 609
+SPS: 609
+global_step=3260208, episodic_return=-29745.0, episodic_length=30000
+SPS: 609
+global_step=3261376, episodic_return=-1027.0, episodic_length=1302
+global_step=3261760, episodic_return=-422.0, episodic_length=692
+SPS: 609
+SPS: 609
+global_step=3265264, episodic_return=-1185.0, episodic_length=1437
+SPS: 609
+global_step=3266888, episodic_return=-381.0, episodic_length=641
+SPS: 609
+global_step=3269528, episodic_return=-768.0, episodic_length=1019
+SPS: 609
+global_step=3272544, episodic_return=-438.0, episodic_length=707
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3278880, episodic_return=-894.0, episodic_length=1169
+global_step=3278928, episodic_return=-1408.0, episodic_length=1708
+global_step=3279784, episodic_return=-646.0, episodic_length=905
+global_step=3280720, episodic_return=-5156.0, episodic_length=5473
+SPS: 609
+SPS: 609
+global_step=3284496, episodic_return=-339.0, episodic_length=589
+SPS: 609
+global_step=3286440, episodic_return=-684.0, episodic_length=945
+SPS: 609
+global_step=3288064, episodic_return=-877.0, episodic_length=1142
+SPS: 609
+global_step=3290720, episodic_return=-529.0, episodic_length=778
+SPS: 609
+SPS: 609
+global_step=3295144, episodic_return=-635.0, episodic_length=885
+SPS: 609
+global_step=3296120, episodic_return=-945.0, episodic_length=1210
+SPS: 609
+global_step=3298584, episodic_return=-722.0, episodic_length=983
+SPS: 609
+global_step=3299904, episodic_return=-214.0, episodic_length=473
+SPS: 609
+SPS: 609
+global_step=3303904, episodic_return=-2591.0, episodic_length=2898
+SPS: 609
+SPS: 609
+global_step=3308192, episodic_return=-952.0, episodic_length=1201
+SPS: 609
+global_step=3310280, episodic_return=-1011.0, episodic_length=1297
+SPS: 609
+global_step=3313032, episodic_return=-345.0, episodic_length=605
+global_step=3313304, episodic_return=-1956.0, episodic_length=2270
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3317784, episodic_return=-675.0, episodic_length=938
+SPS: 609
+global_step=3321704, episodic_return=-206.0, episodic_length=490
+global_step=3321728, episodic_return=-767.0, episodic_length=1053
+SPS: 609
+global_step=3321976, episodic_return=-869.0, episodic_length=1118
+SPS: 609
+global_step=3325704, episodic_return=-2419.0, episodic_length=2725
+SPS: 609
+global_step=3327104, episodic_return=-378.0, episodic_length=672
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3332640, episodic_return=-1074.0, episodic_length=1333
+SPS: 609
+SPS: 609
+global_step=3336568, episodic_return=-1552.0, episodic_length=1858
+SPS: 609
+global_step=3339120, episodic_return=-548.0, episodic_length=810
+SPS: 609
+SPS: 609
+global_step=3343992, episodic_return=-1795.0, episodic_length=2111
+SPS: 609
+SPS: 609
+global_step=3347968, episodic_return=-1141.0, episodic_length=1425
+global_step=3348304, episodic_return=-873.0, episodic_length=1148
+SPS: 609
+SPS: 609
+global_step=3350736, episodic_return=-2820.0, episodic_length=3129
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3357968, episodic_return=-1472.0, episodic_length=1747
+SPS: 609
+global_step=3359760, episodic_return=-1160.0, episodic_length=1432
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3366480, episodic_return=-2007.0, episodic_length=2314
+SPS: 609
+global_step=3367744, episodic_return=-29879.0, episodic_length=30000
+global_step=3368072, episodic_return=-1893.0, episodic_length=2167
+global_step=3368536, episodic_return=-825.0, episodic_length=1097
+SPS: 609
+SPS: 609
+SPS: 609
+SPS: 609
+global_step=3376928, episodic_return=-2105.0, episodic_length=2370
+global_step=3377024, episodic_return=-812.0, episodic_length=1061
+SPS: 608
+global_step=3378440, episodic_return=-1187.0, episodic_length=1495
+SPS: 608
+SPS: 608
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3389280, episodic_return=-1269.0, episodic_length=1532
+SPS: 608
+SPS: 608
+global_step=3393064, episodic_return=-1539.0, episodic_length=1828
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3397944, episodic_return=-821.0, episodic_length=1083
+global_step=3398720, episodic_return=-3548.0, episodic_length=3831
+SPS: 608
+global_step=3400464, episodic_return=-29758.0, episodic_length=30000
+SPS: 608
+SPS: 608
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3410856, episodic_return=-1342.0, episodic_length=1614
+SPS: 608
+global_step=3413048, episodic_return=-1524.0, episodic_length=1791
+global_step=3413096, episodic_return=-2197.0, episodic_length=2504
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3418744, episodic_return=-702.0, episodic_length=986
+SPS: 608
+global_step=3420360, episodic_return=-622.0, episodic_length=908
+global_step=3420600, episodic_return=-5148.0, episodic_length=5459
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3426952, episodic_return=-1438.0, episodic_length=1738
+SPS: 608
+global_step=3428616, episodic_return=-964.0, episodic_length=1234
+SPS: 608
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3436872, episodic_return=-1772.0, episodic_length=2064
+SPS: 608
+global_step=3439464, episodic_return=-1083.0, episodic_length=1356
+global_step=3440072, episodic_return=-1356.0, episodic_length=1640
+SPS: 608
+global_step=3441952, episodic_return=-2362.0, episodic_length=2669
+SPS: 608
+SPS: 608
+global_step=3446104, episodic_return=-557.0, episodic_length=830
+SPS: 608
+SPS: 608
+global_step=3450120, episodic_return=-1355.0, episodic_length=1656
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3456400, episodic_return=-29910.0, episodic_length=30000
+SPS: 608
+global_step=3457232, episodic_return=-1128.0, episodic_length=1391
+global_step=3457944, episodic_return=-702.0, episodic_length=978
+SPS: 608
+SPS: 608
+global_step=3462112, episodic_return=-350.0, episodic_length=610
+SPS: 608
+SPS: 608
+global_step=3466496, episodic_return=-792.0, episodic_length=1069
+SPS: 608
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3474240, episodic_return=-1243.0, episodic_length=1516
+SPS: 608
+global_step=3476048, episodic_return=-4186.0, episodic_length=4497
+SPS: 608
+SPS: 608
+global_step=3479840, episodic_return=-4430.0, episodic_length=4736
+SPS: 608
+global_step=3482256, episodic_return=-742.0, episodic_length=1002
+SPS: 608
+global_step=3484080, episodic_return=-1896.0, episodic_length=2198
+SPS: 608
+global_step=3487528, episodic_return=-653.0, episodic_length=961
+SPS: 608
+global_step=3488864, episodic_return=-1304.0, episodic_length=1602
+global_step=3489648, episodic_return=-664.0, episodic_length=924
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3494832, episodic_return=-1042.0, episodic_length=1344
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3500208, episodic_return=-29745.0, episodic_length=30000
+SPS: 608
+global_step=3502296, episodic_return=-1560.0, episodic_length=1846
+global_step=3503000, episodic_return=-1517.0, episodic_length=1767
+global_step=3503728, episodic_return=-822.0, episodic_length=1112
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3509544, episodic_return=-2213.0, episodic_length=2487
+SPS: 608
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3517024, episodic_return=-674.0, episodic_length=935
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3523616, episodic_return=-2180.0, episodic_length=2486
+SPS: 608
+global_step=3525320, episodic_return=-2571.0, episodic_length=2878
+SPS: 608
+SPS: 608
+global_step=3529264, episodic_return=-1257.0, episodic_length=1530
+global_step=3530448, episodic_return=-369.0, episodic_length=641
+SPS: 608
+global_step=3531896, episodic_return=-3284.0, episodic_length=3612
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3537656, episodic_return=-773.0, episodic_length=1049
+SPS: 608
+global_step=3540328, episodic_return=-1771.0, episodic_length=2089
+SPS: 608
+SPS: 608
+global_step=3543304, episodic_return=-445.0, episodic_length=706
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3550392, episodic_return=-615.0, episodic_length=886
+SPS: 608
+global_step=3552376, episodic_return=-2435.0, episodic_length=2741
+global_step=3552648, episodic_return=-2289.0, episodic_length=2594
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3558152, episodic_return=-412.0, episodic_length=688
+global_step=3558160, episodic_return=-708.0, episodic_length=971
+global_step=3558472, episodic_return=-466.0, episodic_length=762
+SPS: 608
+global_step=3560424, episodic_return=-2204.0, episodic_length=2512
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3565928, episodic_return=-721.0, episodic_length=971
+global_step=3566568, episodic_return=-516.0, episodic_length=768
+SPS: 608
+global_step=3567896, episodic_return=-929.0, episodic_length=1178
+SPS: 608
+SPS: 608
+global_step=3571944, episodic_return=-490.0, episodic_length=752
+SPS: 608
+global_step=3573896, episodic_return=-618.0, episodic_length=916
+global_step=3575216, episodic_return=-1831.0, episodic_length=2133
+SPS: 608
+global_step=3576624, episodic_return=-325.0, episodic_length=585
+global_step=3577424, episodic_return=-892.0, episodic_length=1191
+SPS: 608
+SPS: 608
+global_step=3580344, episodic_return=-204.0, episodic_length=465
+SPS: 608
+SPS: 608
+global_step=3584552, episodic_return=-1041.0, episodic_length=1332
+SPS: 608
+global_step=3587000, episodic_return=-558.0, episodic_length=832
+SPS: 608
+SPS: 608
+global_step=3591640, episodic_return=-1774.0, episodic_length=2053
+SPS: 608
+global_step=3592704, episodic_return=-1624.0, episodic_length=1910
+SPS: 608
+global_step=3594952, episodic_return=-1000.0, episodic_length=1300
+global_step=3594968, episodic_return=-724.0, episodic_length=996
+SPS: 608
+SPS: 608
+global_step=3598576, episodic_return=-182.0, episodic_length=453
+global_step=3599848, episodic_return=-340.0, episodic_length=610
+SPS: 608
+global_step=3602304, episodic_return=-926.0, episodic_length=1200
+SPS: 608
+global_step=3604400, episodic_return=-467.0, episodic_length=728
+SPS: 608
+global_step=3605896, episodic_return=-475.0, episodic_length=756
+SPS: 608
+global_step=3607744, episodic_return=-29858.0, episodic_length=30000
+SPS: 608
+global_step=3609120, episodic_return=-142.0, episodic_length=403
+SPS: 608
+global_step=3610744, episodic_return=-2067.0, episodic_length=2388
+global_step=3611712, episodic_return=-630.0, episodic_length=914
+SPS: 608
+global_step=3614144, episodic_return=-369.0, episodic_length=628
+global_step=3614568, episodic_return=-1245.0, episodic_length=1533
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3619520, episodic_return=-690.0, episodic_length=976
+global_step=3619616, episodic_return=-414.0, episodic_length=684
+global_step=3619736, episodic_return=-846.0, episodic_length=1124
+SPS: 608
+SPS: 608
+global_step=3623408, episodic_return=-204.0, episodic_length=474
+global_step=3623904, episodic_return=-263.0, episodic_length=548
+SPS: 608
+SPS: 608
+global_step=3627600, episodic_return=-263.0, episodic_length=524
+global_step=3628592, episodic_return=-856.0, episodic_length=1107
+SPS: 608
+global_step=3629064, episodic_return=-1539.0, episodic_length=1812
+global_step=3630808, episodic_return=-588.0, episodic_length=863
+SPS: 608
+global_step=3632792, episodic_return=-380.0, episodic_length=649
+SPS: 608
+global_step=3634136, episodic_return=-166.0, episodic_length=416
+SPS: 608
+global_step=3636616, episodic_return=-229.0, episodic_length=478
+SPS: 608
+SPS: 608
+global_step=3640464, episodic_return=-29755.0, episodic_length=30000
+global_step=3640512, episodic_return=-240.0, episodic_length=487
+SPS: 608
+global_step=3642464, episodic_return=14.0, episodic_length=244
+SPS: 608
+global_step=3644688, episodic_return=-29.0, episodic_length=278
+global_step=3645080, episodic_return=-1060.0, episodic_length=1368
+global_step=3645240, episodic_return=-1794.0, episodic_length=2081
+SPS: 608
+global_step=3646856, episodic_return=-1925.0, episodic_length=2224
+SPS: 608
+global_step=3649288, episodic_return=-328.0, episodic_length=575
+SPS: 608
+SPS: 608
+global_step=3652448, episodic_return=-635.0, episodic_length=921
+SPS: 608
+global_step=3653752, episodic_return=-589.0, episodic_length=862
+SPS: 608
+global_step=3656960, episodic_return=-698.0, episodic_length=959
+SPS: 608
+SPS: 608
+global_step=3660112, episodic_return=-125.0, episodic_length=394
+global_step=3660448, episodic_return=-712.0, episodic_length=1000
+SPS: 608
+SPS: 608
+global_step=3664176, episodic_return=-247.0, episodic_length=508
+global_step=3664208, episodic_return=-2077.0, episodic_length=2371
+global_step=3665272, episodic_return=-317.0, episodic_length=603
+SPS: 608
+global_step=3667816, episodic_return=-1457.0, episodic_length=1758
+SPS: 608
+global_step=3669832, episodic_return=-448.0, episodic_length=707
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3674488, episodic_return=-551.0, episodic_length=834
+global_step=3675632, episodic_return=-997.0, episodic_length=1295
+global_step=3675648, episodic_return=-467.0, episodic_length=727
+SPS: 608
+SPS: 608
+global_step=3678840, episodic_return=-269.0, episodic_length=544
+global_step=3679680, episodic_return=-255.0, episodic_length=506
+SPS: 608
+SPS: 608
+global_step=3683608, episodic_return=-735.0, episodic_length=995
+SPS: 608
+global_step=3684424, episodic_return=-344.0, episodic_length=593
+global_step=3684600, episodic_return=-2261.0, episodic_length=2549
+global_step=3686104, episodic_return=-44.0, episodic_length=312
+SPS: 608
+SPS: 608
+global_step=3690128, episodic_return=-441.0, episodic_length=713
+SPS: 608
+global_step=3691656, episodic_return=-437.0, episodic_length=694
+SPS: 608
+global_step=3693464, episodic_return=-817.0, episodic_length=1108
+global_step=3693824, episodic_return=-13.0, episodic_length=271
+SPS: 608
+global_step=3695312, episodic_return=-1755.0, episodic_length=2059
+global_step=3696400, episodic_return=-29898.0, episodic_length=30000
+SPS: 608
+global_step=3696736, episodic_return=-552.0, episodic_length=826
+global_step=3698656, episodic_return=-345.0, episodic_length=604
+SPS: 608
+global_step=3700016, episodic_return=-148.0, episodic_length=410
+SPS: 608
+SPS: 608
+global_step=3702888, episodic_return=-673.0, episodic_length=947
+global_step=3703360, episodic_return=-327.0, episodic_length=588
+global_step=3704280, episodic_return=-248.0, episodic_length=533
+SPS: 608
+global_step=3705072, episodic_return=55.0, episodic_length=214
+global_step=3705360, episodic_return=-1196.0, episodic_length=1487
+SPS: 608
+SPS: 608
+global_step=3709320, episodic_return=-270.0, episodic_length=531
+SPS: 608
+SPS: 608
+global_step=3713536, episodic_return=-269.0, episodic_length=527
+SPS: 608
+global_step=3715608, episodic_return=-26568.0, episodic_length=26925
+global_step=3715736, episodic_return=-1009.0, episodic_length=1297
+global_step=3716496, episodic_return=-1240.0, episodic_length=1527
+SPS: 608
+global_step=3718056, episodic_return=-305.0, episodic_length=565
+global_step=3718760, episodic_return=-1686.0, episodic_length=1984
+SPS: 608
+SPS: 608
+global_step=3721320, episodic_return=-338.0, episodic_length=603
+global_step=3721672, episodic_return=-195.0, episodic_length=452
+SPS: 608
+global_step=3724760, episodic_return=-116.0, episodic_length=386
+SPS: 608
+global_step=3727064, episodic_return=-775.0, episodic_length=1038
+SPS: 608
+global_step=3728264, episodic_return=-596.0, episodic_length=868
+global_step=3729168, episodic_return=-302.0, episodic_length=551
+SPS: 608
+global_step=3731344, episodic_return=-1655.0, episodic_length=1951
+SPS: 608
+SPS: 608
+global_step=3734680, episodic_return=-429.0, episodic_length=689
+SPS: 608
+global_step=3735808, episodic_return=-683.0, episodic_length=943
+SPS: 608
+global_step=3739544, episodic_return=-205.0, episodic_length=467
+SPS: 608
+global_step=3739656, episodic_return=-361.0, episodic_length=622
+global_step=3741440, episodic_return=-1535.0, episodic_length=1797
+SPS: 608
+global_step=3743360, episodic_return=-1212.0, episodic_length=1502
+global_step=3743488, episodic_return=-220.0, episodic_length=479
+SPS: 608
+SPS: 608
+global_step=3746256, episodic_return=-552.0, episodic_length=839
+global_step=3746424, episodic_return=-109.0, episodic_length=367
+SPS: 608
+SPS: 608
+global_step=3750872, episodic_return=-297.0, episodic_length=556
+global_step=3751176, episodic_return=-342.0, episodic_length=615
+SPS: 608
+global_step=3753752, episodic_return=-1230.0, episodic_length=1539
+SPS: 608
+global_step=3754944, episodic_return=-1146.0, episodic_length=1448
+SPS: 608
+global_step=3756912, episodic_return=-496.0, episodic_length=755
+global_step=3757416, episodic_return=-482.0, episodic_length=780
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3762504, episodic_return=-439.0, episodic_length=699
+SPS: 608
+global_step=3765008, episodic_return=-970.0, episodic_length=1258
+SPS: 608
+global_step=3766288, episodic_return=-215.0, episodic_length=473
+global_step=3766408, episodic_return=-1307.0, episodic_length=1582
+global_step=3767144, episodic_return=-914.0, episodic_length=1216
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3773824, episodic_return=-810.0, episodic_length=1102
+SPS: 608
+global_step=3775040, episodic_return=-783.0, episodic_length=1079
+global_step=3775880, episodic_return=-938.0, episodic_length=1199
+global_step=3776456, episodic_return=-864.0, episodic_length=1164
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3781536, episodic_return=-680.0, episodic_length=964
+SPS: 608
+global_step=3784472, episodic_return=-108.0, episodic_length=367
+SPS: 608
+global_step=3784976, episodic_return=-877.0, episodic_length=1137
+SPS: 608
+SPS: 608
+global_step=3788872, episodic_return=-1266.0, episodic_length=1552
+SPS: 608
+global_step=3791336, episodic_return=-515.0, episodic_length=795
+global_step=3791392, episodic_return=-592.0, episodic_length=865
+global_step=3792480, episodic_return=-155.0, episodic_length=451
+SPS: 608
+SPS: 608
+global_step=3796184, episodic_return=-345.0, episodic_length=606
+global_step=3796696, episodic_return=-2417.0, episodic_length=2707
+SPS: 608
+SPS: 608
+global_step=3799792, episodic_return=-761.0, episodic_length=1050
+SPS: 608
+global_step=3801440, episodic_return=-299.0, episodic_length=593
+SPS: 608
+global_step=3803616, episodic_return=-668.0, episodic_length=929
+SPS: 608
+global_step=3805808, episodic_return=-1364.0, episodic_length=1666
+global_step=3807184, episodic_return=-187.0, episodic_length=446
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3812600, episodic_return=-1298.0, episodic_length=1601
+SPS: 608
+SPS: 608
+global_step=3815528, episodic_return=-928.0, episodic_length=1215
+global_step=3815696, episodic_return=-814.0, episodic_length=1064
+global_step=3817096, episodic_return=-1655.0, episodic_length=1957
+SPS: 608
+SPS: 608
+global_step=3820720, episodic_return=-369.0, episodic_length=628
+SPS: 608
+global_step=3822648, episodic_return=-938.0, episodic_length=1256
+global_step=3823496, episodic_return=-85.0, episodic_length=347
+SPS: 608
+SPS: 608
+global_step=3826784, episodic_return=-1120.0, episodic_length=1407
+global_step=3827624, episodic_return=-257.0, episodic_length=516
+SPS: 608
+SPS: 608
+global_step=3830712, episodic_return=-1430.0, episodic_length=1702
+global_step=3831264, episodic_return=-816.0, episodic_length=1077
+SPS: 608
+SPS: 608
+global_step=3835072, episodic_return=-672.0, episodic_length=931
+global_step=3835464, episodic_return=-799.0, episodic_length=1085
+SPS: 608
+SPS: 608
+global_step=3839944, episodic_return=-785.0, episodic_length=1085
+SPS: 608
+global_step=3841016, episodic_return=-473.0, episodic_length=743
+global_step=3841376, episodic_return=-24766.0, episodic_length=25114
+SPS: 608
+SPS: 608
+global_step=3844520, episodic_return=-1453.0, episodic_length=1726
+global_step=3844976, episodic_return=-927.0, episodic_length=1189
+SPS: 608
+global_step=3846400, episodic_return=-402.0, episodic_length=673
+global_step=3847744, episodic_return=-29845.0, episodic_length=30000
+SPS: 608
+SPS: 608
+global_step=3851040, episodic_return=-499.0, episodic_length=758
+SPS: 608
+global_step=3853640, episodic_return=-643.0, episodic_length=905
+SPS: 608
+SPS: 608
+global_step=3856432, episodic_return=-379.0, episodic_length=674
+global_step=3858112, episodic_return=-1964.0, episodic_length=2271
+global_step=3858352, episodic_return=-1457.0, episodic_length=1729
+SPS: 608
+global_step=3859232, episodic_return=-439.0, episodic_length=699
+SPS: 608
+SPS: 608
+global_step=3863408, episodic_return=-377.0, episodic_length=662
+SPS: 608
+global_step=3865192, episodic_return=-483.0, episodic_length=745
+global_step=3866176, episodic_return=-957.0, episodic_length=1218
+SPS: 608
+SPS: 608
+global_step=3870032, episodic_return=-346.0, episodic_length=605
+SPS: 608
+SPS: 608
+global_step=3873352, episodic_return=-955.0, episodic_length=1243
+global_step=3873512, episodic_return=-631.0, episodic_length=917
+global_step=3874808, episodic_return=-327.0, episodic_length=597
+SPS: 608
+SPS: 608
+SPS: 608
+global_step=3878944, episodic_return=-391.0, episodic_length=679
+SPS: 608
+global_step=3881512, episodic_return=-579.0, episodic_length=838
+SPS: 608
+global_step=3883728, episodic_return=-998.0, episodic_length=1297
+global_step=3883800, episodic_return=-2872.0, episodic_length=3181
+global_step=3884352, episodic_return=-416.0, episodic_length=676
+SPS: 608
+global_step=3887072, episodic_return=-436.0, episodic_length=695
+SPS: 608
+global_step=3888800, episodic_return=-257.0, episodic_length=556
+SPS: 608
+global_step=3890144, episodic_return=-125.0, episodic_length=384
+global_step=3890816, episodic_return=-592.0, episodic_length=886
+SPS: 608
+global_step=3891576, episodic_return=-678.0, episodic_length=972
+SPS: 608
+global_step=3893336, episodic_return=-308.0, episodic_length=567
+SPS: 608
+global_step=3895504, episodic_return=-400.0, episodic_length=670
+global_step=3895968, episodic_return=-370.0, episodic_length=644
+SPS: 607
+SPS: 607
+global_step=3900848, episodic_return=-642.0, episodic_length=939
+global_step=3901032, episodic_return=-362.0, episodic_length=633
+SPS: 607
+global_step=3901496, episodic_return=-490.0, episodic_length=749
+global_step=3902240, episodic_return=-1059.0, episodic_length=1333
+SPS: 607
+SPS: 607
+global_step=3905856, episodic_return=-274.0, episodic_length=545
+SPS: 607
+global_step=3908008, episodic_return=-586.0, episodic_length=872
+global_step=3908848, episodic_return=-727.0, episodic_length=1000
+SPS: 607
+global_step=3911480, episodic_return=-890.0, episodic_length=1155
+SPS: 607
+global_step=3911760, episodic_return=-8475.0, episodic_length=8798
+global_step=3912072, episodic_return=-519.0, episodic_length=777
+global_step=3912136, episodic_return=-254.0, episodic_length=516
+SPS: 607
+SPS: 607
+global_step=3916592, episodic_return=-273.0, episodic_length=557
+SPS: 607
+global_step=3918608, episodic_return=-557.0, episodic_length=817
+global_step=3918912, episodic_return=-972.0, episodic_length=1258
+SPS: 607
+global_step=3920120, episodic_return=-817.0, episodic_length=1080
+global_step=3921120, episodic_return=-281.0, episodic_length=566
+SPS: 607
+global_step=3923912, episodic_return=-393.0, episodic_length=663
+SPS: 607
+SPS: 607
+global_step=3927264, episodic_return=-483.0, episodic_length=768
+global_step=3927376, episodic_return=-173.0, episodic_length=433
+global_step=3927664, episodic_return=-809.0, episodic_length=1094
+SPS: 607
+global_step=3928840, episodic_return=-797.0, episodic_length=1090
+SPS: 607
+global_step=3931352, episodic_return=-238.0, episodic_length=497
+SPS: 607
+global_step=3932736, episodic_return=-405.0, episodic_length=684
+SPS: 607
+global_step=3935480, episodic_return=-256.0, episodic_length=516
+SPS: 607
+global_step=3936400, episodic_return=-29846.0, episodic_length=30000
+global_step=3937312, episodic_return=-906.0, episodic_length=1206
+SPS: 607
+SPS: 607
+global_step=3941328, episodic_return=-471.0, episodic_length=731
+global_step=3941928, episodic_return=-27925.0, episodic_length=28290
+global_step=3942096, episodic_return=-310.0, episodic_length=598
+SPS: 607
+global_step=3943880, episodic_return=-72.0, episodic_length=319
+SPS: 607
+global_step=3945792, episodic_return=-1329.0, episodic_length=1632
+SPS: 607
+global_step=3948416, episodic_return=-502.0, episodic_length=790
+SPS: 607
+SPS: 607
+SPS: 607
+global_step=3953768, episodic_return=-975.0, episodic_length=1236
+global_step=3954128, episodic_return=-756.0, episodic_length=1042
+SPS: 607
+global_step=3956608, episodic_return=-3165.0, episodic_length=3471
+SPS: 607
+global_step=3956880, episodic_return=-787.0, episodic_length=1058
+SPS: 607
+SPS: 607
+global_step=3961696, episodic_return=-670.0, episodic_length=946
+SPS: 607
+global_step=3964728, episodic_return=-1111.0, episodic_length=1370
+SPS: 607
+SPS: 607
+global_step=3968200, episodic_return=-1141.0, episodic_length=1415
+global_step=3968592, episodic_return=-601.0, episodic_length=862
+SPS: 607
+global_step=3970072, episodic_return=-1382.0, episodic_length=1683
+SPS: 607
+global_step=3972592, episodic_return=-725.0, episodic_length=983
+SPS: 607
+SPS: 607
+global_step=3976232, episodic_return=-682.0, episodic_length=955
+SPS: 607
+SPS: 607
+global_step=3980464, episodic_return=-1234.0, episodic_length=1533
+global_step=3980968, episodic_return=-330.0, episodic_length=592
+SPS: 607
+global_step=3982840, episodic_return=-1023.0, episodic_length=1281
+SPS: 607
+SPS: 607
+global_step=3985496, episodic_return=-356.0, episodic_length=629
+global_step=3986288, episodic_return=-392.0, episodic_length=665
+SPS: 607
+SPS: 607
+global_step=3990016, episodic_return=-267.0, episodic_length=565
+global_step=3991120, episodic_return=-332.0, episodic_length=604
+SPS: 607
+global_step=3991640, episodic_return=-841.0, episodic_length=1100
+global_step=3993336, episodic_return=-2625.0, episodic_length=2908
+SPS: 607
+global_step=3993800, episodic_return=-213.0, episodic_length=473
+SPS: 607
+global_step=3996096, episodic_return=-337.0, episodic_length=622
+SPS: 607
+global_step=3999328, episodic_return=-702.0, episodic_length=961
+global_step=3999352, episodic_return=-491.0, episodic_length=752
+SPS: 607
+global_step=4001776, episodic_return=-427.0, episodic_length=710
+SPS: 607
+global_step=4003064, episodic_return=-874.0, episodic_length=1158
+SPS: 607
+SPS: 607
+SPS: 607
+global_step=4008296, episodic_return=-373.0, episodic_length=654
+SPS: 607
+SPS: 607
+global_step=4012136, episodic_return=-995.0, episodic_length=1295
+global_step=4012344, episodic_return=-236.0, episodic_length=506
+global_step=4013568, episodic_return=-1491.0, episodic_length=1777
+SPS: 607
+global_step=4014152, episodic_return=8.0, episodic_length=252
+global_step=4016048, episodic_return=-1830.0, episodic_length=2090
+SPS: 607
+SPS: 607
+SPS: 607
+global_step=4020744, episodic_return=-750.0, episodic_length=1050
+SPS: 607
+global_step=4022520, episodic_return=-768.0, episodic_length=1046
+global_step=4023032, episodic_return=-615.0, episodic_length=873
+SPS: 607
+global_step=4026152, episodic_return=-204.0, episodic_length=454
+SPS: 607
+global_step=4026552, episodic_return=-441.0, episodic_length=726
+global_step=4027376, episodic_return=-295.0, episodic_length=543
+SPS: 607
+global_step=4030128, episodic_return=-160.0, episodic_length=447
+SPS: 607
+global_step=4031424, episodic_return=-248.0, episodic_length=506
+SPS: 607
+global_step=4033040, episodic_return=-564.0, episodic_length=861
+SPS: 607
+global_step=4035208, episodic_return=-2403.0, episodic_length=2705
+global_step=4036160, episodic_return=-127.0, episodic_length=390
+SPS: 607
+global_step=4037728, episodic_return=-528.0, episodic_length=788
+global_step=4038576, episodic_return=-786.0, episodic_length=1056
+SPS: 607
+global_step=4040192, episodic_return=-58.0, episodic_length=308
+SPS: 607
+global_step=4040768, episodic_return=-313.0, episodic_length=576
+SPS: 607
+global_step=4044264, episodic_return=-430.0, episodic_length=711
+SPS: 607
+global_step=4045312, episodic_return=-310.0, episodic_length=568
+global_step=4045936, episodic_return=-460.0, episodic_length=718
+SPS: 607
+global_step=4047632, episodic_return=47.0, episodic_length=212
+global_step=4048040, episodic_return=-1332.0, episodic_length=1604
+global_step=4048592, episodic_return=-152.0, episodic_length=410
+SPS: 607
+global_step=4049520, episodic_return=22.0, episodic_length=236
+global_step=4050664, episodic_return=-504.0, episodic_length=800
+SPS: 607
+global_step=4051864, episodic_return=-45.0, episodic_length=293
+SPS: 607
+global_step=4053400, episodic_return=-328.0, episodic_length=601
+global_step=4054184, episodic_return=-31.0, episodic_length=290
+SPS: 607
+global_step=4055416, episodic_return=-612.0, episodic_length=922
+SPS: 607
+global_step=4058080, episodic_return=-228.0, episodic_length=487
+global_step=4058280, episodic_return=-677.0, episodic_length=952
+SPS: 607
+SPS: 607
+global_step=4062240, episodic_return=-571.0, episodic_length=853
+global_step=4062280, episodic_return=-823.0, episodic_length=1110
+global_step=4062488, episodic_return=-301.0, episodic_length=551
+SPS: 607
+global_step=4064000, episodic_return=-454.0, episodic_length=715
+SPS: 607
+global_step=4066384, episodic_return=-227.0, episodic_length=487
+global_step=4067064, episodic_return=-313.0, episodic_length=598
+SPS: 607
+SPS: 607
+global_step=4069480, episodic_return=-138.0, episodic_length=387
+global_step=4070032, episodic_return=-108.0, episodic_length=371
+global_step=4070264, episodic_return=-501.0, episodic_length=783
+SPS: 607
+global_step=4071760, episodic_return=-894.0, episodic_length=1190
+global_step=4071920, episodic_return=22.0, episodic_length=236
+global_step=4072016, episodic_return=-70.0, episodic_length=317
+SPS: 607
+global_step=4074232, episodic_return=-200.0, episodic_length=496
+global_step=4075152, episodic_return=-133.0, episodic_length=392
+SPS: 607
+SPS: 607
+global_step=4079072, episodic_return=-241.0, episodic_length=490
+SPS: 607
+global_step=4079848, episodic_return=-696.0, episodic_length=991
+global_step=4081456, episodic_return=-50.0, episodic_length=298
+SPS: 607
+SPS: 607
+global_step=4084384, episodic_return=-984.0, episodic_length=1269
+SPS: 607
+global_step=4085864, episodic_return=-288.0, episodic_length=551
+global_step=4086264, episodic_return=-515.0, episodic_length=802
+global_step=4087744, episodic_return=-29854.0, episodic_length=30000
+SPS: 607
+global_step=4089840, episodic_return=-238.0, episodic_length=497
+SPS: 607
+SPS: 607
+global_step=4092088, episodic_return=-431.0, episodic_length=728
+global_step=4093032, episodic_return=-141.0, episodic_length=399
+global_step=4093896, episodic_return=-902.0, episodic_length=1189
+SPS: 607
+global_step=4095640, episodic_return=52.0, episodic_length=218
+global_step=4095912, episodic_return=-111.0, episodic_length=360
+SPS: 607
+global_step=4096048, episodic_return=-201.0, episodic_length=495
+global_step=4097872, episodic_return=13.0, episodic_length=245
+SPS: 607
+global_step=4099040, episodic_return=-101.0, episodic_length=374
+SPS: 607
+global_step=4100872, episodic_return=-3339.0, episodic_length=3639
+global_step=4101632, episodic_return=-477.0, episodic_length=749
+SPS: 607
+global_step=4102456, episodic_return=-133.0, episodic_length=427
+global_step=4103368, episodic_return=-428.0, episodic_length=687
+global_step=4103928, episodic_return=-23669.0, episodic_length=24021
+SPS: 607
+SPS: 607
+global_step=4107120, episodic_return=-414.0, episodic_length=686
+SPS: 607
+global_step=4108784, episodic_return=-418.0, episodic_length=677
+global_step=4109064, episodic_return=-543.0, episodic_length=826
+global_step=4109640, episodic_return=-57.0, episodic_length=315
+SPS: 607
+global_step=4111168, episodic_return=-1015.0, episodic_length=1287
+SPS: 607
+global_step=4113080, episodic_return=-278.0, episodic_length=537
+global_step=4113584, episodic_return=-315.0, episodic_length=565
+global_step=4114280, episodic_return=-305.0, episodic_length=580
+SPS: 607
+SPS: 607
+global_step=4118128, episodic_return=-576.0, episodic_length=870
+SPS: 607
+global_step=4118560, episodic_return=-426.0, episodic_length=685
+global_step=4118728, episodic_return=-286.0, episodic_length=556
+global_step=4120440, episodic_return=-563.0, episodic_length=857
+SPS: 607
+global_step=4120736, episodic_return=-26.0, episodic_length=272
+SPS: 607
+global_step=4122736, episodic_return=-229.0, episodic_length=501
+SPS: 607
+global_step=4124832, episodic_return=-257.0, episodic_length=549
+global_step=4125984, episodic_return=-397.0, episodic_length=656
+global_step=4126232, episodic_return=-762.0, episodic_length=1013
+SPS: 607
+global_step=4126760, episodic_return=-208.0, episodic_length=503
+SPS: 607
+global_step=4128856, episodic_return=-110.0, episodic_length=359
+global_step=4129456, episodic_return=-315.0, episodic_length=578
+SPS: 607
+global_step=4131416, episodic_return=-71.0, episodic_length=320
+SPS: 607
+global_step=4133200, episodic_return=-207.0, episodic_length=468
+global_step=4133848, episodic_return=-603.0, episodic_length=886
+SPS: 607
+global_step=4135336, episodic_return=-844.0, episodic_length=1138
+global_step=4136688, episodic_return=-389.0, episodic_length=659
+SPS: 607
+global_step=4137976, episodic_return=-233.0, episodic_length=516
+SPS: 607
+global_step=4139504, episodic_return=-249.0, episodic_length=521
+global_step=4140536, episodic_return=-222.0, episodic_length=481
+SPS: 607
+global_step=4141288, episodic_return=-153.0, episodic_length=414
+SPS: 607
+SPS: 607
+global_step=4146160, episodic_return=-360.0, episodic_length=609
+global_step=4147120, episodic_return=-564.0, episodic_length=823
+SPS: 607
+global_step=4148672, episodic_return=-1631.0, episodic_length=1934
+SPS: 607
+SPS: 607
+global_step=4151552, episodic_return=-375.0, episodic_length=674
+global_step=4151864, episodic_return=-127.0, episodic_length=399
+SPS: 607
+global_step=4153536, episodic_return=-543.0, episodic_length=802
+global_step=4155000, episodic_return=-160.0, episodic_length=431
+SPS: 607
+global_step=4155848, episodic_return=-212.0, episodic_length=498
+global_step=4156112, episodic_return=-74.0, episodic_length=322
+global_step=4157104, episodic_return=-1898.0, episodic_length=2200
+SPS: 607
+global_step=4158400, episodic_return=-132.0, episodic_length=425
+SPS: 607
+global_step=4160160, episodic_return=-248.0, episodic_length=506
+SPS: 607
+global_step=4162576, episodic_return=-240.0, episodic_length=522
+global_step=4162880, episodic_return=-582.0, episodic_length=879
+SPS: 607
+SPS: 607
+global_step=4166280, episodic_return=-504.0, episodic_length=765
+global_step=4167560, episodic_return=-328.0, episodic_length=623
+SPS: 607
+global_step=4168312, episodic_return=-392.0, episodic_length=679
+SPS: 607
+global_step=4171048, episodic_return=-348.0, episodic_length=596
+global_step=4171288, episodic_return=-1475.0, episodic_length=1773
+SPS: 607
+global_step=4172472, episodic_return=-8279.0, episodic_length=8568
+SPS: 607
+global_step=4174072, episodic_return=-532.0, episodic_length=814
+global_step=4174288, episodic_return=-453.0, episodic_length=747
+SPS: 607
+global_step=4176400, episodic_return=-29744.0, episodic_length=30000
+global_step=4176544, episodic_return=-415.0, episodic_length=687
+SPS: 607
+global_step=4179512, episodic_return=-398.0, episodic_length=680
+global_step=4179616, episodic_return=-767.0, episodic_length=1041
+global_step=4179912, episodic_return=-174.0, episodic_length=421
+SPS: 607
+global_step=4181928, episodic_return=-29735.0, episodic_length=30000
+SPS: 607
+global_step=4182296, episodic_return=-702.0, episodic_length=1001
+global_step=4182688, episodic_return=-87.0, episodic_length=347
+SPS: 607
+global_step=4185384, episodic_return=-127.0, episodic_length=386
+global_step=4185456, episodic_return=-446.0, episodic_length=743
+global_step=4185464, episodic_return=-460.0, episodic_length=731
+SPS: 607
+global_step=4187888, episodic_return=-391.0, episodic_length=650
+SPS: 607
+global_step=4189672, episodic_return=-285.0, episodic_length=536
+SPS: 607
+global_step=4190584, episodic_return=-86.0, episodic_length=337
+global_step=4191784, episodic_return=-506.0, episodic_length=791
+SPS: 607
+global_step=4194024, episodic_return=-771.0, episodic_length=1070
+SPS: 607
+global_step=4194448, episodic_return=-213.0, episodic_length=483
+global_step=4194512, episodic_return=-330.0, episodic_length=605
+SPS: 607
+global_step=4196616, episodic_return=-332.0, episodic_length=604
+SPS: 607
+global_step=4198584, episodic_return=-268.0, episodic_length=517
+global_step=4200256, episodic_return=-423.0, episodic_length=718
+SPS: 607
+global_step=4201632, episodic_return=-122.0, episodic_length=381
+SPS: 607
+global_step=4202768, episodic_return=-484.0, episodic_length=769
+global_step=4204032, episodic_return=-956.0, episodic_length=1251
+SPS: 607
+global_step=4204992, episodic_return=-6.0, episodic_length=278
+global_step=4205456, episodic_return=-220.0, episodic_length=478
+global_step=4206568, episodic_return=-526.0, episodic_length=789
+SPS: 607
+global_step=4208168, episodic_return=-90.0, episodic_length=339
+global_step=4208600, episodic_return=-180.0, episodic_length=451
+SPS: 607
+SPS: 607
+global_step=4212432, episodic_return=-274.0, episodic_length=533
+SPS: 607
+global_step=4214320, episodic_return=-1023.0, episodic_length=1286
+global_step=4214536, episodic_return=-482.0, episodic_length=742
+SPS: 607
+global_step=4216592, episodic_return=-955.0, episodic_length=1253
+SPS: 607
+SPS: 607
+global_step=4220128, episodic_return=-426.0, episodic_length=699
+SPS: 607
+global_step=4222264, episodic_return=-426.0, episodic_length=709
+global_step=4222872, episodic_return=-82.0, episodic_length=343
+SPS: 607
+global_step=4224688, episodic_return=-1262.0, episodic_length=1532
+global_step=4224760, episodic_return=-1022.0, episodic_length=1305
+SPS: 607
+SPS: 607
+global_step=4227136, episodic_return=-56.0, episodic_length=306
+global_step=4227776, episodic_return=-314.0, episodic_length=613
+SPS: 607
+global_step=4229408, episodic_return=-35.0, episodic_length=284
+global_step=4229744, episodic_return=-651.0, episodic_length=935
+global_step=4230144, episodic_return=-377.0, episodic_length=673
+global_step=4230840, episodic_return=-110.0, episodic_length=383
+SPS: 607
+global_step=4232688, episodic_return=-162.0, episodic_length=410
+SPS: 607
+SPS: 607
+SPS: 607
+global_step=4237880, episodic_return=-755.0, episodic_length=1017
+global_step=4238400, episodic_return=-759.0, episodic_length=1032
+global_step=4238704, episodic_return=-702.0, episodic_length=983
+SPS: 607
+global_step=4240152, episodic_return=78.0, episodic_length=181
+global_step=4240200, episodic_return=-690.0, episodic_length=939
+SPS: 607
+global_step=4242144, episodic_return=16.0, episodic_length=243
+global_step=4243072, episodic_return=-386.0, episodic_length=649
+SPS: 607
+global_step=4245088, episodic_return=-111.0, episodic_length=368
+SPS: 607
+global_step=4246104, episodic_return=-470.0, episodic_length=744
+SPS: 607
+global_step=4248456, episodic_return=-173.0, episodic_length=421
+global_step=4248712, episodic_return=-445.0, episodic_length=705
+global_step=4249096, episodic_return=-1065.0, episodic_length=1337
+SPS: 607
+global_step=4250256, episodic_return=-259.0, episodic_length=519
+global_step=4251512, episodic_return=-88.0, episodic_length=350
+SPS: 607
+SPS: 607
+global_step=4254824, episodic_return=-298.0, episodic_length=571
+global_step=4255424, episodic_return=-602.0, episodic_length=871
+global_step=4255488, episodic_return=-514.0, episodic_length=799
+SPS: 607
+SPS: 607
+global_step=4258912, episodic_return=-235.0, episodic_length=511
+SPS: 607
+global_step=4260840, episodic_return=-883.0, episodic_length=1166
+SPS: 607
+global_step=4263552, episodic_return=-756.0, episodic_length=1016
+SPS: 607
+global_step=4264536, episodic_return=-432.0, episodic_length=703
+global_step=4265600, episodic_return=-7.0, episodic_length=256
+SPS: 607
+global_step=4266608, episodic_return=-438.0, episodic_length=721
+global_step=4266776, episodic_return=-1139.0, episodic_length=1411
+SPS: 607
+global_step=4268864, episodic_return=-160.0, episodic_length=408
+global_step=4269504, episodic_return=-339.0, episodic_length=621
+SPS: 607
+global_step=4270856, episodic_return=-226.0, episodic_length=510
+global_step=4271952, episodic_return=-35.0, episodic_length=306
+global_step=4271960, episodic_return=-139.0, episodic_length=387
+SPS: 607
+SPS: 607
+global_step=4275280, episodic_return=-155.0, episodic_length=415
+global_step=4275912, episodic_return=-223.0, episodic_length=495
+global_step=4276096, episodic_return=-902.0, episodic_length=1186
+SPS: 607
+global_step=4277344, episodic_return=0.0, episodic_length=258
+SPS: 607
+global_step=4279320, episodic_return=-772.0, episodic_length=1058
+global_step=4280128, episodic_return=-257.0, episodic_length=527
+SPS: 607
+global_step=4281816, episodic_return=-453.0, episodic_length=715
+global_step=4282120, episodic_return=-350.0, episodic_length=597
+SPS: 607
+global_step=4282536, episodic_return=-30.0, episodic_length=301
+SPS: 607
+SPS: 607
+global_step=4287616, episodic_return=-439.0, episodic_length=687
+global_step=4288224, episodic_return=-451.0, episodic_length=711
+SPS: 607
+global_step=4288520, episodic_return=-564.0, episodic_length=838
+global_step=4289152, episodic_return=-931.0, episodic_length=1229
+SPS: 607
+SPS: 607
+global_step=4293096, episodic_return=-359.0, episodic_length=609
+global_step=4293496, episodic_return=-475.0, episodic_length=735
+global_step=4294176, episodic_return=-431.0, episodic_length=707
+global_step=4294528, episodic_return=-387.0, episodic_length=672
+SPS: 607
+global_step=4295848, episodic_return=-70.0, episodic_length=344
+SPS: 607
+global_step=4296944, episodic_return=-172.0, episodic_length=431
+SPS: 607
+global_step=4298880, episodic_return=-302.0, episodic_length=588
+global_step=4299336, episodic_return=-51.0, episodic_length=299
+global_step=4300344, episodic_return=-288.0, episodic_length=562
+global_step=4300384, episodic_return=-444.0, episodic_length=732
+SPS: 607
+global_step=4302112, episodic_return=-130.0, episodic_length=404
+SPS: 607
+global_step=4303520, episodic_return=-150.0, episodic_length=397
+global_step=4304072, episodic_return=-333.0, episodic_length=592
+SPS: 607
+global_step=4305184, episodic_return=62.0, episodic_length=208
+global_step=4305912, episodic_return=-385.0, episodic_length=691
+SPS: 607
+global_step=4307368, episodic_return=6.0, episodic_length=273
+global_step=4307408, episodic_return=-168.0, episodic_length=417
+SPS: 607
+global_step=4309008, episodic_return=-567.0, episodic_length=862
+global_step=4309232, episodic_return=17.0, episodic_length=233
+global_step=4309368, episodic_return=-159.0, episodic_length=432
+global_step=4310048, episodic_return=-82.0, episodic_length=330
+SPS: 607
+global_step=4312688, episodic_return=-202.0, episodic_length=460
+SPS: 607
+global_step=4313584, episodic_return=-194.0, episodic_length=442
+SPS: 607
+global_step=4315496, episodic_return=-521.0, episodic_length=783
+SPS: 607
+global_step=4317664, episodic_return=-252.0, episodic_length=510
+global_step=4318408, episodic_return=-443.0, episodic_length=715
+SPS: 607
+global_step=4319640, episodic_return=-247.0, episodic_length=518
+global_step=4320040, episodic_return=-1048.0, episodic_length=1334
+SPS: 607
+global_step=4321784, episodic_return=-267.0, episodic_length=515
+global_step=4322496, episodic_return=-76.0, episodic_length=357
+SPS: 607
+global_step=4323544, episodic_return=-382.0, episodic_length=642
+global_step=4325160, episodic_return=-172.0, episodic_length=422
+SPS: 607
+global_step=4326120, episodic_return=-486.0, episodic_length=760
+global_step=4326576, episodic_return=-97.0, episodic_length=379
+SPS: 607
+global_step=4327488, episodic_return=-353.0, episodic_length=624
+global_step=4327624, episodic_return=-60.0, episodic_length=308
+global_step=4327744, episodic_return=-29737.0, episodic_length=30000
+SPS: 607
+global_step=4329696, episodic_return=-29.0, episodic_length=276
+global_step=4330440, episodic_return=-102.0, episodic_length=352
+global_step=4331240, episodic_return=-299.0, episodic_length=583
+SPS: 607
+SPS: 607
+global_step=4334088, episodic_return=-279.0, episodic_length=549
+SPS: 607
+global_step=4335968, episodic_return=-442.0, episodic_length=691
+global_step=4336256, episodic_return=-328.0, episodic_length=627
+global_step=4336336, episodic_return=-33.0, episodic_length=281
+global_step=4337240, episodic_return=-1096.0, episodic_length=1390
+SPS: 607
+global_step=4339056, episodic_return=-140.0, episodic_length=386
+SPS: 607
+SPS: 607
+global_step=4342600, episodic_return=-521.0, episodic_length=793
+global_step=4342848, episodic_return=-451.0, episodic_length=701
+global_step=4342896, episodic_return=-232.0, episodic_length=480
+SPS: 607
+global_step=4345128, episodic_return=-45.0, episodic_length=316
+SPS: 607
+global_step=4346344, episodic_return=-977.0, episodic_length=1251
+global_step=4346448, episodic_return=-196.0, episodic_length=444
+SPS: 607
+global_step=4349488, episodic_return=-120.0, episodic_length=393
+global_step=4349576, episodic_return=-274.0, episodic_length=556
+SPS: 607
+global_step=4350920, episodic_return=-300.0, episodic_length=559
+SPS: 607
+global_step=4352384, episodic_return=-89.0, episodic_length=362
+global_step=4352784, episodic_return=-530.0, episodic_length=792
+global_step=4353512, episodic_return=-76.0, episodic_length=324
+global_step=4353848, episodic_return=-271.0, episodic_length=534
+SPS: 607
+SPS: 607
+global_step=4356360, episodic_return=-227.0, episodic_length=497
+SPS: 607
+global_step=4358168, episodic_return=-311.0, episodic_length=582
+global_step=4359728, episodic_return=63.0, episodic_length=195
+global_step=4360168, episodic_return=-205.0, episodic_length=476
+SPS: 607
+global_step=4361384, episodic_return=-805.0, episodic_length=1075
+SPS: 607
+global_step=4362968, episodic_return=-841.0, episodic_length=1140
+global_step=4363936, episodic_return=-199.0, episodic_length=471
+SPS: 607
+global_step=4364616, episodic_return=-360.0, episodic_length=611
+SPS: 607
+global_step=4366984, episodic_return=-417.0, episodic_length=700
+global_step=4368312, episodic_return=-213.0, episodic_length=462
+global_step=4368320, episodic_return=-276.0, episodic_length=548
+SPS: 607
+SPS: 607
+global_step=4370440, episodic_return=-673.0, episodic_length=934
+global_step=4370928, episodic_return=-78.0, episodic_length=327
+global_step=4372472, episodic_return=57.0, episodic_length=193
+SPS: 607
+global_step=4372752, episodic_return=-284.0, episodic_length=554
+global_step=4372944, episodic_return=-463.0, episodic_length=745
+SPS: 607
+global_step=4375552, episodic_return=-366.0, episodic_length=639
+global_step=4375616, episodic_return=-145.0, episodic_length=393
+SPS: 607
+global_step=4376704, episodic_return=-213.0, episodic_length=494
+global_step=4378336, episodic_return=-399.0, episodic_length=674
+SPS: 607
+global_step=4379944, episodic_return=-292.0, episodic_length=541
+SPS: 607
+global_step=4381016, episodic_return=-25710.0, episodic_length=26068
+global_step=4382096, episodic_return=-11.0, episodic_length=269
+global_step=4382376, episodic_return=-256.0, episodic_length=505
+global_step=4382608, episodic_return=-585.0, episodic_length=882
+SPS: 607
+global_step=4382848, episodic_return=-496.0, episodic_length=768
+global_step=4384768, episodic_return=-85.0, episodic_length=334
+SPS: 607
+global_step=4385672, episodic_return=-95.0, episodic_length=353
+global_step=4386600, episodic_return=19.0, episodic_length=229
+global_step=4386744, episodic_return=-264.0, episodic_length=546
+SPS: 607
+global_step=4388280, episodic_return=39.0, episodic_length=210
+SPS: 607
+global_step=4389984, episodic_return=-257.0, episodic_length=539
+SPS: 607
+global_step=4392400, episodic_return=-930.0, episodic_length=1224
+global_step=4392424, episodic_return=-268.0, episodic_length=518
+SPS: 607
+global_step=4393880, episodic_return=66.0, episodic_length=182
+global_step=4393976, episodic_return=-227.0, episodic_length=499
+global_step=4394768, episodic_return=-710.0, episodic_length=1003
+SPS: 607
+global_step=4395584, episodic_return=46.0, episodic_length=213
+global_step=4395672, episodic_return=-146.0, episodic_length=409
+SPS: 607
+global_step=4398520, episodic_return=-197.0, episodic_length=469
+global_step=4398792, episodic_return=-152.0, episodic_length=401
+SPS: 607
+global_step=4400984, episodic_return=-390.0, episodic_length=664
+global_step=4401048, episodic_return=-24.0, episodic_length=282
+SPS: 607
+global_step=4402336, episodic_return=-762.0, episodic_length=1045
+SPS: 607
+global_step=4404344, episodic_return=-160.0, episodic_length=420
+global_step=4404472, episodic_return=-179.0, episodic_length=428
+SPS: 607
+global_step=4406560, episodic_return=-270.0, episodic_length=528
+SPS: 607
+global_step=4407320, episodic_return=-98.0, episodic_length=356
+global_step=4407760, episodic_return=-904.0, episodic_length=1155
+SPS: 607
+global_step=4409680, episodic_return=-36.0, episodic_length=295
+global_step=4409992, episodic_return=-434.0, episodic_length=706
+global_step=4410336, episodic_return=-191.0, episodic_length=472
+SPS: 607
+global_step=4412152, episodic_return=-61.0, episodic_length=309
+global_step=4412840, episodic_return=-84.0, episodic_length=356
+global_step=4413112, episodic_return=-64.0, episodic_length=347
+SPS: 607
+SPS: 607
+global_step=4416400, episodic_return=-29740.0, episodic_length=30000
+global_step=4417504, episodic_return=-420.0, episodic_length=669
+SPS: 607
+global_step=4418600, episodic_return=-415.0, episodic_length=686
+global_step=4418816, episodic_return=-1097.0, episodic_length=1382
+SPS: 607
+global_step=4419632, episodic_return=-556.0, episodic_length=849
+global_step=4421392, episodic_return=-78.0, episodic_length=349
+global_step=4421576, episodic_return=-261.0, episodic_length=509
+SPS: 607
+global_step=4421928, episodic_return=-29730.0, episodic_length=30000
+global_step=4422856, episodic_return=-224.0, episodic_length=505
+SPS: 607
+global_step=4424632, episodic_return=-133.0, episodic_length=382
+global_step=4424984, episodic_return=-386.0, episodic_length=669
+SPS: 607
+global_step=4426464, episodic_return=-352.0, episodic_length=634
+global_step=4427104, episodic_return=-258.0, episodic_length=531
+SPS: 607
+global_step=4427832, episodic_return=-130.0, episodic_length=400
+SPS: 607
+global_step=4429832, episodic_return=-334.0, episodic_length=606
+global_step=4429888, episodic_return=-8.0, episodic_length=257
+global_step=4430488, episodic_return=-161.0, episodic_length=423
+global_step=4430752, episodic_return=-266.0, episodic_length=536
+SPS: 607
+SPS: 607
+global_step=4434384, episodic_return=-315.0, episodic_length=562
+global_step=4435872, episodic_return=-358.0, episodic_length=640
+SPS: 607
+SPS: 607
+global_step=4438432, episodic_return=-724.0, episodic_length=993
+global_step=4438808, episodic_return=-827.0, episodic_length=1122
+global_step=4439680, episodic_return=-404.0, episodic_length=662
+SPS: 607
+global_step=4441904, episodic_return=-19.0, episodic_length=278
+SPS: 607
+global_step=4443416, episodic_return=-300.0, episodic_length=576
+global_step=4443424, episodic_return=-672.0, episodic_length=944
+global_step=4444096, episodic_return=-27.0, episodic_length=274
+SPS: 607
+global_step=4445968, episodic_return=-658.0, episodic_length=942
+global_step=4446080, episodic_return=1.0, episodic_length=248
+SPS: 607
+global_step=4446608, episodic_return=-115.0, episodic_length=399
+SPS: 607
+global_step=4448696, episodic_return=-77.0, episodic_length=327
+global_step=4450048, episodic_return=-557.0, episodic_length=828
+SPS: 607
+global_step=4451568, episodic_return=-100.0, episodic_length=359
+global_step=4451776, episodic_return=-465.0, episodic_length=726
+SPS: 607
+global_step=4453640, episodic_return=-12.0, episodic_length=259
+SPS: 607
+global_step=4454600, episodic_return=-311.0, episodic_length=569
+global_step=4454944, episodic_return=-754.0, episodic_length=1042
+global_step=4455280, episodic_return=53.0, episodic_length=205
+global_step=4456088, episodic_return=-254.0, episodic_length=539
+SPS: 607
+global_step=4457376, episodic_return=-78.0, episodic_length=347
+global_step=4457856, episodic_return=-91.0, episodic_length=364
+SPS: 607
+global_step=4458568, episodic_return=-163.0, episodic_length=411
+global_step=4459304, episodic_return=29.0, episodic_length=241
+SPS: 607
+global_step=4462392, episodic_return=-228.0, episodic_length=478
+global_step=4462576, episodic_return=-149.0, episodic_length=409
+SPS: 607
+global_step=4463656, episodic_return=-4935.0, episodic_length=5216
+global_step=4463776, episodic_return=-455.0, episodic_length=740
+global_step=4463888, episodic_return=85.0, episodic_length=164
+global_step=4464496, episodic_return=-777.0, episodic_length=1051
+SPS: 607
+global_step=4465136, episodic_return=-95.0, episodic_length=343
+global_step=4466416, episodic_return=-67.0, episodic_length=330
+SPS: 607
+global_step=4467432, episodic_return=-118.0, episodic_length=367
+global_step=4468120, episodic_return=-268.0, episodic_length=529
+global_step=4468664, episodic_return=-194.0, episodic_length=441
+SPS: 607
+SPS: 607
+global_step=4471688, episodic_return=-261.0, episodic_length=532
+global_step=4472520, episodic_return=-234.0, episodic_length=482
+SPS: 607
+global_step=4473024, episodic_return=-528.0, episodic_length=826
+global_step=4474592, episodic_return=-112.0, episodic_length=363
+SPS: 607
+global_step=4474888, episodic_return=-48.0, episodic_length=296
+global_step=4476224, episodic_return=-753.0, episodic_length=1013
+global_step=4476608, episodic_return=-11613.0, episodic_length=11949
+SPS: 607
+global_step=4476984, episodic_return=-14.0, episodic_length=262
+global_step=4477480, episodic_return=-285.0, episodic_length=557
+SPS: 607
+global_step=4479744, episodic_return=-97.0, episodic_length=345
+global_step=4479968, episodic_return=-220.0, episodic_length=468
+SPS: 607
+global_step=4482024, episodic_return=-271.0, episodic_length=568
+global_step=4482544, episodic_return=-103.0, episodic_length=350
+SPS: 607
+global_step=4483592, episodic_return=-193.0, episodic_length=453
+global_step=4483936, episodic_return=-870.0, episodic_length=1168
+global_step=4484224, episodic_return=37.0, episodic_length=210
+SPS: 607
+global_step=4485176, episodic_return=128.0, episodic_length=119
+global_step=4485816, episodic_return=-180.0, episodic_length=474
+SPS: 607
+global_step=4487472, episodic_return=-212.0, episodic_length=485
+global_step=4488160, episodic_return=-244.0, episodic_length=528
+global_step=4488208, episodic_return=-120.0, episodic_length=379
+SPS: 607
+global_step=4490784, episodic_return=-75.0, episodic_length=322
+SPS: 607
+global_step=4491320, episodic_return=-199.0, episodic_length=481
+global_step=4492776, episodic_return=-317.0, episodic_length=577
+SPS: 607
+global_step=4493720, episodic_return=-106.0, episodic_length=367
+global_step=4493792, episodic_return=-39.0, episodic_length=309
+global_step=4494440, episodic_return=-792.0, episodic_length=1078
+SPS: 607
+global_step=4495976, episodic_return=-23.0, episodic_length=282
+global_step=4496160, episodic_return=-154.0, episodic_length=423
+SPS: 607
+global_step=4497432, episodic_return=66.0, episodic_length=182
+global_step=4498680, episodic_return=-341.0, episodic_length=611
+SPS: 607
+global_step=4499784, episodic_return=-170.0, episodic_length=453
+global_step=4499832, episodic_return=-41.0, episodic_length=300
+SPS: 607
+global_step=4502520, episodic_return=-69.0, episodic_length=342
+global_step=4502896, episodic_return=-266.0, episodic_length=527
+SPS: 607
+global_step=4503632, episodic_return=-217.0, episodic_length=475
+global_step=4503648, episodic_return=-877.0, episodic_length=1151
+SPS: 607
+global_step=4505848, episodic_return=-18.0, episodic_length=277
+global_step=4505856, episodic_return=-137.0, episodic_length=417
+SPS: 607
+global_step=4507736, episodic_return=-244.0, episodic_length=511
+global_step=4507760, episodic_return=9.0, episodic_length=239
+global_step=4509352, episodic_return=-558.0, episodic_length=807
+SPS: 607
+global_step=4510864, episodic_return=-352.0, episodic_length=626
+global_step=4511296, episodic_return=-193.0, episodic_length=442
+SPS: 607
+global_step=4512264, episodic_return=-303.0, episodic_length=566
+global_step=4512456, episodic_return=104.0, episodic_length=145
+SPS: 607
+global_step=4514208, episodic_return=17.0, episodic_length=243
+global_step=4514664, episodic_return=-28.0, episodic_length=276
+SPS: 607
+global_step=4516320, episodic_return=-599.0, episodic_length=871
+global_step=4516376, episodic_return=-396.0, episodic_length=689
+global_step=4516808, episodic_return=-20.0, episodic_length=268
+SPS: 607
+global_step=4518088, episodic_return=89.0, episodic_length=160
+global_step=4518104, episodic_return=-205.0, episodic_length=487
+global_step=4518904, episodic_return=-45.0, episodic_length=316
+SPS: 607
+global_step=4520512, episodic_return=-55.0, episodic_length=303
+global_step=4521928, episodic_return=-439.0, episodic_length=701
+SPS: 607
+global_step=4523080, episodic_return=-73.0, episodic_length=321
+global_step=4523536, episodic_return=-284.0, episodic_length=579
+SPS: 607
+global_step=4524088, episodic_return=122.0, episodic_length=126
+global_step=4524688, episodic_return=-539.0, episodic_length=823
+SPS: 607
+global_step=4526208, episodic_return=4.0, episodic_length=265
+global_step=4526992, episodic_return=-361.0, episodic_length=633
+global_step=4527968, episodic_return=26.0, episodic_length=220
+SPS: 607
+global_step=4528576, episodic_return=-222.0, episodic_length=486
+global_step=4529040, episodic_return=-381.0, episodic_length=688
+SPS: 607
+global_step=4530728, episodic_return=-86.0, episodic_length=345
+global_step=4531824, episodic_return=-154.0, episodic_length=406
+SPS: 607
+global_step=4533176, episodic_return=-235.0, episodic_length=517
+global_step=4533288, episodic_return=-73.0, episodic_length=320
+SPS: 607
+global_step=4534448, episodic_return=-658.0, episodic_length=932
+global_step=4535096, episodic_return=34.0, episodic_length=226
+global_step=4536160, episodic_return=-270.0, episodic_length=542
+SPS: 607
+global_step=4536472, episodic_return=6.0, episodic_length=253
+global_step=4536808, episodic_return=-169.0, episodic_length=454
+global_step=4538200, episodic_return=45.0, episodic_length=216
+SPS: 607
+global_step=4538464, episodic_return=-173.0, episodic_length=421
+global_step=4540272, episodic_return=21.0, episodic_length=226
+SPS: 607
+global_step=4542032, episodic_return=-209.0, episodic_length=479
+SPS: 607
+global_step=4543016, episodic_return=-561.0, episodic_length=857
+global_step=4543024, episodic_return=-95.0, episodic_length=344
+global_step=4544360, episodic_return=-20.0, episodic_length=291
+SPS: 607
+global_step=4545304, episodic_return=-35.0, episodic_length=285
+global_step=4545472, episodic_return=-795.0, episodic_length=1083
+SPS: 607
+global_step=4546960, episodic_return=-209.0, episodic_length=493
+global_step=4547640, episodic_return=-138.0, episodic_length=410
+global_step=4547664, episodic_return=-36.0, episodic_length=295
+SPS: 607
+global_step=4549304, episodic_return=42.0, episodic_length=205
+global_step=4550232, episodic_return=-343.0, episodic_length=595
+SPS: 607
+global_step=4551344, episodic_return=-262.0, episodic_length=548
+global_step=4551672, episodic_return=-47.0, episodic_length=296
+SPS: 607
+global_step=4553608, episodic_return=8.0, episodic_length=242
+global_step=4554080, episodic_return=-193.0, episodic_length=481
+SPS: 607
+global_step=4556040, episodic_return=-780.0, episodic_length=1050
+global_step=4556080, episodic_return=-49.0, episodic_length=309
+SPS: 607
+global_step=4558224, episodic_return=1.0, episodic_length=268
+SPS: 607
+global_step=4559016, episodic_return=-670.0, episodic_length=959
+global_step=4559792, episodic_return=52.0, episodic_length=196
+SPS: 607
+global_step=4561392, episodic_return=-398.0, episodic_length=669
+global_step=4561864, episodic_return=-699.0, episodic_length=973
+global_step=4562728, episodic_return=81.0, episodic_length=167
+SPS: 607
+global_step=4563104, episodic_return=-167.0, episodic_length=414
+global_step=4563968, episodic_return=-356.0, episodic_length=619
+SPS: 607
+global_step=4565984, episodic_return=-110.0, episodic_length=360
+SPS: 607
+global_step=4567400, episodic_return=-154.0, episodic_length=429
+global_step=4567744, episodic_return=-29735.0, episodic_length=30000
+global_step=4567960, episodic_return=1.0, episodic_length=247
+SPS: 607
+global_step=4569672, episodic_return=-677.0, episodic_length=976
+global_step=4569824, episodic_return=14.0, episodic_length=233
+global_step=4569992, episodic_return=-637.0, episodic_length=908
+global_step=4570616, episodic_return=-151.0, episodic_length=402
+SPS: 607
+global_step=4571880, episodic_return=-9.0, episodic_length=257
+global_step=4572720, episodic_return=-72.0, episodic_length=341
+global_step=4573136, episodic_return=92.0, episodic_length=157
+SPS: 607
+global_step=4574168, episodic_return=-180.0, episodic_length=444
+global_step=4574888, episodic_return=29.0, episodic_length=219
+SPS: 607
+global_step=4576728, episodic_return=17.0, episodic_length=230
+global_step=4577272, episodic_return=-677.0, episodic_length=950
+SPS: 607
+global_step=4577408, episodic_return=-304.0, episodic_length=586
+global_step=4578024, episodic_return=-220.0, episodic_length=482
+global_step=4578680, episodic_return=2.0, episodic_length=244
+SPS: 607
+global_step=4581088, episodic_return=-213.0, episodic_length=460
+SPS: 607
+global_step=4581560, episodic_return=-243.0, episodic_length=536
+global_step=4582336, episodic_return=-199.0, episodic_length=457
+global_step=4582944, episodic_return=-366.0, episodic_length=615
+SPS: 607
+global_step=4583848, episodic_return=69.0, episodic_length=189
+global_step=4583888, episodic_return=-78.0, episodic_length=350
+SPS: 607
+global_step=4586064, episodic_return=-280.0, episodic_length=563
+global_step=4586240, episodic_return=-51.0, episodic_length=299
+global_step=4586624, episodic_return=-71.0, episodic_length=342
+SPS: 607
+global_step=4587968, episodic_return=32.0, episodic_length=216
+global_step=4588272, episodic_return=-415.0, episodic_length=666
+SPS: 607
+global_step=4590216, episodic_return=-269.0, episodic_length=519
+global_step=4590304, episodic_return=-188.0, episodic_length=460
+global_step=4591168, episodic_return=-153.0, episodic_length=400
+SPS: 607
+global_step=4592520, episodic_return=-255.0, episodic_length=531
+global_step=4592792, episodic_return=-30.0, episodic_length=311
+global_step=4592840, episodic_return=49.0, episodic_length=209
+SPS: 607
+SPS: 607
+global_step=4596784, episodic_return=-259.0, episodic_length=533
+global_step=4597376, episodic_return=-291.0, episodic_length=573
+SPS: 606
+global_step=4598096, episodic_return=-711.0, episodic_length=985
+global_step=4598440, episodic_return=-443.0, episodic_length=700
+global_step=4599696, episodic_return=-93.0, episodic_length=364
+SPS: 606
+global_step=4601048, episodic_return=-67.0, episodic_length=326
+global_step=4601312, episodic_return=-221.0, episodic_length=492
+global_step=4601528, episodic_return=-167.0, episodic_length=429
+SPS: 606
+global_step=4602320, episodic_return=-66.0, episodic_length=328
+SPS: 606
+global_step=4604944, episodic_return=-166.0, episodic_length=427
+global_step=4605320, episodic_return=-104.0, episodic_length=375
+global_step=4605440, episodic_return=-290.0, episodic_length=549
+SPS: 606
+global_step=4606752, episodic_return=-408.0, episodic_length=680
+global_step=4607616, episodic_return=-5.0, episodic_length=287
+SPS: 606
+global_step=4608280, episodic_return=-96.0, episodic_length=355
+SPS: 606
+global_step=4610384, episodic_return=-186.0, episodic_length=454
+global_step=4611280, episodic_return=-533.0, episodic_length=792
+global_step=4611456, episodic_return=-148.0, episodic_length=397
+global_step=4611672, episodic_return=-16547.0, episodic_length=16883
+SPS: 606
+global_step=4612320, episodic_return=17.0, episodic_length=242
+global_step=4612472, episodic_return=-310.0, episodic_length=607
+global_step=4613584, episodic_return=-17.0, episodic_length=266
+SPS: 606
+global_step=4615056, episodic_return=-72.0, episodic_length=342
+global_step=4616088, episodic_return=-307.0, episodic_length=601
+SPS: 606
+global_step=4616560, episodic_return=-238.0, episodic_length=511
+global_step=4616680, episodic_return=-128.0, episodic_length=387
+SPS: 606
+global_step=4619184, episodic_return=-65.0, episodic_length=313
+global_step=4619192, episodic_return=-247.0, episodic_length=517
+SPS: 606
+global_step=4621480, episodic_return=-16.0, episodic_length=286
+global_step=4621696, episodic_return=-438.0, episodic_length=701
+global_step=4621760, episodic_return=-377.0, episodic_length=650
+global_step=4622160, episodic_return=-114.0, episodic_length=372
+SPS: 606
+global_step=4624264, episodic_return=-15.0, episodic_length=263
+SPS: 606
+global_step=4624608, episodic_return=-19753.0, episodic_length=20119
+global_step=4625016, episodic_return=-113.0, episodic_length=407
+global_step=4626408, episodic_return=-342.0, episodic_length=616
+SPS: 606
+global_step=4626528, episodic_return=-33.0, episodic_length=283
+global_step=4627536, episodic_return=-470.0, episodic_length=730
+SPS: 606
+global_step=4628680, episodic_return=-21.0, episodic_length=269
+global_step=4629800, episodic_return=-315.0, episodic_length=598
+global_step=4630312, episodic_return=55.0, episodic_length=204
+SPS: 606
+global_step=4630760, episodic_return=-274.0, episodic_length=544
+global_step=4631960, episodic_return=-283.0, episodic_length=553
+global_step=4632344, episodic_return=-6.0, episodic_length=254
+SPS: 606
+global_step=4633144, episodic_return=-27.0, episodic_length=298
+global_step=4633696, episodic_return=78.0, episodic_length=169
+SPS: 606
+global_step=4635728, episodic_return=-457.0, episodic_length=741
+SPS: 606
+global_step=4637216, episodic_return=-238.0, episodic_length=509
+global_step=4637328, episodic_return=-206.0, episodic_length=454
+SPS: 606
+global_step=4638976, episodic_return=63.0, episodic_length=206
+global_step=4639920, episodic_return=-707.0, episodic_length=995
+SPS: 606
+global_step=4641832, episodic_return=-108.0, episodic_length=357
+global_step=4642304, episodic_return=-560.0, episodic_length=822
+SPS: 606
+global_step=4644000, episodic_return=-23.0, episodic_length=271
+global_step=4644632, episodic_return=-656.0, episodic_length=927
+SPS: 606
+global_step=4645728, episodic_return=31.0, episodic_length=216
+global_step=4645760, episodic_return=-446.0, episodic_length=730
+global_step=4645792, episodic_return=-151.0, episodic_length=436
+SPS: 606
+global_step=4647536, episodic_return=-103.0, episodic_length=363
+global_step=4648264, episodic_return=-71.0, episodic_length=317
+SPS: 606
+global_step=4649320, episodic_return=70.0, episodic_length=223
+global_step=4649736, episodic_return=-235.0, episodic_length=497
+global_step=4649928, episodic_return=53.0, episodic_length=208
+SPS: 606
+global_step=4651824, episodic_return=-478.0, episodic_length=754
+global_step=4652536, episodic_return=-76.0, episodic_length=326
+global_step=4653048, episodic_return=-193.0, episodic_length=466
+SPS: 606
+global_step=4655032, episodic_return=-64.0, episodic_length=312
+global_step=4655040, episodic_return=-128.0, episodic_length=402
+SPS: 606
+global_step=4656400, episodic_return=-29737.0, episodic_length=30000
+global_step=4657000, episodic_return=4.0, episodic_length=246
+SPS: 606
+global_step=4657312, episodic_return=-251.0, episodic_length=533
+global_step=4657384, episodic_return=-682.0, episodic_length=956
+global_step=4658504, episodic_return=-149.0, episodic_length=433
+global_step=4658744, episodic_return=30.0, episodic_length=218
+SPS: 606
+global_step=4660600, episodic_return=16.0, episodic_length=232
+global_step=4661000, episodic_return=-202.0, episodic_length=452
+SPS: 606
+global_step=4661512, episodic_return=-90.0, episodic_length=376
+global_step=4662056, episodic_return=67.0, episodic_length=182
+global_step=4663264, episodic_return=-473.0, episodic_length=744
+SPS: 606
+global_step=4663936, episodic_return=-73.0, episodic_length=367
+global_step=4664584, episodic_return=-69.0, episodic_length=316
+SPS: 606
+global_step=4665616, episodic_return=120.0, episodic_length=129
+global_step=4666776, episodic_return=-155.0, episodic_length=439
+SPS: 606
+global_step=4667504, episodic_return=22.0, episodic_length=236
+global_step=4668064, episodic_return=-536.0, episodic_length=819
+global_step=4668456, episodic_return=-292.0, episodic_length=565
+SPS: 606
+global_step=4670136, episodic_return=-70.0, episodic_length=329
+global_step=4670200, episodic_return=-168.0, episodic_length=428
+SPS: 606
+global_step=4672320, episodic_return=5.0, episodic_length=265
+global_step=4672368, episodic_return=-275.0, episodic_length=538
+global_step=4673344, episodic_return=-153.0, episodic_length=401
+SPS: 606
+global_step=4673664, episodic_return=-367.0, episodic_length=651
+global_step=4675152, episodic_return=33.0, episodic_length=226
+SPS: 606
+global_step=4676920, episodic_return=-293.0, episodic_length=575
+SPS: 606
+global_step=4678552, episodic_return=-477.0, episodic_length=773
+global_step=4679328, episodic_return=-273.0, episodic_length=522
+SPS: 606
+global_step=4680328, episodic_return=-163.0, episodic_length=426
+global_step=4680736, episodic_return=72.0, episodic_length=176
+global_step=4680992, episodic_return=-633.0, episodic_length=916
+global_step=4681704, episodic_return=-112.0, episodic_length=394
+SPS: 606
+global_step=4683280, episodic_return=-59.0, episodic_length=318
+SPS: 606
+global_step=4684952, episodic_return=-318.0, episodic_length=578
+global_step=4685192, episodic_return=20.0, episodic_length=239
+global_step=4685200, episodic_return=-253.0, episodic_length=526
+SPS: 606
+global_step=4687080, episodic_return=-390.0, episodic_length=672
+global_step=4687280, episodic_return=-18.0, episodic_length=291
+global_step=4687360, episodic_return=-23.0, episodic_length=271
+SPS: 606
+global_step=4688536, episodic_return=91.0, episodic_length=157
+global_step=4689224, episodic_return=-209.0, episodic_length=503
+global_step=4689880, episodic_return=-57.0, episodic_length=315
+SPS: 606
+global_step=4690592, episodic_return=-154.0, episodic_length=439
+SPS: 606
+global_step=4692000, episodic_return=-14.0, episodic_length=265
+global_step=4692520, episodic_return=-227.0, episodic_length=498
+global_step=4692600, episodic_return=-173.0, episodic_length=422
+SPS: 606
+global_step=4695712, episodic_return=-216.0, episodic_length=464
+global_step=4695912, episodic_return=-155.0, episodic_length=414
+SPS: 606
+global_step=4696248, episodic_return=-408.0, episodic_length=707
+global_step=4697168, episodic_return=-312.0, episodic_length=581
+global_step=4697488, episodic_return=25.0, episodic_length=222
+SPS: 606
+SPS: 606
+global_step=4700336, episodic_return=-137.0, episodic_length=396
+global_step=4700416, episodic_return=-118.0, episodic_length=366
+global_step=4702040, episodic_return=-441.0, episodic_length=724
+SPS: 606
+global_step=4702760, episodic_return=-32.0, episodic_length=303
+global_step=4702776, episodic_return=-46.0, episodic_length=295
+global_step=4703032, episodic_return=-595.0, episodic_length=890
+SPS: 606
+global_step=4705312, episodic_return=-70.0, episodic_length=319
+global_step=4705680, episodic_return=-71.0, episodic_length=331
+global_step=4705744, episodic_return=-181.0, episodic_length=463
+SPS: 606
+global_step=4706720, episodic_return=-244.0, episodic_length=493
+global_step=4707272, episodic_return=26.0, episodic_length=245
+SPS: 606
+global_step=4708448, episodic_return=31.0, episodic_length=216
+global_step=4708680, episodic_return=84.0, episodic_length=176
+global_step=4708752, episodic_return=-115.0, episodic_length=376
+global_step=4709064, episodic_return=-163.0, episodic_length=423
+global_step=4709752, episodic_return=124.0, episodic_length=134
+SPS: 606
+global_step=4711768, episodic_return=-167.0, episodic_length=415
+global_step=4712224, episodic_return=-133.0, episodic_length=395
+SPS: 606
+global_step=4712816, episodic_return=-101.0, episodic_length=383
+global_step=4712832, episodic_return=-236.0, episodic_length=510
+global_step=4714000, episodic_return=-10816.0, episodic_length=11174
+SPS: 606
+global_step=4715616, episodic_return=-101.0, episodic_length=350
+global_step=4715944, episodic_return=-273.0, episodic_length=522
+global_step=4716400, episodic_return=-250.0, episodic_length=522
+SPS: 606
+global_step=4717352, episodic_return=51.0, episodic_length=217
+SPS: 606
+global_step=4718688, episodic_return=-95.0, episodic_length=343
+global_step=4718840, episodic_return=-13061.0, episodic_length=13396
+global_step=4718976, episodic_return=-482.0, episodic_length=768
+global_step=4720072, episodic_return=-70.0, episodic_length=340
+SPS: 606
+global_step=4721472, episodic_return=-101.0, episodic_length=348
+global_step=4722536, episodic_return=-482.0, episodic_length=767
+SPS: 606
+global_step=4723000, episodic_return=-252.0, episodic_length=503
+global_step=4724728, episodic_return=-319.0, episodic_length=582
+global_step=4724736, episodic_return=-160.0, episodic_length=408
+SPS: 606
+global_step=4726592, episodic_return=16.0, episodic_length=232
+SPS: 606
+global_step=4727176, episodic_return=-253.0, episodic_length=522
+global_step=4727920, episodic_return=-400.0, episodic_length=673
+global_step=4727992, episodic_return=-147.0, episodic_length=408
+SPS: 606
+global_step=4729968, episodic_return=-173.0, episodic_length=422
+global_step=4730088, episodic_return=-102.0, episodic_length=364
+SPS: 606
+global_step=4731200, episodic_return=-130.0, episodic_length=401
+global_step=4731336, episodic_return=-144.0, episodic_length=427
+global_step=4731584, episodic_return=46.0, episodic_length=202
+SPS: 606
+global_step=4733288, episodic_return=-116.0, episodic_length=400
+global_step=4733768, episodic_return=-43.0, episodic_length=304
+global_step=4734640, episodic_return=-135.0, episodic_length=382
+SPS: 606
+global_step=4735224, episodic_return=-233.0, episodic_length=503
+SPS: 606
+global_step=4737944, episodic_return=-317.0, episodic_length=582
+global_step=4738392, episodic_return=-328.0, episodic_length=578
+global_step=4738616, episodic_return=-238.0, episodic_length=497
+SPS: 607
+global_step=4739600, episodic_return=-287.0, episodic_length=547
+global_step=4740520, episodic_return=8.0, episodic_length=238
+SPS: 606
+global_step=4741544, episodic_return=28.0, episodic_length=243
+global_step=4741576, episodic_return=-126.0, episodic_length=398
+SPS: 606
+global_step=4743640, episodic_return=-407.0, episodic_length=712
+global_step=4743904, episodic_return=-176.0, episodic_length=423
+SPS: 606
+global_step=4745344, episodic_return=-202.0, episodic_length=475
+global_step=4745560, episodic_return=41.0, episodic_length=207
+global_step=4746928, episodic_return=-409.0, episodic_length=669
+SPS: 606
+global_step=4747712, episodic_return=-25.0, episodic_length=296
+global_step=4748960, episodic_return=-176.0, episodic_length=425
+global_step=4749128, episodic_return=-15.0, episodic_length=275
+SPS: 606
+global_step=4750920, episodic_return=-119.0, episodic_length=401
+global_step=4751096, episodic_return=-645.0, episodic_length=932
+SPS: 606
+global_step=4752112, episodic_return=-146.0, episodic_length=394
+global_step=4753328, episodic_return=-33.0, episodic_length=301
+SPS: 606
+global_step=4753968, episodic_return=-75.0, episodic_length=359
+global_step=4755272, episodic_return=-136.0, episodic_length=395
+SPS: 606
+global_step=4755792, episodic_return=-49.0, episodic_length=308
+global_step=4756648, episodic_return=75.0, episodic_length=172
+SPS: 606
+global_step=4757960, episodic_return=-240.0, episodic_length=499
+global_step=4758664, episodic_return=-110.0, episodic_length=359
+global_step=4759368, episodic_return=-91.0, episodic_length=340
+SPS: 606
+global_step=4759720, episodic_return=-446.0, episodic_length=719
+global_step=4760896, episodic_return=56.0, episodic_length=191
+global_step=4761208, episodic_return=-57.0, episodic_length=318
+SPS: 606
+global_step=4762128, episodic_return=-236.0, episodic_length=521
+global_step=4762176, episodic_return=88.0, episodic_length=160
+global_step=4763616, episodic_return=67.0, episodic_length=180
+SPS: 606
+global_step=4763840, episodic_return=-234.0, episodic_length=515
+global_step=4764064, episodic_return=-87.0, episodic_length=357
+global_step=4765096, episodic_return=64.0, episodic_length=185
+global_step=4765312, episodic_return=-125.0, episodic_length=398
+SPS: 606
+SPS: 606
+global_step=4767792, episodic_return=-88.0, episodic_length=337
+global_step=4768368, episodic_return=-269.0, episodic_length=538
+global_step=4769528, episodic_return=-429.0, episodic_length=711
+global_step=4769536, episodic_return=-269.0, episodic_length=528
+global_step=4769632, episodic_return=18.0, episodic_length=230
+SPS: 606
+global_step=4771680, episodic_return=-140.0, episodic_length=414
+global_step=4771696, episodic_return=-10.0, episodic_length=258
+SPS: 606
+global_step=4773312, episodic_return=45.0, episodic_length=202
+SPS: 606
+global_step=4774248, episodic_return=-307.0, episodic_length=589
+global_step=4774864, episodic_return=-373.0, episodic_length=667
+SPS: 606
+global_step=4777448, episodic_return=-50.0, episodic_length=323
+global_step=4777784, episodic_return=-156.0, episodic_length=442
+SPS: 606
+global_step=4778272, episodic_return=-371.0, episodic_length=620
+global_step=4778416, episodic_return=-572.0, episodic_length=842
+SPS: 606
+global_step=4780488, episodic_return=-29.0, episodic_length=277
+SPS: 606
+global_step=4782152, episodic_return=-195.0, episodic_length=467
+global_step=4782616, episodic_return=-373.0, episodic_length=646
+global_step=4783840, episodic_return=-171.0, episodic_length=419
+SPS: 606
+global_step=4784720, episodic_return=-607.0, episodic_length=867
+global_step=4785032, episodic_return=-31.0, episodic_length=302
+global_step=4785120, episodic_return=-100.0, episodic_length=371
+SPS: 606
+global_step=4786192, episodic_return=-45.0, episodic_length=294
+global_step=4787688, episodic_return=-81.0, episodic_length=332
+global_step=4788176, episodic_return=-123.0, episodic_length=382
+SPS: 606
+global_step=4788728, episodic_return=-71.0, episodic_length=317
+global_step=4789896, episodic_return=101.0, episodic_length=146
+SPS: 606
+global_step=4790408, episodic_return=-69.0, episodic_length=340
+global_step=4791048, episodic_return=-532.0, episodic_length=791
+global_step=4791816, episodic_return=7.0, episodic_length=240
+SPS: 606
+global_step=4793136, episodic_return=-362.0, episodic_length=620
+global_step=4794048, episodic_return=-183.0, episodic_length=455
+SPS: 606
+global_step=4794688, episodic_return=-9730.0, episodic_length=10086
+global_step=4795872, episodic_return=-259.0, episodic_length=507
+global_step=4796344, episodic_return=-388.0, episodic_length=662
+SPS: 606
+global_step=4796800, episodic_return=-60.0, episodic_length=344
+global_step=4797328, episodic_return=76.0, episodic_length=182
+global_step=4798224, episodic_return=-366.0, episodic_length=636
+SPS: 606
+global_step=4799408, episodic_return=-112.0, episodic_length=383
+global_step=4799568, episodic_return=-9756.0, episodic_length=10091
+global_step=4800192, episodic_return=-162.0, episodic_length=424
+global_step=4800272, episodic_return=-99.0, episodic_length=368
+SPS: 606
+global_step=4801592, episodic_return=-11.0, episodic_length=273
+global_step=4801656, episodic_return=90.0, episodic_length=183
+global_step=4801696, episodic_return=-149.0, episodic_length=434
+SPS: 606
+global_step=4802792, episodic_return=-67.0, episodic_length=315
+SPS: 606
+global_step=4805016, episodic_return=-149.0, episodic_length=420
+global_step=4806000, episodic_return=-268.0, episodic_length=538
+global_step=4806360, episodic_return=-177.0, episodic_length=446
+SPS: 606
+global_step=4807208, episodic_return=-405.0, episodic_length=702
+global_step=4807744, episodic_return=-29734.0, episodic_length=30000
+global_step=4808648, episodic_return=-62.0, episodic_length=331
+SPS: 606
+global_step=4809664, episodic_return=-56.0, episodic_length=307
+global_step=4810440, episodic_return=-262.0, episodic_length=510
+SPS: 606
+global_step=4810824, episodic_return=-18954.0, episodic_length=19303
+global_step=4810984, episodic_return=-9.0, episodic_length=292
+global_step=4812728, episodic_return=-108.0, episodic_length=383
+global_step=4812752, episodic_return=-30.0, episodic_length=289
+SPS: 606
+global_step=4813416, episodic_return=-766.0, episodic_length=1050
+global_step=4814408, episodic_return=40.0, episodic_length=207
+SPS: 606
+global_step=4814944, episodic_return=-226.0, episodic_length=495
+global_step=4815504, episodic_return=-66.0, episodic_length=347
+global_step=4815960, episodic_return=-34.0, episodic_length=318
+global_step=4816208, episodic_return=23.0, episodic_length=225
+SPS: 606
+global_step=4817304, episodic_return=-23.0, episodic_length=295
+global_step=4818896, episodic_return=-164.0, episodic_length=424
+SPS: 606
+global_step=4820040, episodic_return=-249.0, episodic_length=510
+global_step=4820936, episodic_return=-342.0, episodic_length=591
+SPS: 606
+global_step=4821840, episodic_return=-296.0, episodic_length=567
+global_step=4822680, episodic_return=29.0, episodic_length=218
+global_step=4822688, episodic_return=-69.0, episodic_length=331
+SPS: 606
+global_step=4823344, episodic_return=-294.0, episodic_length=556
+global_step=4824896, episodic_return=-29.0, episodic_length=277
+global_step=4824968, episodic_return=-109.0, episodic_length=391
+global_step=4825048, episodic_return=-22.0, episodic_length=295
+SPS: 606
+global_step=4826272, episodic_return=97.0, episodic_length=163
+global_step=4827016, episodic_return=-7.0, episodic_length=265
+SPS: 606
+global_step=4827280, episodic_return=-4.0, episodic_length=279
+global_step=4828680, episodic_return=40.0, episodic_length=208
+SPS: 606
+global_step=4830144, episodic_return=63.0, episodic_length=183
+global_step=4831136, episodic_return=-347.0, episodic_length=608
+SPS: 606
+global_step=4831736, episodic_return=-752.0, episodic_length=1049
+global_step=4832616, episodic_return=-50.0, episodic_length=309
+SPS: 606
+global_step=4833488, episodic_return=-503.0, episodic_length=776
+global_step=4833872, episodic_return=-71.0, episodic_length=342
+global_step=4834472, episodic_return=-71.0, episodic_length=342
+SPS: 606
+SPS: 606
+global_step=4838128, episodic_return=-430.0, episodic_length=689
+global_step=4838576, episodic_return=-240.0, episodic_length=513
+SPS: 606
+global_step=4840424, episodic_return=-38.0, episodic_length=287
+global_step=4841136, episodic_return=-625.0, episodic_length=908
+SPS: 606
+global_step=4841512, episodic_return=-706.0, episodic_length=1003
+global_step=4842880, episodic_return=-287.0, episodic_length=538
+global_step=4842992, episodic_return=-73.0, episodic_length=321
+SPS: 606
+global_step=4845008, episodic_return=-165.0, episodic_length=437
+global_step=4845200, episodic_return=-250.0, episodic_length=508
+SPS: 606
+global_step=4845592, episodic_return=-77.0, episodic_length=325
+global_step=4846560, episodic_return=100.0, episodic_length=170
+global_step=4847144, episodic_return=54.0, episodic_length=194
+SPS: 606
+global_step=4848736, episodic_return=-184.0, episodic_length=466
+global_step=4848816, episodic_return=38.0, episodic_length=209
+global_step=4849040, episodic_return=-49.0, episodic_length=310
+global_step=4849136, episodic_return=-510.0, episodic_length=782
+SPS: 606
+global_step=4851080, episodic_return=-14.0, episodic_length=283
+SPS: 606
+global_step=4851848, episodic_return=-68.0, episodic_length=351
+global_step=4852880, episodic_return=-186.0, episodic_length=468
+SPS: 606
+global_step=4854152, episodic_return=-135.0, episodic_length=384
+global_step=4854456, episodic_return=-456.0, episodic_length=715
+global_step=4855688, episodic_return=56.0, episodic_length=192
+SPS: 606
+global_step=4856456, episodic_return=-292.0, episodic_length=576
+global_step=4856584, episodic_return=-179.0, episodic_length=463
+global_step=4856712, episodic_return=-21.0, episodic_length=282
+global_step=4857688, episodic_return=9.0, episodic_length=250
+SPS: 606
+global_step=4858408, episodic_return=18.0, episodic_length=244
+global_step=4859016, episodic_return=-4.0, episodic_length=288
+global_step=4859096, episodic_return=-54.0, episodic_length=314
+SPS: 606
+global_step=4860408, episodic_return=-92.0, episodic_length=340
+SPS: 606
+global_step=4862840, episodic_return=-205.0, episodic_length=478
+global_step=4863352, episodic_return=-249.0, episodic_length=532
+global_step=4863704, episodic_return=-164.0, episodic_length=412
+SPS: 606
+global_step=4864608, episodic_return=-504.0, episodic_length=775
+global_step=4864656, episodic_return=42.0, episodic_length=227
+SPS: 606
+global_step=4867024, episodic_return=-163.0, episodic_length=459
+SPS: 606
+global_step=4868224, episodic_return=-316.0, episodic_length=565
+global_step=4868288, episodic_return=-190.0, episodic_length=460
+global_step=4868304, episodic_return=99.0, episodic_length=160
+global_step=4868488, episodic_return=-228.0, episodic_length=479
+SPS: 606
+global_step=4870240, episodic_return=-6.0, episodic_length=252
+global_step=4871208, episodic_return=-93.0, episodic_length=365
+global_step=4871504, episodic_return=-140.0, episodic_length=400
+global_step=4871936, episodic_return=36.0, episodic_length=212
+SPS: 606
+global_step=4873864, episodic_return=9.0, episodic_length=241
+SPS: 606
+global_step=4874400, episodic_return=-139.0, episodic_length=399
+global_step=4875248, episodic_return=-199.0, episodic_length=468
+SPS: 606
+global_step=4876712, episodic_return=-745.0, episodic_length=1028
+global_step=4878160, episodic_return=-104.0, episodic_length=364
+SPS: 606
+global_step=4878432, episodic_return=-256.0, episodic_length=504
+global_step=4878496, episodic_return=48.0, episodic_length=223
+global_step=4879464, episodic_return=-451.0, episodic_length=700
+global_step=4879968, episodic_return=68.0, episodic_length=192
+global_step=4880336, episodic_return=51.0, episodic_length=230
+SPS: 606
+global_step=4880664, episodic_return=99.0, episodic_length=150
+global_step=4881048, episodic_return=-87.0, episodic_length=361
+global_step=4881936, episodic_return=88.0, episodic_length=159
+SPS: 606
+global_step=4883368, episodic_return=-116.0, episodic_length=379
+global_step=4883776, episodic_return=18.0, episodic_length=230
+SPS: 606
+global_step=4884976, episodic_return=-208.0, episodic_length=491
+global_step=4885200, episodic_return=70.0, episodic_length=178
+global_step=4886192, episodic_return=-481.0, episodic_length=778
+SPS: 606
+global_step=4886824, episodic_return=-148.0, episodic_length=432
+global_step=4888272, episodic_return=-125.0, episodic_length=384
+SPS: 606
+global_step=4888768, episodic_return=-177.0, episodic_length=474
+global_step=4890000, episodic_return=-206.0, episodic_length=476
+SPS: 606
+global_step=4890768, episodic_return=-63.0, episodic_length=312
+SPS: 606
+global_step=4892696, episodic_return=-454.0, episodic_length=734
+global_step=4893560, episodic_return=-337.0, episodic_length=599
+global_step=4893832, episodic_return=-134.0, episodic_length=383
+global_step=4894336, episodic_return=44.0, episodic_length=205
+SPS: 606
+global_step=4895104, episodic_return=-356.0, episodic_length=638
+global_step=4896360, episodic_return=-47.0, episodic_length=316
+SPS: 606
+global_step=4897400, episodic_return=-110.0, episodic_length=383
+global_step=4897984, episodic_return=-101.0, episodic_length=360
+global_step=4898784, episodic_return=-354.0, episodic_length=653
+SPS: 606
+global_step=4899304, episodic_return=-109.0, episodic_length=368
+global_step=4900736, episodic_return=-95.0, episodic_length=344
+SPS: 606
+global_step=4900984, episodic_return=38.0, episodic_length=210
+global_step=4901024, episodic_return=-180.0, episodic_length=453
+global_step=4902816, episodic_return=40.0, episodic_length=229
+SPS: 606
+global_step=4904080, episodic_return=-158.0, episodic_length=418
+global_step=4904528, episodic_return=-153.0, episodic_length=438
+global_step=4904560, episodic_return=-439.0, episodic_length=722
+SPS: 606
+global_step=4905568, episodic_return=-86.0, episodic_length=344
+global_step=4906584, episodic_return=-66.0, episodic_length=313
+SPS: 606
+global_step=4907104, episodic_return=54.0, episodic_length=192
+global_step=4907448, episodic_return=-88.0, episodic_length=365
+global_step=4908032, episodic_return=-138.0, episodic_length=434
+global_step=4908840, episodic_return=41.0, episodic_length=217
+SPS: 606
+global_step=4909960, episodic_return=-54.0, episodic_length=314
+global_step=4911056, episodic_return=-29.0, episodic_length=277
+SPS: 606
+global_step=4911448, episodic_return=-337.0, episodic_length=608
+global_step=4911624, episodic_return=-13668.0, episodic_length=14007
+SPS: 606
+global_step=4913336, episodic_return=-141.0, episodic_length=422
+global_step=4913840, episodic_return=-477.0, episodic_length=726
+global_step=4914000, episodic_return=-108.0, episodic_length=368
+global_step=4914352, episodic_return=-102.0, episodic_length=363
+SPS: 606
+global_step=4916176, episodic_return=-24.0, episodic_length=272
+global_step=4916304, episodic_return=-86.0, episodic_length=371
+SPS: 606
+global_step=4917912, episodic_return=32.0, episodic_length=217
+global_step=4918272, episodic_return=-260.0, episodic_length=554
+global_step=4918360, episodic_return=-220.0, episodic_length=501
+global_step=4918904, episodic_return=-15160.0, episodic_length=15527
+SPS: 606
+global_step=4919680, episodic_return=37.0, episodic_length=221
+global_step=4919872, episodic_return=70.0, episodic_length=189
+global_step=4920992, episodic_return=-302.0, episodic_length=586
+SPS: 606
+global_step=4922048, episodic_return=-198.0, episodic_length=472
+SPS: 606
+global_step=4923424, episodic_return=-210.0, episodic_length=468
+global_step=4923832, episodic_return=-224.0, episodic_length=495
+global_step=4924392, episodic_return=-139.0, episodic_length=425
+SPS: 606
+global_step=4925576, episodic_return=-22.0, episodic_length=269
+global_step=4926624, episodic_return=-90.0, episodic_length=349
+global_step=4926808, episodic_return=-311.0, episodic_length=595
+SPS: 606
+global_step=4928304, episodic_return=-207.0, episodic_length=489
+SPS: 606
+global_step=4930096, episodic_return=-153.0, episodic_length=434
+global_step=4930304, episodic_return=-342.0, episodic_length=591
+global_step=4931248, episodic_return=-282.0, episodic_length=555
+global_step=4931416, episodic_return=-111.0, episodic_length=389
+SPS: 606
+global_step=4933072, episodic_return=-77.0, episodic_length=346
+SPS: 606
+global_step=4933840, episodic_return=-197.0, episodic_length=468
+global_step=4935552, episodic_return=-235.0, episodic_length=517
+SPS: 606
+global_step=4935880, episodic_return=-82.0, episodic_length=351
+global_step=4936896, episodic_return=121.0, episodic_length=127
+global_step=4937632, episodic_return=-505.0, episodic_length=798
+SPS: 606
+global_step=4938208, episodic_return=83.0, episodic_length=164
+global_step=4938272, episodic_return=-284.0, episodic_length=554
+global_step=4939056, episodic_return=-178.0, episodic_length=438
+SPS: 606
+global_step=4939856, episodic_return=43.0, episodic_length=206
+global_step=4940192, episodic_return=-61.0, episodic_length=320
+SPS: 606
+global_step=4941984, episodic_return=-94.0, episodic_length=366
+global_step=4942520, episodic_return=-272.0, episodic_length=531
+global_step=4943376, episodic_return=-103.0, episodic_length=398
+global_step=4943520, episodic_return=-209.0, episodic_length=458
+SPS: 606
+global_step=4944688, episodic_return=113.0, episodic_length=146
+global_step=4945176, episodic_return=-63.0, episodic_length=332
+SPS: 606
+global_step=4945984, episodic_return=-40.0, episodic_length=326
+global_step=4946392, episodic_return=35.0, episodic_length=213
+global_step=4946560, episodic_return=-303.0, episodic_length=572
+global_step=4947176, episodic_return=-16693.0, episodic_length=17044
+global_step=4947672, episodic_return=-43.0, episodic_length=312
+SPS: 606
+global_step=4948408, episodic_return=6.0, episodic_length=252
+SPS: 606
+global_step=4950640, episodic_return=-288.0, episodic_length=582
+global_step=4951024, episodic_return=-68.0, episodic_length=327
+global_step=4951744, episodic_return=-346.0, episodic_length=648
+SPS: 606
+global_step=4952864, episodic_return=-378.0, episodic_length=649
+global_step=4953256, episodic_return=-30.0, episodic_length=279
+global_step=4953304, episodic_return=-50.0, episodic_length=333
+SPS: 606
+global_step=4954912, episodic_return=40.0, episodic_length=207
+global_step=4955480, episodic_return=-197.0, episodic_length=467
+global_step=4955928, episodic_return=-45.0, episodic_length=328
+SPS: 606
+global_step=4957232, episodic_return=-42.0, episodic_length=290
+global_step=4958120, episodic_return=-385.0, episodic_length=657
+SPS: 606
+global_step=4958472, episodic_return=91.0, episodic_length=155
+global_step=4959992, episodic_return=-279.0, episodic_length=564
+SPS: 606
+global_step=4960304, episodic_return=28.0, episodic_length=229
+global_step=4961040, episodic_return=-94.0, episodic_length=365
+global_step=4962264, episodic_return=12.0, episodic_length=245
+SPS: 606
+global_step=4962344, episodic_return=-530.0, episodic_length=802
+global_step=4963456, episodic_return=-31.0, episodic_length=302
+global_step=4964312, episodic_return=-267.0, episodic_length=540
+SPS: 606
+global_step=4966240, episodic_return=29.0, episodic_length=241
+SPS: 606
+global_step=4966688, episodic_return=-306.0, episodic_length=553
+global_step=4966888, episodic_return=-148.0, episodic_length=429
+SPS: 606
+global_step=4968872, episodic_return=-69.0, episodic_length=329
+global_step=4968984, episodic_return=-29.0, episodic_length=287
+global_step=4969384, episodic_return=-63.0, episodic_length=312
+SPS: 606
+global_step=4970600, episodic_return=-761.0, episodic_length=1032
+global_step=4970968, episodic_return=62.0, episodic_length=198
+SPS: 606
+global_step=4972656, episodic_return=-199.0, episodic_length=459
+global_step=4973176, episodic_return=-50.0, episodic_length=322
+global_step=4973584, episodic_return=-303.0, episodic_length=589
+global_step=4974536, episodic_return=-176.0, episodic_length=446
+SPS: 606
+global_step=4974904, episodic_return=-35.0, episodic_length=281
+global_step=4976320, episodic_return=72.0, episodic_length=177
+SPS: 606
+global_step=4977024, episodic_return=-145.0, episodic_length=430
+global_step=4977176, episodic_return=-70.0, episodic_length=330
+global_step=4977880, episodic_return=-295.0, episodic_length=588
+SPS: 606
+global_step=4979000, episodic_return=-89.0, episodic_length=335
+global_step=4979992, episodic_return=-112.0, episodic_length=371
+global_step=4980568, episodic_return=-154.0, episodic_length=424
+SPS: 606
+global_step=4981288, episodic_return=-164.0, episodic_length=426
+global_step=4981712, episodic_return=-80.0, episodic_length=339
+global_step=4981720, episodic_return=58.0, episodic_length=216
+SPS: 606
+global_step=4984048, episodic_return=-152.0, episodic_length=435
+global_step=4984432, episodic_return=-91.0, episodic_length=340
+SPS: 606
+global_step=4985256, episodic_return=-224.0, episodic_length=496
+global_step=4985416, episodic_return=-175.0, episodic_length=462
+global_step=4986392, episodic_return=3.0, episodic_length=245
+SPS: 606
+global_step=4988432, episodic_return=-287.0, episodic_length=548
+global_step=4988600, episodic_return=-136.0, episodic_length=398
+global_step=4988704, episodic_return=-30.0, episodic_length=289
+SPS: 606
+global_step=4990024, episodic_return=-322.0, episodic_length=596
+SPS: 606
+global_step=4991512, episodic_return=-104.0, episodic_length=351
+global_step=4991672, episodic_return=-121.0, episodic_length=384
+SPS: 606
+global_step=4993048, episodic_return=-307.0, episodic_length=577
+global_step=4994672, episodic_return=-295.0, episodic_length=581
+SPS: 606
+global_step=4995296, episodic_return=-191.0, episodic_length=453
+global_step=4996312, episodic_return=-352.0, episodic_length=600
+SPS: 606
+global_step=4997616, episodic_return=-299.0, episodic_length=571
+global_step=4997968, episodic_return=40.0, episodic_length=207
+global_step=4998808, episodic_return=-155.0, episodic_length=439
+SPS: 606
+Total Run Time: 8240.862735271454

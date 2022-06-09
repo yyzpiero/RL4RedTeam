@@ -37,7 +37,7 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:Pocp2Gen-v1",
+    parser.add_argument("--env-id", type=str, default="nasim:Small-v1",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=500000,
         help="total timesteps of the experiments")
@@ -73,7 +73,7 @@ def parse_args():
         help="the maximum norm for the gradient clipping")
     parser.add_argument("--target-kl", type=float, default=None,
         help="the target KL divergence threshold")
-    parser.add_argument("--hidden-size", type=int, default=64,
+    parser.add_argument("--hidden-size", type=int, default=256,
         help="hidden layer size of the neural networks")
     args = parser.parse_args()
     args.batch_size = int(args.num_envs * args.num_steps)
