@@ -7,13 +7,17 @@ import copy
 import time
 from distutils.util import strtobool
 
+import gym
+from gym.spaces.discrete import Discrete
 import numpy as np
 import torch
+from torch._C import device
 import torch.nn as nn
 import torch.optim as optim
 from torch.distributions.categorical import Categorical
 from tensorboardX import SummaryWriter
 from stable_baselines3.common.vec_env import VecNormalize, DummyVecEnv
+from envs_core import SubprocVecEnv
 from utils import make_env, layer_init, make_env_list_random
 
 def parse_args():
@@ -21,7 +25,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--exp-name", type=str, default=os.path.basename(__file__).rstrip(".py"),
         help="the name of this experiment")
-    parser.add_argument("--seed", type=int, default=142,
+    parser.add_argument("--seed", type=int, default=12,
         help="seed of the experiment")
     parser.add_argument("--torch-deterministic", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="if toggled, `torch.backends.cudnn.deterministic=False`")
@@ -81,6 +85,32 @@ def parse_args():
     # fmt: on
     return args
 
+# class Transpose(nn.Module):
+#     def __init__(self, permutation):
+#         super().__init__()
+#         self.permutation = permutation
+
+#     def forward(self, x):
+#         return x.permute(self.permutation)
+
+class CategoricalMasked(Categorical):
+    def __init__(self, probs=None, logits=None, validate_args=None, masks=[], device = "cpu"):
+        self.masks = masks
+        self.device = device
+        if len(self.masks) == 0:
+            super(CategoricalMasked, self).__init__(probs, logits, validate_args)
+        else:
+            self.masks = masks.type(torch.BoolTensor).to(self.device)
+            logits = torch.where(self.masks, logits, torch.tensor(-1e17).to(self.device))
+            super(CategoricalMasked, self).__init__(probs, logits, validate_args)
+
+    def entropy(self):
+        if len(self.masks) == 0:
+            return super(CategoricalMasked, self).entropy()
+        p_log_p = self.logits * self.probs
+        p_log_p = torch.where(self.masks, p_log_p, torch.tensor(0.0).to(self.device))
+        return -p_log_p.sum(-1)
+
 class Agent(nn.Module):
     def __init__(self, envs, hidden_size):
         super().__init__()
@@ -91,20 +121,29 @@ class Agent(nn.Module):
             nn.Tanh(),
             layer_init(nn.Linear(hidden_size, 1), std=1.0),
         )
+
+        if isinstance(envs.action_space, gym.spaces.Discrete):
+            self.action_size = envs.action_space.n
+        else:
+            self.action_size = envs.action_space.nvec
+
         self.actor = nn.Sequential(
             layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
             nn.Tanh(),
             layer_init(nn.Linear(hidden_size, hidden_size)),
             nn.Tanh(),
-            layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01),
+            layer_init(nn.Linear(hidden_size, self.action_size), std=0.01),
         )
 
     def get_value(self, x):
         return self.critic(x)
 
-    def get_action_and_value(self, x, action=None):
+    def get_action_and_value(self, x, action_mask, action=None):
         logits = self.actor(x)
-        probs = Categorical(logits=logits)
+        #action_mask = action_mask.type(torch.BoolTensor).to(logits.device)
+        #logits = torch.where(action_mask, logits, torch.tensor(-1e10).to(logits.device))
+        #probs = Categorical(logits=logits)
+        probs = CategoricalMasked(logits=logits, masks=action_mask, device=logits.device)
         if action is None:
             action = probs.sample()
         return action, probs.log_prob(action), probs.entropy(), self.critic(x)
@@ -140,9 +179,10 @@ def main():
         envs_list = make_env_list_random(args.env_id, args.seed, args.num_envs)
         envs = DummyVecEnv(envs_list)
     else:
-        envs = DummyVecEnv([make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)])
-    #envs = VecNormalize(envs, norm_obs=True, norm_reward=True)
-    #assert isinstance(envs.single_action_space, gym.spaces.Discrete), "only discrete action space is supported"
+        envs_list = [make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)]
+        envs = DummyVecEnv(envs_list)
+    envs = VecNormalize(envs, norm_obs=True, norm_reward=True)
+    #assert isinstance(envs.action_space, gym.spaces.Discrete), "only discrete action space is supported"
 
     agent = Agent(envs, args.hidden_size).to(device)
     optimizer = optim.Adam(agent.parameters(), lr=args.learning_rate, eps=1e-5)
@@ -154,6 +194,10 @@ def main():
     rewards = torch.zeros((args.num_steps, args.num_envs)).to(device)
     dones = torch.zeros((args.num_steps, args.num_envs)).to(device)
     values = torch.zeros((args.num_steps, args.num_envs)).to(device)
+    if isinstance(envs.action_space, gym.spaces.Discrete):
+        action_masks = torch.zeros(args.num_steps, args.num_envs, envs.action_space.n).to(device)
+    else:
+        action_masks = torch.zeros((args.num_steps, args.num_envs) + tuple(envs.action_space.nvec)).to(device)
 
     # TRY NOT TO MODIFY: start the game
     global_step = 0
@@ -173,10 +217,13 @@ def main():
             global_step += 1 * args.num_envs
             obs[step] = next_obs
             dones[step] = next_done
+            action_masks[step] = torch.Tensor(np.array([env.get_action_mask() for env in envs.envs]))
 
             # ALGO LOGIC: action logic
             with torch.no_grad():
-                action, logprob, _, value = agent.get_action_and_value(next_obs)
+                #action, logprob, _, value = agent.get_action_and_value(next_obs)
+                action, logprob, _, value = agent.get_action_and_value(next_obs, action_masks[step])
+                #print(action)
                 values[step] = value.flatten()
             actions[step] = action
             logprobs[step] = logprob
@@ -229,6 +276,7 @@ def main():
         b_advantages = advantages.reshape(-1)
         b_returns = returns.reshape(-1)
         b_values = values.reshape(-1)
+        b_action_masks = action_masks.reshape((-1, action_masks.shape[-1]))
 
         # Optimizing the policy and value network
         b_inds = np.arange(args.batch_size)
@@ -239,7 +287,13 @@ def main():
                 end = start + args.minibatch_size
                 mb_inds = b_inds[start:end]
 
-                _, newlogprob, entropy, newvalue = agent.get_action_and_value(b_obs[mb_inds], b_actions.long()[mb_inds])
+                #_, newlogprob, entropy, newvalue = agent.get_action_and_value(b_obs[mb_inds], b_actions.long()[mb_inds])
+                #_, newlogprob, entropy, newvalue = agent.get_action_and_value(b_obs[mb_inds], b_actions.long()[mb_inds].T)
+                _, newlogprob, entropy, newvalue = agent.get_action_and_value(
+                    b_obs[mb_inds],
+                    b_action_masks[mb_inds],
+                    b_actions.long()[mb_inds].T,
+                )
                 logratio = newlogprob - b_logprobs[mb_inds]
                 ratio = logratio.exp()
 

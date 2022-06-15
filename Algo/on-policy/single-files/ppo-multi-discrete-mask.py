@@ -82,13 +82,13 @@ def parse_args():
     # fmt: on
     return args
 
-class Transpose(nn.Module):
-    def __init__(self, permutation):
-        super().__init__()
-        self.permutation = permutation
+# class Transpose(nn.Module):
+#     def __init__(self, permutation):
+#         super().__init__()
+#         self.permutation = permutation
 
-    def forward(self, x):
-        return x.permute(self.permutation)
+#     def forward(self, x):
+#         return x.permute(self.permutation)
 
 class CategoricalMasked(Categorical):
     def __init__(self, probs=None, logits=None, validate_args=None, masks=[]):
@@ -134,6 +134,26 @@ class Agent(nn.Module):
     def get_action_and_value(self, x, action_mask, action=None):
         logits = self.actor(x)
         split_logits = torch.split(logits, self.nvec.tolist(), dim=1)
+        if action is None:
+            for i in range(6):
+                if i == 0 :
+                    head_logits = split_logits[i]
+                    cat = Categorical(logits=head_logits) 
+                    multi_categoricals.append(cat)
+                    a_type = cat.sample()
+                else:
+                    if a_type==0 or a_type==1:
+                        head_logits = split_logits[i]
+                        cat = Categorical(logits=head_logits) 
+                        multi_categoricals.append(cat)
+                        s_type = cat.sample()
+                    else:
+                        head_logits = split_logits[0]
+                        cat = Categorical(logits=head_logits) 
+                        multi_categoricals.append(cat)
+                       
+
+
         split_action_masks = torch.split(action_mask, self.nvec.tolist(), dim=1)
         #multi_categoricals = [Categorical(logits=logits) for logits in split_logits]
         multi_categoricals = [
@@ -190,7 +210,7 @@ def main():
     rewards = torch.zeros((args.num_steps, args.num_envs)).to(device)
     dones = torch.zeros((args.num_steps, args.num_envs)).to(device)
     values = torch.zeros((args.num_steps, args.num_envs)).to(device)
-    action_masks = torch.zeros((args.num_steps, args.num_envs) + (envs.single_action_space.nvec.sum(),)).to(device)
+    action_masks = torch.zeros((args.num_steps, args.num_envs) + tuple(envs.single_action_space.nvec)).to(device)
 
     # TRY NOT TO MODIFY: start the game
     global_step = 0

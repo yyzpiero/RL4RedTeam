@@ -20049,3 +20049,8 @@ logs/print_logs/nasim-HugeGen-ppo-as-attention+cnn+GLU.out
 logs/print_logs/nasim-HugeGen-ppo-as-attention+cnn+lstm+glu.out
 logs/print_logs/nasim-Pocp2Gen-ppo-as-attention+cnn+lstm+glu2.out
 logs/
+run_ablation/nasim:Medium-v0__ppo-origin__142__1655097424/events.out.tfevents.1655097424.swai
+run_ablation/nasim:Medium-v0__ppo-single-mask__12__1655101664/events.out.tfevents.1655101664.swai
+run_ablation/nasim:Medium-v0__ppo-single-mask__142__1655101275/events.out.tfevents.1655101275.swai
+Algo/on-policy/single-files/__pycache__/envs_core.cpython-38.pyc
+Algo/on-policy/single-files/__pycache__/utils.cpython-38.pyc
