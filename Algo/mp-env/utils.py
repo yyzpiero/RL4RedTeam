@@ -3,6 +3,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from torch.distributions.categorical import Categorical
+import functools
+from typing import Any, Dict
 
 def layer_init(layer, std=np.sqrt(2), bias_const=0.0):
     torch.nn.init.orthogonal_(layer.weight, std)
@@ -240,3 +242,22 @@ class CategoricalMasked(Categorical):
         p_log_p = self.logits * self.probs
         p_log_p = torch.where(self.masks, p_log_p, torch.tensor(0.0).to(self.device))
         return -p_log_p.sum(-1)
+
+
+
+def recursive_getattr(obj: Any, attr: str, *args) -> Any:
+    """
+    Recursive version of getattr
+    taken from https://stackoverflow.com/questions/31174295
+    Ex:
+    > MyObject.sub_object = SubObject(name='test')
+    > recursive_getattr(MyObject, 'sub_object.name')  # return test
+    :param obj:
+    :param attr: Attribute to retrieve
+    :return: The attribute
+    """
+
+    def _getattr(obj: Any, attr: str) -> Any:
+        return getattr(obj, attr, *args)
+
+    return functools.reduce(_getattr, [obj] + attr.split("."))

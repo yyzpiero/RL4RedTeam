@@ -17,13 +17,15 @@ from gym_minigrid.wrappers import *
 
 def make_env(env_id, seed, rank, log_dir, allow_early_resets):
     def _thunk():
+        
         env = gym.make(env_id)
 
-        is_minigrid = (env_id[0:8] == "MiniGrid")
+        is_atari = hasattr(gym.envs, 'atari') and isinstance(env.unwrapped, gym.envs.atari.atari_env.AtariEnv)
+        if is_atari:
+            env = NoopResetEnv(env, noop_max=30)
+            env = MaxAndSkipEnv(env, skip=4)
 
         env.seed(seed + rank)
-        env.action_space.seed(seed + rank)
-        env.observation_space.seed(seed + rank)
 
         if str(env.__class__.__name__).find('TimeLimit') >= 0:
             env = TimeLimitMask(env)
@@ -32,10 +34,13 @@ def make_env(env_id, seed, rank, log_dir, allow_early_resets):
             env = Monitor(env, os.path.join(log_dir, str(rank)),
                           allow_early_resets=allow_early_resets)
 
-        if env_id[0:8] == "MiniGrid":
-            env = OneHotPartialObsWrapper(env)
-            #env = RGBImgPartialObsWrapper(env)
-            env = FlatObsWrapper(env)
+        if is_atari:
+            if len(env.observation_space.shape) == 3:
+                env = EpisodicLifeEnv(env)
+                if "FIRE" in env.unwrapped.get_action_meanings():
+                    env = FireResetEnv(env)
+                env = WarpFrame(env, width=84, height=84)
+                env = ClipRewardEnv(env)
         elif len(env.observation_space.shape) == 3:
             raise NotImplementedError(
                 "CNN models work only for atari,\n"
@@ -43,13 +48,16 @@ def make_env(env_id, seed, rank, log_dir, allow_early_resets):
                 "See wrap_deepmind for an example.")
 
         # If the input has shape (W,H,3), wrap for PyTorch convolutions
+        obs_shape = env.observation_space.shape
+        if len(obs_shape) == 3 and obs_shape[2] in [1, 3]:
+            env = TransposeImage(env, op=[2, 0, 1])
         env = gym.wrappers.RecordEpisodeStatistics(env)
-           
         return env
 
     return _thunk
 
-def make_vec_envs(env_name, seed, num_processes, gamma, log_dir, device, allow_early_resets, num_frame_stack=None,
+def make_vec_envs(env_name, seed, num_processes, gamma=None, log_dir=None, 
+                  device="cpu", allow_early_resets=True, num_frame_stack=None,
                   no_obs_norm=False):
     envs = [
         make_env(env_name, seed, i, log_dir, allow_early_resets)
@@ -143,7 +151,9 @@ class VecPyTorch(VecEnvWrapper):
             if isinstance(actions, torch.LongTensor):
                 # Squeeze the dimension for discrete actions
                 actions = actions.squeeze(1)
-            actions = actions.cpu().numpy()
+                actions = actions.cpu().numpy()
+            #if not isinstance(actions, np.ndarray):
+                
             self.venv.step_async(actions)
 
     def step_wait(self):

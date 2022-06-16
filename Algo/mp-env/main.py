@@ -4,6 +4,8 @@ import argparse
 import os
 from distutils.util import strtobool
 import torch
+from ppo import PPO
+import time
 
 def parse_args():
     # fmt: off
@@ -40,5 +42,14 @@ def parse_args():
 def main():
     args = parse_args()
     device = torch.device("cuda" if torch.cuda.is_available() and args.cuda else "cpu")
-    envs = make_vec_envs(args.env_id, args.seed, args.num_envs,
-                            args.gamma, args.log_dir, device, False, no_obs_norm=args.no_obs_norm)
+    #envs = make_vec_envs(args.env_id, args.seed, args.num_envs,
+    #                        args.gamma, args.log_dir, device, False, no_obs_norm=args.no_obs_norm)
+
+    model = PPO(envs="CartPole-v0", device=device, num_envs=8)
+    model.train(500000)
+
+if __name__ == '__main__':
+    since = time.time()
+    main()
+    time_elapsed = time.time()-since
+    print("Total Run Time: {}".format(time_elapsed))
