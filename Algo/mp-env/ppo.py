@@ -7,17 +7,17 @@ from typing import Any, Dict, Union, Tuple, List
 from stable_baselines3.common.save_util import load_from_zip_file
 from utils import recursive_getattr
 from collections import deque
-from envs import make_vec_envs
+from envs import make_eval_env, make_vec_envs, wrap_env
 import time
 
 class PPO():
     def __init__(self, 
                  envs, 
-                 num_envs=1, 
+                 num_envs=4, 
                  seed=142,
                  #actor_critic, 
                  num_steps=128, 
-                 hidden_size=64, 
+                 hidden_size=128, 
                  update_epochs=4,
                  num_minibatches=4,
                  norm_adv=True,
@@ -26,12 +26,13 @@ class PPO():
                  vf_coef=0.5,
                  max_grad_norm=0.5,
                  learning_rate=2.5e-4, 
-                 anneal_lr=True,
+                 anneal_lr=False,
                  target_kl=None,  
                  #recompute_returns=False, 
                  tb_writer=None,
                  use_gae=True,
-                 clip_vloss=True, 
+                 clip_vloss=True,
+                 create_eval_env=True, 
                  gamma=0.99, 
                  gae_lambda=0.95, 
                  device='auto'):
@@ -63,6 +64,12 @@ class PPO():
             self.envs = make_vec_envs(env_name=envs, seed=seed, num_processes=self.num_envs)
         else:
             self.envs = envs
+        
+        if create_eval_env:
+            self.eval_env = make_eval_env(env_name=envs, seed=seed)
+        else:
+            self.eval_env = None
+        self.verbose = 1
         
         self.observation_space_shape = self.envs.observation_space.shape
         self.action_space_shape = self.envs.action_space.shape
@@ -185,6 +192,7 @@ class PPO():
                     if approx_kl > self.target_kl:
                         break
             print("SPS:", int(self.global_step / (time.time() - self.start_time)))
+    
     def _get_eval_env(self, eval_env):
         """
         Return the environment that will be used for evaluation.
@@ -195,43 +203,52 @@ class PPO():
             eval_env = self.eval_env
 
         if eval_env is not None:
-            eval_env = self._wrap_env(eval_env, self.verbose)
+            eval_env = wrap_env(eval_env, self.verbose)
             assert eval_env.num_envs == 1
         return eval_env
+    
+    def act(self, obs):
+        if isinstance(obs, np.ndarray):
+            obs = torch.Tensor(obs).to(self.device)
+        return self.agent.act(obs)
 
-    def eval(self, env):
-        eval_envs = env
+    def eval(self, num_eval_episodes=5, eval_envs=None):
+        
+        eval_envs = self._get_eval_env(eval_envs)
+        assert eval_envs is not None
         # if vec_norm is not None:
         #     vec_norm.eval()
         #     vec_norm.obs_rms = obs_rms
 
         eval_episode_rewards = []
-
+        eval_episode_length = []
         obs = eval_envs.reset()
         # eval_recurrent_hidden_states = torch.zeros(
         #     num_processes, actor_critic.recurrent_hidden_state_size, device=device)
         # eval_masks = torch.zeros(num_processes, 1, device=device)
 
-        while len(eval_episode_rewards) < 10:
-            with torch.no_grad():
-                action = self.agent.act(obs)
-
-            # Obser reward and next obs
-            obs, _, done, infos = eval_envs.step(action)
-
-            # eval_masks = torch.tensor(
-            #     [[0.0] if done_ else [1.0] for done_ in done],
-            #     dtype=torch.float32,
-            #     device=device)
-
-            for info in infos:
-                if 'episode' in info.keys():
-                    eval_episode_rewards.append(info['episode']['r'])
+        while len(eval_episode_rewards) < num_eval_episodes:
+        
+            obs = eval_envs.reset()
+            #print(obs)
+            done = False
+    
+            while not done:
+                with torch.no_grad():
+                    action = self.act(obs).cpu().numpy()
+                #action = int(np.random.randint(low=0, high=env.action_space.n))
+                obs, reward, done, infos = eval_envs.step(action)
+    
+                if done:
+                    for info in infos:
+                        if 'episode' in info.keys():
+                            eval_episode_rewards.append(info['episode']['r'])
+                            eval_episode_length.append(info['episode']['l'])
 
         eval_envs.close()
 
-        print(" Evaluation using {} episodes: mean reward {:.5f}\n".format(
-            len(eval_episode_rewards), np.mean(eval_episode_rewards)))
+        print(" Evaluation using {} episodes: mean reward {:.5f} mean length {:.5f}\n".format(
+            len(eval_episode_rewards), np.mean(eval_episode_rewards), np.mean(eval_episode_length)))
 
 
     def get_parameters(self):
@@ -328,6 +345,6 @@ class PPO():
             List of Torch variables whose state dicts to save (e.g. th.nn.Modules),
             and list of other Torch variables to store with ``th.save``.
         """
-        state_dicts = ["policy"]
+        state_dicts = ["agent"]
 
         return state_dicts, []

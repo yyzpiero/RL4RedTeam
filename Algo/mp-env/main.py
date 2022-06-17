@@ -45,8 +45,13 @@ def main():
     #envs = make_vec_envs(args.env_id, args.seed, args.num_envs,
     #                        args.gamma, args.log_dir, device, False, no_obs_norm=args.no_obs_norm)
 
-    model = PPO(envs="CartPole-v0", device=device, num_envs=8)
-    model.train(500000)
+    model = PPO(envs="MiniGrid-FourRooms-v0", device=device, num_envs=8)
+    model.train(15000)
+    model.eval(num_eval_episodes=2)
+    params = model.get_parameters()
+    model.set_parameters(params)
+    model.train(15000)
+    model.eval(num_eval_episodes=10)
 
 if __name__ == '__main__':
     since = time.time()

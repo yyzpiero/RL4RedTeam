@@ -8,22 +8,21 @@ from gym.spaces.box import Box
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.atari_wrappers import NoopResetEnv, MaxAndSkipEnv, EpisodicLifeEnv, FireResetEnv, \
     WarpFrame, ClipRewardEnv
-from stable_baselines3.common.vec_env import VecEnvWrapper, DummyVecEnv
+from stable_baselines3.common.vec_env import VecEnvWrapper, DummyVecEnv, VecEnv, VecTransposeImage
 from stable_baselines3.common.vec_env.vec_normalize import VecNormalize as VecNormalize_
-
 from envs_core import SubprocVecEnv
 from gym_minigrid.wrappers import *
 
 
-def make_env(env_id, seed, rank, log_dir, allow_early_resets):
+def make_env(env_id, seed, rank, log_dir=None, allow_early_resets=False):
     def _thunk():
         
         env = gym.make(env_id)
-
-        is_atari = hasattr(gym.envs, 'atari') and isinstance(env.unwrapped, gym.envs.atari.atari_env.AtariEnv)
-        if is_atari:
-            env = NoopResetEnv(env, noop_max=30)
-            env = MaxAndSkipEnv(env, skip=4)
+        is_minigrid = env_id[0:8] == "MiniGrid"
+        # is_atari = hasattr(gym.envs, 'atari') and isinstance(env.unwrapped, gym.envs.atari.atari_env.AtariEnv)
+        # if is_atari:
+        #     env = NoopResetEnv(env, noop_max=30)
+        #     env = MaxAndSkipEnv(env, skip=4)
 
         env.seed(seed + rank)
 
@@ -34,23 +33,29 @@ def make_env(env_id, seed, rank, log_dir, allow_early_resets):
             env = Monitor(env, os.path.join(log_dir, str(rank)),
                           allow_early_resets=allow_early_resets)
 
-        if is_atari:
-            if len(env.observation_space.shape) == 3:
-                env = EpisodicLifeEnv(env)
-                if "FIRE" in env.unwrapped.get_action_meanings():
-                    env = FireResetEnv(env)
-                env = WarpFrame(env, width=84, height=84)
-                env = ClipRewardEnv(env)
-        elif len(env.observation_space.shape) == 3:
-            raise NotImplementedError(
-                "CNN models work only for atari,\n"
-                "please use a custom wrapper for a custom pixel input env.\n"
-                "See wrap_deepmind for an example.")
+            
+        if is_minigrid:
+            env = OneHotPartialObsWrapper(env)
+            #env = RGBImgPartialObsWrapper(env)
+            env = FlatObsWrapper(env)
+        
+        # if is_atari:
+        #     if len(env.observation_space.shape) == 3:
+        #         env = EpisodicLifeEnv(env)
+        #         if "FIRE" in env.unwrapped.get_action_meanings():
+        #             env = FireResetEnv(env)
+        #         env = WarpFrame(env, width=84, height=84)
+        #         env = ClipRewardEnv(env)
+        # elif len(env.observation_space.shape) == 3:
+        #     raise NotImplementedError(
+        #         "CNN models work only for atari,\n"
+        #         "please use a custom wrapper for a custom pixel input env.\n"
+        #         "See wrap_deepmind for an example.")
 
         # If the input has shape (W,H,3), wrap for PyTorch convolutions
-        obs_shape = env.observation_space.shape
-        if len(obs_shape) == 3 and obs_shape[2] in [1, 3]:
-            env = TransposeImage(env, op=[2, 0, 1])
+        # obs_shape = env.observation_space.shape
+        # if len(obs_shape) == 3 and obs_shape[2] in [1, 3]:
+        #     env = TransposeImage(env, op=[2, 0, 1])
         env = gym.wrappers.RecordEpisodeStatistics(env)
         return env
 
@@ -66,13 +71,14 @@ def make_vec_envs(env_name, seed, num_processes, gamma=None, log_dir=None,
 
     if len(envs) > 1:
         envs = SubprocVecEnv(envs)
+        #envs = DummyVecEnv(envs)
     else:
         envs = DummyVecEnv(envs)
 
     if no_obs_norm == False:
         if len(envs.observation_space.shape) == 1:
             if gamma is None:
-                envs = VecNormalize(envs, norm_reward=False)
+                envs = VecNormalize(envs, norm_obs=True, norm_reward=True)
             else:
                 envs = VecNormalize(envs, gamma=gamma)
 
@@ -82,6 +88,20 @@ def make_vec_envs(env_name, seed, num_processes, gamma=None, log_dir=None,
         envs = VecPyTorchFrameStack(envs, num_frame_stack, device)
     elif len(envs.observation_space.shape) == 3:
         envs = VecPyTorchFrameStack(envs, 4, device)
+
+    return envs
+
+def make_eval_env(env_name, seed = 53, gamma=None, no_obs_norm=False):
+    envs = [make_env(env_name, seed, 0)]
+    envs = DummyVecEnv(envs)
+
+    if no_obs_norm == False:
+        if len(envs.observation_space.shape) == 1:
+            if gamma is None:
+                envs = VecNormalize(envs, norm_obs=True, norm_reward=True)
+            else:
+                envs = VecNormalize(envs, gamma=gamma)
+
 
     return envs
 
@@ -229,3 +249,71 @@ class VecPyTorchFrameStack(VecEnvWrapper):
 
     def close(self):
         self.venv.close()
+
+
+def wrap_env(env, verbose = 0, monitor_wrapper = True):
+    """ "
+    Wrap environment with the appropriate wrappers if needed.
+    For instance, to have a vectorized environment
+    or to re-order the image channels.
+    :param env:
+    :param verbose:
+    :param monitor_wrapper: Whether to wrap the env in a ``Monitor`` when possible.
+    :return: The wrapped environment.
+    """
+    if not isinstance(env, VecEnv):
+        if not is_wrapped(env, Monitor) and monitor_wrapper:
+            if verbose >= 1:
+                print("Wrapping the env with a `Monitor` wrapper")
+            env = Monitor(env)
+        if verbose >= 1:
+            print("Wrapping the env in a DummyVecEnv.")
+        env = DummyVecEnv([lambda: env])
+
+    # Make sure that dict-spaces are not nested (not supported)
+    # check_for_nested_spaces(env.observation_space)
+
+    # if not is_vecenv_wrapped(env, VecTransposeImage):
+    #     wrap_with_vectranspose = False
+    #     if isinstance(env.observation_space, gym.spaces.Dict):
+    #         # If even one of the keys is a image-space in need of transpose, apply transpose
+    #         # If the image spaces are not consistent (for instance one is channel first,
+    #         # the other channel last), VecTransposeImage will throw an error
+    #         for space in env.observation_space.spaces.values():
+    #             wrap_with_vectranspose = wrap_with_vectranspose or (
+    #                 is_image_space(space) and not is_image_space_channels_first(space)
+    #             )
+    #     else:
+    #         wrap_with_vectranspose = is_image_space(env.observation_space) and not is_image_space_channels_first(
+    #             env.observation_space
+    #         )
+
+    #     if wrap_with_vectranspose:
+    #         if verbose >= 1:
+    #             print("Wrapping the env in a VecTransposeImage.")
+    #         env = VecTransposeImage(env)
+
+    return env
+
+def is_wrapped(env, wrapper_class):
+    """
+    Check if a given environment has been wrapped with a given wrapper.
+    :param env: Environment to check
+    :param wrapper_class: Wrapper class to look for
+    :return: True if environment has been wrapped with ``wrapper_class``.
+    """
+    return unwrap_wrapper(env, wrapper_class) is not None
+
+def unwrap_wrapper(env, wrapper_class):
+    """
+    Retrieve a ``VecEnvWrapper`` object by recursively searching.
+    :param env: Environment to unwrap
+    :param wrapper_class: Wrapper to look for
+    :return: Environment unwrapped till ``wrapper_class`` if it has been wrapped with it
+    """
+    env_tmp = env
+    while isinstance(env_tmp, gym.Wrapper):
+        if isinstance(env_tmp, wrapper_class):
+            return env_tmp
+        env_tmp = env_tmp.env
+    return None

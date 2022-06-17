@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+from torch.functional import Tensor
 import torch.nn as nn
 import torch.optim as optim
 from torch.distributions.categorical import Categorical
@@ -34,6 +35,7 @@ class Agent(nn.Module):
         return action, probs.log_prob(action), probs.entropy(), self.critic(x)
 
     def act(self, x):
+        
         logits = self.actor(x)
         probs = Categorical(logits=logits)
         action = probs.sample()
