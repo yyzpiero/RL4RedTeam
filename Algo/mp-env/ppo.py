@@ -9,6 +9,7 @@ from utils import recursive_getattr
 from collections import deque
 from envs import make_eval_env, make_vec_envs, wrap_env
 import time
+import copy
 
 class PPO():
     def __init__(self, 
@@ -62,13 +63,15 @@ class PPO():
         self.num_envs = num_envs 
         if isinstance(envs, str):
             self.envs = make_vec_envs(env_name=envs, seed=seed, num_processes=self.num_envs)
+            if create_eval_env:
+                self.eval_env = make_eval_env(env_name=envs, seed=seed)
+            else:
+                self.eval_env = None
         else:
             self.envs = envs
+            self.eval_env = copy.deepcopy(self.envs)
         
-        if create_eval_env:
-            self.eval_env = make_eval_env(env_name=envs, seed=seed)
-        else:
-            self.eval_env = None
+       
         self.verbose = 1
         
         self.observation_space_shape = self.envs.observation_space.shape
@@ -91,6 +94,9 @@ class PPO():
         self.start_time =  time.time()
         #next_done = torch.zeros(self.num_envs).to(device)
         episode_rewards = deque(maxlen=10)
+
+        episode_l = 0
+        episode_r = []
 
         for update in range(1, _num_updates + 1):
             
@@ -115,17 +121,26 @@ class PPO():
                     # Obser reward and next obs
                     next_obs, reward, done, infos = self.envs.step(action.cpu().numpy())
                     #obs, reward, done, infos = envs.step(action)
+                    episode_r.append(reward)
+                    episode_l += 1
                     
-                    
-                    for info in infos:
-                        if 'episode' in info.keys():
-                            episode_rewards.append(info['episode']['r'])
-                            print(f"global_step={self.global_step}, episodic_return={info['episode']['r']}, episodic_length={info['episode']['l']}")
-                            if self.writer is not None:
-                                self.writer.add_scalar("charts/episodic_return", info["episode"]["r"], self.global_step)
-                                self.writer.add_scalar("charts/episodic_length", info["episode"]["l"], self.global_step)
-                            break
+                    if done:
+                        if self.envs.num_envs > 1:
+                            for info in infos:
+                                if 'episode' in info.keys():
+                                    episode_rewards.append(info['episode']['r'])
+                                    print(f"global_step={self.global_step}, episodic_return={info['episode']['r']}, episodic_length={info['episode']['l']}")
+                                    if self.writer is not None:
+                                        self.writer.add_scalar("charts/episodic_return", info["episode"]["r"], self.global_step)
+                                        self.writer.add_scalar("charts/episodic_length", info["episode"]["l"], self.global_step)
+                                    break
+                        #else:
+                           
+
                     # Add to rollouts
+                    if not torch.is_tensor(next_obs):
+                        next_obs = torch.Tensor(next_obs)
+                        reward = torch.tensor(reward)
                     self.rollouts.add_traj(next_obs, reward, done, value, action, logprob)
                     self.rollouts.to_device(device=self.deivce)
 

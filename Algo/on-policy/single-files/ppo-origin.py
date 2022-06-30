@@ -21,7 +21,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--exp-name", type=str, default=os.path.basename(__file__).rstrip(".py"),
         help="the name of this experiment")
-    parser.add_argument("--seed", type=int, default=17,
+    parser.add_argument("--seed", type=int, default=127,
         help="seed of the experiment")
     parser.add_argument("--torch-deterministic", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="if toggled, `torch.backends.cudnn.deterministic=False`")
@@ -37,7 +37,7 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="CartPole-v0",
+    parser.add_argument("--env-id", type=str, default="nasim:MediumMultiSite-v0",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=5000000,
         help="total timesteps of the experiments")
@@ -45,7 +45,7 @@ def parse_args():
         help="the learning rate of the optimizer")
     parser.add_argument("--num-envs", type=int, default=8,
         help="the number of parallel game environments")
-    parser.add_argument("--num-steps", type=int, default=128,
+    parser.add_argument("--num-steps", type=int, default=256,
         help="the number of steps to run in each environment per policy rollout")
     parser.add_argument("--anneal-lr", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="Toggle learning rate annealing for policy and value networks")
@@ -73,7 +73,7 @@ def parse_args():
         help="the maximum norm for the gradient clipping")
     parser.add_argument("--target-kl", type=float, default=None,
         help="the target KL divergence threshold")
-    parser.add_argument("--hidden-size", type=int, default=128,
+    parser.add_argument("--hidden-size", type=int, default=32,
         help="hidden layer size of the neural networks")
     args = parser.parse_args()
     args.batch_size = int(args.num_envs * args.num_steps)
@@ -86,16 +86,16 @@ class Agent(nn.Module):
         super().__init__()
         self.critic = nn.Sequential(
             layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
-            nn.Tanh(),
+            nn.ReLU(),
             layer_init(nn.Linear(hidden_size, hidden_size)),
-            nn.Tanh(),
+            nn.ReLU(),
             layer_init(nn.Linear(hidden_size, 1), std=1.0),
         )
         self.actor = nn.Sequential(
             layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
-            nn.Tanh(),
+            nn.ReLU(),
             layer_init(nn.Linear(hidden_size, hidden_size)),
-            nn.Tanh(),
+            nn.ReLU(),
             layer_init(nn.Linear(hidden_size, envs.action_space.n), std=0.01),
         )
 
@@ -135,6 +135,7 @@ def main():
     # envs = gym.vector.SyncVectorEnv(
     #      [make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)]
     # )
+    
     #env = DummyVecEnv([lambda:env])
     if args.env_id[0:7] == "nasim:c":
         envs_list = make_env_list_random(args.env_id, args.seed, args.num_envs)

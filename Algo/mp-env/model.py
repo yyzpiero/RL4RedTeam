@@ -75,7 +75,7 @@ class RolloutStorage:
 
     def add_traj(self, next_obs, reward, done, value, action, logprob):
         self.obs[self.step+1].copy_(next_obs)
-        self.rewards[self.step].copy_(torch.tensor(reward).view(-1))
+        self.rewards[self.step].copy_(reward.view(-1))
         self.dones[self.step+1].copy_(torch.tensor(done))
         self.values[self.step].copy_(value.flatten())
         self.actions[self.step].copy_(action)

@@ -12,6 +12,17 @@ from stable_baselines3.common.env_util import make_vec_env
 import nasim
 # from utils.rl_tools import SaveOnBestTrainingRewardCallback, env_create, eval_agent
 # from gym_minigrid.wrappers import *
+def eval_agent(model, env):
+    obs = env.reset()
+    r = []
+    while True:
+        action, _states = model.predict(obs)
+        obs, rewards, dones, info = env.step(action)
+        r.append(rewards)
+        if dones:
+            #r = info['episode']['r']
+            break
+    return np.sum(r)
 
 since = time.time()
 # env = RGBImgPartialObsWrapper(env) # Get pixel observations
@@ -27,14 +38,14 @@ since = time.time()
 #env = gym.make("nasim:Small-v0")
 # env = DummyVecEnv([lambda:env])
 
-env = nasim.generate(num_hosts=26, num_services=5, num_os=3, num_processes=2, \
-                    num_exploits=None, num_privescs=None, r_sensitive=10, r_user=10, \
-                    exploit_cost=1, exploit_probs="mixed", privesc_cost=1, privesc_probs=1.0, \
-                    service_scan_cost=1, os_scan_cost=1, subnet_scan_cost=1, process_scan_cost=1,\
-                    uniform=False, alpha_H=2.0, alpha_V=2.0, lambda_V=1.0, restrictiveness=3, \
-                    random_goal=True, base_host_value=1, host_discovery_value=1, \
-                    seed=None, name=None, step_limit=10000, address_space_bounds=None, yz_gen=True)
-env = gym.wrappers.RecordEpisodeStatistics(env)
+# env = nasim.generate(num_hosts=26, num_services=5, num_os=3, num_processes=2, \
+#                     num_exploits=None, num_privescs=None, r_sensitive=10, r_user=10, \
+#                     exploit_cost=1, exploit_probs="mixed", privesc_cost=1, privesc_probs=1.0, \
+#                     service_scan_cost=1, os_scan_cost=1, subnet_scan_cost=1, process_scan_cost=1,\
+#                     uniform=False, alpha_H=2.0, alpha_V=2.0, lambda_V=1.0, restrictiveness=3, \
+#                     random_goal=True, base_host_value=1, host_discovery_value=1, \
+#                     seed=None, name=None, step_limit=10000, address_space_bounds=None, yz_gen=True)
+# env = gym.wrappers.RecordEpisodeStatistics(env)
 # env = VecNormalize(env, norm_obs=True, norm_reward=True, clip_obs=10.)
 #env = gym.make('nasim:Small-v0')
 # test_env = gym.make('nasim:Small-PO-v0')
@@ -42,7 +53,7 @@ env = gym.wrappers.RecordEpisodeStatistics(env)
 # env = RGBImgPartialObsWrapper(env)
 # env = FlatObsWrapper(env)
 #env.reset()
-# env = make_vec_env("nasim:Small-PO-v0", n_envs=1, monitor_dir=log_dir)
+env = make_vec_env("nasim:Tiny-v0", n_envs=10)
 #env = env_create(env_id="nasim:Medium-v0")
 #env = Monitor(gym.make("nasim:Tiny-PO-v0"),allow_early_resets=False)
 # Instantiate the agent
@@ -51,7 +62,7 @@ model.gamma = 0.9
 #callback = SaveOnBestTrainingRewardCallback(check_freq=20, log_dir=log_dir, verbose=0, idx=0)
 
 # Train the agent
-model.learn(total_timesteps=int(100000))#, callback=callback)
+model.learn(total_timesteps=int(50000))#, callback=callback)
 
 #params = model.get_parameters()
 
@@ -72,9 +83,9 @@ model.learn(total_timesteps=int(100000))#, callback=callback)
 # NOTE: If you use wrappers with your environment that modify rewards,
 #       this will be reflected here. To evaluate with original rewards,
 #       wrap environment in a "Monitor" wrapper before other wrappers.
-#mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=2)
+mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10, deterministic=False)
 #mean_reward= eval_agent(model, env)
-#print(mean_reward)
+print(mean_reward)
 
 # # Enjoy trained agent
 # obs = env.reset()
