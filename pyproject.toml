@@ -14,6 +14,7 @@ gym-minigrid = "^1.0.3"
 tensorboard = "^2.9.0"
 tensorboardX = "^2.5"
 scipy = "^1.8.1"
+nasim = {path = "NetworkAttackSimulator", develop = true}
 
 [tool.poetry.dev-dependencies]
 
