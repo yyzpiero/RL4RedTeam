@@ -32,6 +32,50 @@ Firstly，the network archetecture of our cyberrange on `192.167.253.190` consis
 
 However, in [`NAsim`](https://networkattacksimulator.readthedocs.io/en/latest/reference/scenarios/benchmark_scenarios.html), network topology is described differently. 
 
+![](https://files.catbox.moe/sd6j2i.png)
+
+
+Therefore in `NASim`'s language, we could actually interprete th
+
+|NASim|CyberRange|Subnet ID| Hosts IDs|
+|----------|:-------------:|------:|------:|
+| External Network| `kali` | 0| 0| 
+| DMZ |  `pfSense` Router | 1 | 1|
+| Sensitive Subnet | Isolated Network | 2 |2,3,4|
+| User Subnet | Windows AD |    3 |5,6,7|
+
+
+
+<details>
+    <summary> Always visible. Can **ONLY** be plaintext </summary>
+<!-- empty line -->
+  Collapsible content (Markdown-stylable)
+
+  ```bash
+  subnets: [1, 3, 3]
+  subnets: [1, 3, 3]
+topology: [[ 1, 1, 0, 0, 0],
+           [ 1, 1, 1, 1, 0],
+           [ 0, 1, 1, 1, 0],
+           [ 0, 1, 1, 1, 1],
+           [ 0, 0, 0, 1, 1]]
+sensitive_hosts:
+  (2, 0): 100
+  (4, 0): 100
+os:
+  - linux
+  - windows
+services:
+  - ssh
+  - ftp
+  - http
+processes:
+  - tomcat
+  - daclsvc
+  ```
+</details>
+<!-- empty line -->
+
 
 ### Generators details
 
