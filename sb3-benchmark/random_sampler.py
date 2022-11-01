@@ -4,15 +4,16 @@ import numpy as np
 import time
 import nasim
 
-env = nasim.generate(num_hosts = 10, 
-                    num_os = 3,
-                    num_services = 5,
-                    num_exploits = 3,
-                    num_processes = 3,
-                    restrictiveness = 5,
-                    step_limit = 300000,
-                    yz_gen=False, save_fig=False)
-#env = gym.make("nasim:Small-v0")
+#env = nasim.generate(num_hosts = 10, 
+#                    num_os = 3,
+#                    num_services = 5,
+#                    num_exploits = 3,
+#                    num_processes = 3,
+#                    restrictiveness = 5,
+#                    step_limit = 300000,
+#                    yz_gen=False, save_fig=False)
+env = gym.make("nasim:CyberRange-v0")
+#env = gym.make("nasim:TinyHard-v0")
 env = gym.wrappers.RecordEpisodeStatistics(env)
 print(env.get_score_upper_bound())
 

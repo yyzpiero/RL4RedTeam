@@ -47,9 +47,9 @@ Therefore in `NASim`'s language, we could actually interprete th
 
 
 <details>
-    <summary> Always visible. Can **ONLY** be plaintext </summary>
+    <summary> This is how we setup the `yaml` file </summary>
 <!-- empty line -->
-  Collapsible content (Markdown-stylable)
+  In general, we ommit the `External Network` where `kali` attack machine is located.
 
   ```bash
   subnets: [1, 3, 3]
@@ -89,3 +89,24 @@ processes:
   - number of exploits to use. minimum is 1. If None will use num_services (default=None)
 - **num_privescs**: `int`, optional
   - number of privilege escalation actions to use. minimum is 1. If None will use num_processes (default=None)
+
+
+In our NASim settings
+
+｜ **What we have changed：** I personally believe that, exploits are deterministic 
+
+
+Therefore，here we have 
+
+
+# Optimal Pace
+
+6,2,50,31,34
+
+0-62 total 63 actions
+
+SubnetScan: target=(1, 0), cost=1.00, prob=1.00, req_access=USER
+Exploit: target=(1, 0), cost=2.00, prob=0.90, req_access=USER, os=None, service=http, access=1
+Exploit: target=(2, 2), cost=3.00, prob=0.90, req_access=USER, os=linux, service=ssh, access=1
+PrivilegeEscalation: target=(2, 2), cost=1.00, prob=1.00, req_access=USER, os=linux, process=tomcat, access=2
+Exploit: target=(3, 1), cost=1.00, prob=0.60, req_access=USER, os=windows, service=ftp, access=2
