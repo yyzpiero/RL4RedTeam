@@ -110,3 +110,48 @@ Exploit: target=(1, 0), cost=2.00, prob=0.90, req_access=USER, os=None, service=
 Exploit: target=(2, 2), cost=3.00, prob=0.90, req_access=USER, os=linux, service=ssh, access=1
 PrivilegeEscalation: target=(2, 2), cost=1.00, prob=1.00, req_access=USER, os=linux, process=tomcat, access=2
 Exploit: target=(3, 1), cost=1.00, prob=0.60, req_access=USER, os=windows, service=ftp, access=2
+
+
+The most trickiest part of this attack path is that, after
+
+
+# "Huge" Reality Gap
+
+- `NAsim` is not able to simulate router/firewall 
+  - As a result, after exploit `host(1,0)` (which is suppose to be the `pfSense` router), the attacker `kali` agent can access 
+
+
+# Problem with VMs(Boxs)
+
+In our initial experiments, we performed PenTesting on two famous VulnHub CTF VMs:
+
+- **Mr. Robots**
+- **Metasploitable 2**
+
+Following some well established *walkthroughs*.
+
+<br/>
+
+[Metasploitable Walkthrough 1](https://www.golinuxcloud.com/learn-hacking-using-metasploitable-2/)
+
+[Apache Tomcat Exploitation](https://pentestlab.blog/2012/03/22/apache-tomcat-exploitation/)
+
+### Pros&Cons of Those
+
+![截图](https://files.catbox.moe/s51yq5.png)
+
+
+==some human consiousiness/sentience==, which some part of PenTesting or CTF campain extremely hard to automate
+
+### Next!
+
+**Plus**, there are also some quick summaries 
+
+[Easy Vulnhub Linux Machines](https://emaragkos.gr/recommended-machines/)
+
+
+|VM Name|Feature|Walkthroughs|
+|--|--|--|
+|billu: b0x 2|Enumeration, Web, CVE, Common easy priv esc|https://www.hackingarticles.in/hack-the-billu-b0x-2-vm-boot-to-root/|
+|TomGhost||https://steflan-security.com/tryhackme-tomghost-walkthrough/|
+
