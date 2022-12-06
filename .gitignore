@@ -20040,7 +20040,6 @@ fig22.png
 Algorighms/on-policy/single-files/__pycache__/utils.cpython-38.pyc
 figure/tmp_fig.png
 figure/wireball_500_ppo_coverage.png
-.gitignore
 logs/print_logs/wireball_500_ppo_coverage.out
 logs/print_logs/nasim-500-ppo-as-attention.out
 logs/print_logs/nasim-500-ppo-coverage.out
@@ -20054,7 +20053,6 @@ logs/print_logs/nasim-Pocp2Gen-ppo-as-attention+cnn+lstm+glu2-2.out
 logs/print_logs/nasim-Pocp2Gen-ppo-as-attention+cnn+lstm+glu2-mask.out
 logs/print_logs/nasim-Pocp2Gen-ppo-as-attention+cnn+lstm+glu2.out
 logs/print_logs/nasim-Pocp2Gen-ppo-original.out
-.gitignore
 run_ablation/nasim:Medium-v0__ppo-origin__142__1655097424/events.out.tfevents.1655097424.swai
 run_ablation/nasim:Medium-v0__ppo-single-mask__12__1655101664/events.out.tfevents.1655101664.swai
 run_ablation/nasim:Medium-v0__ppo-single-mask__142__1655101275/events.out.tfevents.1655101275.swai
@@ -20065,5 +20063,3 @@ Algo/mp-env/__pycache__/model.cpython-38.pyc
 Algo/mp-env/__pycache__/ppo.cpython-38.pyc
 Algo/mp-env/__pycache__/utils.cpython-38.pyc
 trash_bin
-/trash_bin/vmpo
-/fig.png
