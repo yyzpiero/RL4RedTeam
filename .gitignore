@@ -20064,3 +20064,6 @@ Algo/mp-env/__pycache__/envs.cpython-38.pyc
 Algo/mp-env/__pycache__/model.cpython-38.pyc
 Algo/mp-env/__pycache__/ppo.cpython-38.pyc
 Algo/mp-env/__pycache__/utils.cpython-38.pyc
+trash_bin
+/trash_bin/vmpo
+/fig.png
