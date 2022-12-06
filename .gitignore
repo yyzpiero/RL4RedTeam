@@ -1,6 +1,8 @@
 .gitignore
 runs/
 venv/
+trash_bin/
+archived/
 ppo-rnd-vec/__pycache__/agent.cpython-38.pyc
 ppo-rnd-vec/__pycache__/distribution.cpython-38.pyc
 ppo-rnd-vec/__pycache__/eps_control.cpython-38.pyc
