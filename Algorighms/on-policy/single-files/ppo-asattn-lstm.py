@@ -2,7 +2,8 @@
 
 import argparse
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "1,3,5"
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "3, 4, 5"
 import random
 import copy
 import time
@@ -22,7 +23,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--exp-name", type=str, default=os.path.basename(__file__).rstrip(".py"),
         help="the name of this experiment")
-    parser.add_argument("--seed", type=int, default=142,
+    parser.add_argument("--seed", type=int, default=56747,
         help="seed of the experiment")
     parser.add_argument("--torch-deterministic", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="if toggled, `torch.backends.cudnn.deterministic=False`")
@@ -38,15 +39,15 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:Pocp2Gen-PO-v1",
+    parser.add_argument("--env-id", type=str, default="nasim:LargeGen-PO-v1",
         help="the id of the environment")
-    parser.add_argument("--total-timesteps", type=int, default=25000000,
+    parser.add_argument("--total-timesteps", type=int, default=1000000,
         help="total timesteps of the experiments")
     parser.add_argument("--learning-rate", type=float, default=2.5e-4,
         help="the learning rate of the optimizer")
     parser.add_argument("--num-envs", type=int, default=8,
         help="the number of parallel game environments")
-    parser.add_argument("--num-steps", type=int, default=2048,
+    parser.add_argument("--num-steps", type=int, default=1024,
         help="the number of steps to run in each environment per policy rollout")
     parser.add_argument("--anneal-lr", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="Toggle learning rate annealing for policy and value networks")
@@ -58,7 +59,7 @@ def parse_args():
         help="the lambda for the general advantage estimation")
     parser.add_argument("--num-minibatches", type=int, default=8,
         help="the number of mini-batches")
-    parser.add_argument("--update-epochs", type=int, default=10,
+    parser.add_argument("--update-epochs", type=int, default=20,
         help="the K epochs to update the policy")
     parser.add_argument("--norm-adv", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="Toggles advantages normalization")
@@ -74,7 +75,7 @@ def parse_args():
         help="the maximum norm for the gradient clipping")
     parser.add_argument("--target-kl", type=float, default=None,
         help="the target KL divergence threshold")
-    parser.add_argument("--hidden-size", type=int, default=512,
+    parser.add_argument("--hidden-size", type=int, default=256,
         help="hidden layer size of the neural networks")
     args = parser.parse_args()
     args.batch_size = int(args.num_envs * args.num_steps)
@@ -187,7 +188,7 @@ def main():
     torch.backends.cudnn.deterministic = args.torch_deterministic
 
     device = torch.device("cuda" if torch.cuda.is_available() and args.cuda else "cpu")
-
+    device_ids = [0, 1]
     # env setup
     # envs = gym.vector.SyncVectorEnv(
     #      [make_env(args.env_id, args.seed + i, i) for i in range(args.num_envs)]
@@ -202,10 +203,11 @@ def main():
     #assert isinstance(envs.single_action_space, gym.spaces.Discrete), "only discrete action space is supported"
     print("Let's use", torch.cuda.device_count(), "GPUs!")
     agent = Agent(envs, args.hidden_size)
-    agent = nn.DataParallel(agent)
+    agent = nn.DataParallel(agent, device_ids=device_ids)
     #.to(device)
     agent.to(device)
     optimizer = optim.Adam(agent.parameters(), lr=args.learning_rate, eps=1e-5)
+    optimizer = nn.DataParallel(optimizer, device_ids=device_ids)
 
     # ALGO Logic: Storage setup
     obs = torch.zeros((args.num_steps, args.num_envs) + envs.observation_space.shape).to(device)
@@ -237,7 +239,7 @@ def main():
         if args.anneal_lr:
             frac = 1.0 - (update - 1.0) / num_updates
             lrnow = frac * args.learning_rate
-            optimizer.param_groups[0]["lr"] = lrnow
+            optimizer.module.param_groups[0]["lr"] = lrnow
 
         for step in range(0, args.num_steps):
             global_step += 1 * args.num_envs
@@ -370,7 +372,10 @@ def main():
                 optimizer.zero_grad()
                 loss.backward()
                 nn.utils.clip_grad_norm_(agent.parameters(), args.max_grad_norm)
-                optimizer.step()
+                if isinstance(agent, torch.nn.DataParallel):
+                    optimizer.module.step()
+                else:    
+                    optimizer.step()
 
             if args.target_kl is not None:
                 if approx_kl > args.target_kl:
@@ -382,7 +387,7 @@ def main():
 
         # TRY NOT TO MODIFY: record rewards for plotting purposes
         if writer is not None:
-            writer.add_scalar("charts/learning_rate", optimizer.param_groups[0]["lr"], global_step)
+            writer.add_scalar("charts/learning_rate", optimizer.module.param_groups[0]["lr"], global_step)
             writer.add_scalar("losses/value_loss", v_loss.item(), global_step)
             writer.add_scalar("losses/policy_loss", pg_loss.item(), global_step)
             writer.add_scalar("losses/entropy", entropy_loss.item(), global_step)
