@@ -68,7 +68,7 @@ def main():
 
     n_update = 8000 # How many ppo update you want to run
     n_init_episode = 1024 # default 1014
-    num_envs = 1
+    num_envs = 4
     seed = 450
     #############################################
 
