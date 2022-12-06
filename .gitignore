@@ -2,6 +2,7 @@
 runs/
 venv/
 trash_bin/
+trash_bin/vmpo
 archived/
 ppo-rnd-vec/__pycache__/agent.cpython-38.pyc
 ppo-rnd-vec/__pycache__/distribution.cpython-38.pyc
