@@ -39,7 +39,7 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:c",
+    parser.add_argument("--env-id", type=str, default="nasim:TinyPO-v0",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=10000000,
         help="total timesteps of the experiments")
@@ -129,7 +129,7 @@ class Agent(nn.Module):
         action_probs = Categorical(logits=logits)
         if action is None:
             action = action_probs.sample()
-            return action, action_probs.log_prob(action), action_probs.entropy(), self.critic(x)
+            return action.int(), action_probs.log_prob(action), action_probs.entropy(), self.critic(x)
         return action_probs.probs, action_probs.log_prob(action), action_probs.entropy(), self.critic(x)
 
 
@@ -221,6 +221,7 @@ if __name__ == "__main__":
             logprobs[step] = logprob
 
             # TRY NOT TO MODIFY: execute the game and log data.
+            # action_list = list(map(int, action.cpu().numpy()))
             next_obs, reward, done, info = envs.step(action.cpu().numpy())
             rewards[step] = torch.tensor(reward).to(device).view(-1)
             next_obs, next_done = torch.Tensor(next_obs).to(device), torch.Tensor(done).to(device)

@@ -101,7 +101,7 @@ class NASimEnv(gym.Env):
 
         self.steps = 0
 
-    def reset(self, seed=None, return_info=False, options=None):
+    def reset(self, seed=None, return_info=True, options=None):
         """Reset the state of the environment and returns the initial state.
 
         Implements gym.Env.reset().

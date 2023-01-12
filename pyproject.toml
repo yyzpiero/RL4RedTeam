@@ -7,13 +7,14 @@ authors = ["yyzpiero <yyzpiero@gmail.com>"]
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
 torch = "^1.11.0"
-stable-baselines3 = "^1.5.0"
 numpy = "^1.22.3"
 gym-minigrid = "^1.0.3"
 tensorboard = "^2.9.0"
 tensorboardX = "^2.5"
 scipy = "^1.8.1"
-nasim = "0.9.1"
+nasim = {path = "nasim-modified", develop = true}
+gym = "^0.26.2"
+stable-baselines3 = {git = "https://github.com/carlosluis/stable-baselines3", rev = "fix_tests"}
 
 [tool.poetry.dev-dependencies]
 
