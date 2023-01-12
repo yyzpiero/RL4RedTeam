@@ -27,13 +27,11 @@ def draw_random_normal_int(low:int, high:int):
     return int(np.round(normal_scaled))
 
 for i in range(100000):
-    """
+    """ Reset random number of hosts,
     Parameters
     ----------
     shutdown_num: int
-        How many host to be reset at each time, randomly drawn from `low` to `high`.
-        
-    
+        How many hosts to be reset at each time, randomly drawn from `low` to `high`.
     """
 
     #idx = np.random.choice([1, 3], host_num, replace=False, p=[0.1, 0.9])
