@@ -201,10 +201,15 @@ class NASimEnv(gym.Env):
         """
         if not isinstance(action, Action):
             action = self.action_space.get_action(action)
-
+        
+        # `network.perform_action` is a function where "real" APT attack action 
+        # take places
+        
         next_state, action_obs = self.network.perform_action(
             state, action
         )
+        # This is where I think defensive mechanism should take place
+
         obs = next_state.get_observation(
             action, action_obs, self.fully_obs
         )

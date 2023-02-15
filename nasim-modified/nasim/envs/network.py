@@ -232,6 +232,23 @@ class Network:
 
     def get_subnet_depths(self):
         return min_subnet_depth(self.topology)
+    
+    def random_reset_hosts(self):
+        # 1. Draw Random Number
+        """
+        测两种情况 】
+        1. random shutdown -- 动态网络 
+        2. random reset -- 更新维护
+        3. random shutdown + random reset
+        """
+        
+        for host_addr in self.address_space:
+            host = state.get_host(host_addr)
+            host.compromised = False
+            host.access = AccessLevel.NONE
+            host.reachable = self.subnet_public(host_addr[0])
+            host.discovered = host.reachable
+        
 
     def __str__(self):
         output = "\n--- Network ---\n"
