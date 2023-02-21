@@ -1,7 +1,8 @@
 import numpy as np
+import warnings
 
 from .action import ActionResult
-from .utils import get_minimal_steps_to_goal, min_subnet_depth, AccessLevel
+from .utils import get_minimal_steps_to_goal, min_subnet_depth, draw_random_normal_int, AccessLevel
 
 # column in topology adjacency matrix that represents connection between
 # subnet and public
@@ -233,24 +234,63 @@ class Network:
     def get_subnet_depths(self):
         return min_subnet_depth(self.topology)
     
-    def random_reset_hosts(self, address_space):
-        """Just to compupte the square of a value
+    def random_reset_hosts(self, address_list, state):
+        """ Resetting hosts from a provided address list
         Args:
-            param1 (int): The first parameter.
-            param2 (str): The second parameter.
+        ---------
+            address_list (list) : A list of hosts address
+            state (State) : The current state in the NASim Environment.
 
         Returns:
-            bool: The return value. True for success, False otherwise.
+        ---------
+            next_state (State) : The state after the defensive mechansim is performed 
 
         """
+        # # copy the current state
+        temp_state = state.copy()
         
-        for host_addr in address_space:
-            host = state.get_host(host_addr)
+        # Define the hosts' addresses to be reset
+        if not isinstance(address_list, list):
+            raise TypeError("Address list should be a list")
+        elif len(address_list) == 0:
+            warnings.warn("Nothing in the Address list")
+            return
+
+        # Iterate over the list of addresses.
+        for host_addr in list:
+            host = temp_state.get_host(host_addr)
             host.compromised = False
             host.access = AccessLevel.NONE
-            host.reachable = self.subnet_public(host_addr[0])
+            host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
             host.discovered = host.reachable
+        return temp_state
         
+        
+    
+    def perform_defensive(self, state):
+        """Perform the defensive mechanism against the network.
+
+        Arguments
+        ---------
+            state (State) : The current state in the NASim Environment.
+        
+        Returns
+        -------
+            next_state (State) : The state after the defensive mechansim is performed
+
+        """
+
+        shutdown_num = draw_random_normal_int(low=0, high=2)
+        host_num = len(self.hosts)
+        #print(np.random.choice(host_num, shutdown_num, replace=False))
+        idx = np.random.choice(host_num, shutdown_num, replace=False)
+        address_list = self.address_space[idx]
+        
+        # copy the current state
+        temp_state = state.copy()
+
+        final_state = self.random_reset_hosts(self, address_list, temp_state)
+        return final_state
 
     def __str__(self):
         output = "\n--- Network ---\n"

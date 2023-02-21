@@ -139,3 +139,24 @@ def min_subnet_depth(topology):
                     depths[child] = depths[parent] + 1
                     Q.appendleft(child)
     return depths
+
+def draw_random_normal_int(low:int, high:int):
+    '''
+    # https://stackoverflow.com/a/69738042
+    '''
+    # generate a random normal number (float)
+    normal = np.random.normal(loc=0, scale=1, size=1)
+
+    # clip to -3, 3 (where the bell with mean 0 and std 1 is very close to zero
+    normal = -3 if normal < -3 else normal
+    normal = 3 if normal > 3 else normal
+
+    # scale range of 6 (-3..3) to range of low-high
+    scaling_factor = (high-low) / 6
+    normal_scaled = normal * scaling_factor
+
+    # center around mean of range of low high
+    normal_scaled += low + (high-low)/2
+
+    # then round and return
+    return int(np.round(normal_scaled))

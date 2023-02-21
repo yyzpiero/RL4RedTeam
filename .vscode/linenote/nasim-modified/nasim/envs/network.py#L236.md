@@ -1,4 +1,7 @@
-# 1. Draw Random Number
+
+
+# 1. `random_reset_hosts`
+
         """
         测两种情况 】
         1. random shutdown -- 动态网络 

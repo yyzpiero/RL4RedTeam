@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-host_num = 100
+host_num = 20
 host_state = np.array(host_num * [1])
 active_host_num = []
 print(host_state)
@@ -37,7 +37,7 @@ for i in range(1000):
     #idx = np.random.choice([1, 3], host_num, replace=False, p=[0.1, 0.9])
     #host_state[idx] = -host_state[idx]
     #print(host_state)
-    shutdown_num = draw_random_normal_int(low=1, high=5)
+    shutdown_num = draw_random_normal_int(low=0, high=2)
     #print(np.random.choice(host_num, shutdown_num, replace=False))
     idx = np.random.choice(host_num, shutdown_num, replace=False)
     #out = np.argpartition(np.random.rand(N,12*4),M,axis=1)[:,:M]

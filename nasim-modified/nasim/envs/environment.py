@@ -58,7 +58,7 @@ class NASimEnv(gym.Env):
                  scenario,
                  fully_obs=False,
                  flat_actions=True,
-                 flat_obs=True):
+                 flat_obs=True, def_ops=True):
         """
         Parameters
         ----------
@@ -73,12 +73,16 @@ class NASimEnv(gym.Env):
         flat_obs : bool, optional
             If true then uses a 1D observation space, otherwise uses a 2D
             observation space (default=True)
+        def_ops : bool, optional
+            If true the defensive mechansim will be ativated, execute after action performed
+             (defaul=False)
         """
         self.name = scenario.name
         self.scenario = scenario
         self.fully_obs = fully_obs
         self.flat_actions = flat_actions
         self.flat_obs = flat_obs
+        self.def_ops = def_ops
 
         self.network = Network(scenario)
         self.current_state = State.generate_initial_state(self.network)
@@ -205,10 +209,14 @@ class NASimEnv(gym.Env):
         # `network.perform_action` is a function where "real" APT attack action 
         # take places
         
-        next_state, action_obs = self.network.perform_action(
+        mid_state, action_obs = self.network.perform_action(
             state, action
         )
         # This is where I think defensive mechanism should take place
+        if self.def_ops:
+            next_state = self.network.perform_defensive(mid_state)
+        else:
+            next_state = mid_state
 
         obs = next_state.get_observation(
             action, action_obs, self.fully_obs
