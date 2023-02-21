@@ -233,16 +233,18 @@ class Network:
     def get_subnet_depths(self):
         return min_subnet_depth(self.topology)
     
-    def random_reset_hosts(self):
-        # 1. Draw Random Number
-        """
-        测两种情况 】
-        1. random shutdown -- 动态网络 
-        2. random reset -- 更新维护
-        3. random shutdown + random reset
+    def random_reset_hosts(self, address_space):
+        """Just to compupte the square of a value
+        Args:
+            param1 (int): The first parameter.
+            param2 (str): The second parameter.
+
+        Returns:
+            bool: The return value. True for success, False otherwise.
+
         """
         
-        for host_addr in self.address_space:
+        for host_addr in address_space:
             host = state.get_host(host_addr)
             host.compromised = False
             host.access = AccessLevel.NONE
