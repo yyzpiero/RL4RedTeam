@@ -29,6 +29,7 @@ class Network:
         next_state = state.copy()
         for host_addr in self.address_space:
             host = next_state.get_host(host_addr)
+            host.running = True # ??? Is it okay to set to be true???
             host.compromised = False
             host.access = AccessLevel.NONE
             host.reachable = self.subnet_public(host_addr[0])
@@ -60,7 +61,11 @@ class Network:
 
         if action.is_noop():
             return next_state, ActionResult(True)
-
+        
+        if not state.host_running(action.target):
+            result = ActionResult(False, 0.0, connection_error=True)
+            return next_state, result
+        
         if not state.host_reachable(action.target) \
            or not state.host_discovered(action.target):
             result = ActionResult(False, 0.0, connection_error=True)

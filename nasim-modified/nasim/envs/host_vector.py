@@ -23,6 +23,7 @@ class HostVector:
                         of subnets
     2. host address - one-hot encoding with length equal to the maximum number
                       of hosts in any subnet
+    3. running - bool
     3. compromised - bool
     4. reachable - bool
     5. discovered - bool
@@ -37,9 +38,9 @@ class HostVector:
     -----
     - The size of the vector is equal to:
 
-        #subnets + max #hosts in any subnet + 6 + #OS + #services + #processes.
+        #subnets + max #hosts in any subnet + 7 + #OS + #services + #processes.
 
-    - Where the +6 is for compromised, reachable, discovered, value,
+    - Where the +7 is for running, compromised, reachable, discovered, value,
       discovery_value, and access features
     - The vector is a float vector so True/False is actually represented as
       1.0/0.0.
@@ -69,6 +70,7 @@ class HostVector:
     # to be initialized
     _subnet_address_idx = 0
     _host_address_idx = None
+    _running_idx = None
     _compromised_idx = None
     _reachable_idx = None
     _discovered_idx = None
@@ -96,6 +98,7 @@ class HostVector:
 
         vector[cls._subnet_address_idx + host.address[0]] = 1
         vector[cls._host_address_idx + host.address[1]] = 1
+        vector[cls._running_idx] = int(host.running)
         vector[cls._compromised_idx] = int(host.compromised)
         vector[cls._reachable_idx] = int(host.reachable)
         vector[cls._discovered_idx] = int(host.discovered)
@@ -135,6 +138,14 @@ class HostVector:
     @compromised.setter
     def compromised(self, val):
         self.vector[self._compromised_idx] = int(val)
+    
+    @property
+    def running(self):
+        return self.vector[self._running_idx]
+
+    @running.setter
+    def running(self, val):
+        self.vector[self._running_idx] = int(val)
 
     @property
     def discovered(self):
@@ -296,6 +307,7 @@ class HostVector:
 
     def observe(self,
                 address=False,
+                running=False,
                 compromised=False,
                 reachable=False,
                 discovered=False,
@@ -311,6 +323,8 @@ class HostVector:
             host_slice = self._host_address_idx_slice()
             obs[subnet_slice] = self.vector[subnet_slice]
             obs[host_slice] = self.vector[host_slice]
+        if running:
+            obs[self._running_idx] = self.vector[self._running_idx]
         if compromised:
             obs[self._compromised_idx] = self.vector[self._compromised_idx]
         if reachable:
@@ -366,9 +380,10 @@ class HostVector:
     def _update_vector_idxs(cls):
         cls._subnet_address_idx = 0
         cls._host_address_idx = cls.address_space_bounds[0]
-        cls._compromised_idx = (
+        cls._running_idx = (
             cls._host_address_idx + cls.address_space_bounds[1]
         )
+        cls._compromised_idx = cls._running_idx + 1
         cls._reachable_idx = cls._compromised_idx + 1
         cls._discovered_idx = cls._reachable_idx + 1
         cls._value_idx = cls._discovered_idx + 1
@@ -385,7 +400,7 @@ class HostVector:
 
     @classmethod
     def _host_address_idx_slice(cls):
-        return slice(cls._host_address_idx, cls._compromised_idx)
+        return slice(cls._host_address_idx, cls._running_idx)
 
     @classmethod
     def _get_service_idx(cls, srv_num):
@@ -416,6 +431,7 @@ class HostVector:
         readable_dict = dict()
         hvec = cls(vector)
         readable_dict["Address"] = hvec.address
+        readable_dict["Running"] = bool(hvec.running)
         readable_dict["Compromised"] = bool(hvec.compromised)
         readable_dict["Reachable"] = bool(hvec.reachable)
         readable_dict["Discovered"] = bool(hvec.discovered)

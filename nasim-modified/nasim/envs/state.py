@@ -153,6 +153,7 @@ class State:
         t_idx, t_host = self.get_host_and_idx(action.target)
         obs_kwargs = dict(
             address=True,       # must be true for success
+            running=True,       # must be true for success
             compromised=False,
             reachable=True,     # must be true for success
             discovered=True,    # must be true for success
@@ -229,6 +230,9 @@ class State:
     def host_reachable(self, host_addr):
         return self.get_host(host_addr).reachable
 
+    def host_running(self, host_addr):
+        return self.get_host(host_addr).running
+    
     def host_compromised(self, host_addr):
         return self.get_host(host_addr).compromised
 
@@ -237,6 +241,9 @@ class State:
 
     def host_has_access(self, host_addr, access_level):
         return self.get_host(host_addr).access >= access_level
+
+    def set_host_running(self, host_addr):
+        self.get_host(host_addr).running = True
 
     def set_host_compromised(self, host_addr):
         self.get_host(host_addr).compromised = True

@@ -15,6 +15,7 @@ class Host:
                  firewall,
                  value=0.0,
                  discovery_value=0.0,
+                 running=True, # ??? is it okay to set to be True???
                  compromised=False,
                  reachable=False,
                  discovered=False,
@@ -57,6 +58,7 @@ class Host:
         self.firewall = firewall
         self.value = value
         self.discovery_value = discovery_value
+        self.running = running
         self.compromised = compromised
         self.reachable = reachable
         self.discovered = discovered
@@ -77,6 +79,7 @@ class Host:
     def __str__(self):
         output = ["Host: {"]
         output.append(f"\taddress: {self.address}")
+        output.append(f"\trunning: {self.running}")
         output.append(f"\tcompromised: {self.compromised}")
         output.append(f"\treachable: {self.reachable}")
         output.append(f"\tvalue: {self.value}")
