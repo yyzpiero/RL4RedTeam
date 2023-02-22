@@ -235,7 +235,7 @@ class Network:
     def get_subnet_depths(self):
         return min_subnet_depth(self.topology)
     
-    def random_reset_hosts(self, address_list, state):
+    def reset_hosts(self, address_list, state):
         """ Resetting hosts from a provided address list
         Args:
         ---------
@@ -274,6 +274,10 @@ class Network:
         Arguments
         ---------
             state (State) : The current state in the NASim Environment.
+
+        TODO:
+            Defensive Level : High, Medium, Low
+            Defensive Type: 1) Regular Maintance 2)
         
         Returns
         -------
@@ -282,15 +286,17 @@ class Network:
         """
         address_list = []
         if random.random() < 0.05:
-            shutdown_num = draw_random_normal_int(low=1, high=3)
+            shutdown_num = draw_random_normal_int(low=0, high=2)
         else:
             shutdown_num = 0
-
+            return state
+        
         host_num = len(self.hosts)
+        #print(host_num)
         #print(np.random.choice(host_num, shutdown_num, replace=False))
         
         idx = np.random.choice(host_num, shutdown_num, replace=False).astype(int)
-        
+        # print(idx)
         for i in idx:
             address_list.append(self.address_space[i])
         
@@ -298,7 +304,7 @@ class Network:
         # copy the current state
         temp_state = state.copy()
 
-        final_state = self.random_reset_hosts(address_list, temp_state)
+        final_state = self.reset_hosts(address_list, temp_state)
         return final_state
 
     def __str__(self):
