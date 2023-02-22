@@ -282,7 +282,7 @@ class Network:
         """
         address_list = []
         if random.random() < 0.05:
-            shutdown_num = draw_random_normal_int(low=0, high=5)
+            shutdown_num = draw_random_normal_int(low=1, high=3)
         else:
             shutdown_num = 0
 
