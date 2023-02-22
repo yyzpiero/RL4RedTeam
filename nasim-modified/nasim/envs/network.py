@@ -271,9 +271,39 @@ class Network:
             host.discovered = host.reachable
         return temp_state
         
+    def reboot_hosts(self, address_list, state):
+        """ Reboot hosts from a provided address list
+        Args:
+        ---------
+            address_list (list) : A list of hosts address
+            state (State) : The current state in the NASim Environment.
+
+        Returns:
+        ---------
+            next_state (State) : The state after the defensive mechansim is performed 
+
+        """
+        # # copy the current state
+        temp_state = state.copy()
         
+        # Define the hosts' addresses to be reset
+        if not isinstance(address_list, list):
+            raise TypeError("Address list should be a list")
+        elif len(address_list) == 0:
+            warnings.warn("Nothing in the Address list")
+            return temp_state
+
+        # Iterate over the list of addresses.
+        for host_addr in address_list:
+            host = temp_state.get_host(host_addr)
+            host.running = not host.running
+            host.compromised = False
+            host.access = AccessLevel.NONE
+            host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
+            host.discovered = host.reachable
+        return temp_state
     
-    def perform_defensive(self, state):
+    def perform_defensive(self, state, def_type="reboot"):
         """Perform the defensive mechanism against the network.
 
         Arguments
@@ -305,11 +335,18 @@ class Network:
         for i in idx:
             address_list.append(self.address_space[i])
         
+
         
         # copy the current state
         temp_state = state.copy()
 
-        final_state = self.reset_hosts(address_list, temp_state)
+        if def_type.lower() == "none":
+            return final_state
+        elif def_type.lower() == "reset":
+            final_state = self.reset_hosts(address_list, temp_state)
+        elif def_type.lower() == "reboot":
+            final_state = self.reboot_hosts(address_list, temp_state)
+
         return final_state
 
     def __str__(self):

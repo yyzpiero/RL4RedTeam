@@ -214,6 +214,7 @@ class NASimEnv(gym.Env):
         )
         # This is where I think defensive mechanism should take place
         if self.def_ops:
+            # TODO: If def_ops_type == reboot, maintain a list of running hosts
             next_state = self.network.perform_defensive(mid_state)
         else:
             next_state = mid_state
