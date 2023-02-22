@@ -4,3 +4,4 @@ archived/
 trash_bin/
 */__pycache__
 .gitignore 
+.vscode/

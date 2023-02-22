@@ -17,7 +17,6 @@ from stable_baselines3.common.monitor import Monitor
 from utils import make_env, layer_init, matrix_norm, make_env_list_random
 
 
-
 def parse_args():
     # fmt: off
     parser = argparse.ArgumentParser()

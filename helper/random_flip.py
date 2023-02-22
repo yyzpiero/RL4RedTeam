@@ -8,6 +8,7 @@ print(host_state)
 def draw_random_normal_int(low:int, high:int):
     '''
     # https://stackoverflow.com/a/69738042
+    
     '''
     # generate a random normal number (float)
     normal = np.random.normal(loc=0, scale=1, size=1)
