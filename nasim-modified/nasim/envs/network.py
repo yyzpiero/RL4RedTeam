@@ -323,8 +323,8 @@ class Network:
 
         """
         address_list = []
-        if random.random() < 0.1:
-            shutdown_num = draw_random_normal_int(low=1, high=1)
+        if random.random() < 0.02:
+            shutdown_num = draw_random_normal_int(low=0, high=1)
         else:
             shutdown_num = 0
             return state
