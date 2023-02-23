@@ -45,7 +45,8 @@ class Observation:
     # obs vector positions for auxiliary observations
     _success_idx = 0
     _conn_error_idx = _success_idx + 1
-    _perm_error_idx = _conn_error_idx + 1
+    _run_error_idx = _conn_error_idx + 1
+    _perm_error_idx = _run_error_idx + 1
     _undef_error_idx = _perm_error_idx + 1
 
     def __init__(self, state_shape):
@@ -94,6 +95,8 @@ class Observation:
         self.tensor[self.aux_row][self._success_idx] = success
         con_err = int(action_result.connection_error)
         self.tensor[self.aux_row][self._conn_error_idx] = con_err
+        run_err = int(action_result.running_error)
+        self.tensor[self.aux_row][self._run_error_idx] = run_err
         perm_err = int(action_result.permission_error)
         self.tensor[self.aux_row][self._perm_error_idx] = perm_err
         undef_err = int(action_result.undefined_error)
@@ -127,6 +130,17 @@ class Observation:
             True if there was a connection error, otherwise False
         """
         return bool(self.tensor[self.aux_row][self._conn_error_idx])
+    
+    @property
+    def running_error(self):
+        """Whether there was a running error or not
+
+        Returns
+        -------
+        bool
+            True if there was a running error, otherwise False
+        """
+        return bool(self.tensor[self.aux_row][self._run_error_idx])
 
     @property
     def permission_error(self):
@@ -209,6 +223,7 @@ class Observation:
         aux_obs = {
             "Success": self.success,
             "Connection Error": self.connection_error,
+            "Running Error": self.running_error,
             "Permission Error": self.permission_error,
             "Undefined Error": self.undefined_error
         }

@@ -36,7 +36,7 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:SmallPO-v0",
+    parser.add_argument("--env-id", type=str, default="nasim:TinyPO-v0",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=5000000,
         help="total timesteps of the experiments")
@@ -178,7 +178,7 @@ if __name__ == "__main__":
     run_name = f"{args.env_id}__{args.exp_name}__{args.seed}__{int(time.time())}"
     
     if args.track:
-        writer = SummaryWriter(f"runs/{run_name}")
+        writer = SummaryWriter(f"def-runs/{run_name}")
         writer.add_text(
         "hyperparameters",
         "|param|value|\n|-|-|\n%s" % ("\n".join([f"|{key}|{value}|" for key, value in vars(args).items()])),

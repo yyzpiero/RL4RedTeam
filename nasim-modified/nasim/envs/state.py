@@ -153,7 +153,7 @@ class State:
         t_idx, t_host = self.get_host_and_idx(action.target)
         obs_kwargs = dict(
             address=True,       # must be true for success
-            running=True,       # must be true for success
+            running=False,       # must be true for success
             compromised=False,
             reachable=True,     # must be true for success
             discovered=True,    # must be true for success
@@ -184,8 +184,10 @@ class State:
         elif action.is_subnet_scan():
             for host_addr in action_result.discovered:
                 discovered = action_result.discovered[host_addr]
+                
                 if not discovered:
                     continue
+                running = action_result.running[host_addr]
                 d_idx, d_host = self.get_host_and_idx(host_addr)
                 newly_discovered = action_result.newly_discovered[host_addr]
                 d_obs = d_host.observe(

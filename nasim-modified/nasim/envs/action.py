@@ -583,7 +583,9 @@ class ActionResult:
                  processes=None,
                  access=None,
                  discovered=None,
+                 running=None,
                  connection_error=False,
+                 running_error=False,
                  permission_error=False,
                  undefined_error=False,
                  newly_discovered=None):
@@ -604,6 +606,8 @@ class ActionResult:
             access gained by action (default=None={})
         discovered : dict, optional
             host addresses discovered by action (default=None={})
+        running : dict, optional
+            host running status find by action (default=None={})
         connection_error : bool, optional
             True if action failed due to connection error (default=False)
         permission_error : bool, optional
@@ -620,7 +624,9 @@ class ActionResult:
         self.processes = {} if processes is None else processes
         self.access = {} if access is None else access
         self.discovered = {} if discovered is None else discovered
+        self.running = {} if running is None else running
         self.connection_error = connection_error
+        self.running_error = running_error
         self.permission_error = permission_error
         self.undefined_error = undefined_error
         if newly_discovered is not None:
@@ -644,7 +650,9 @@ class ActionResult:
             processes=self.processes,
             access=self.access,
             discovered=self.discovered,
+            running=self.running,
             connection_error=self.connection_error,
+            running_error=self.running_error,
             permission_error=self.permission_error,
             newly_discovered=self.newly_discovered
         )

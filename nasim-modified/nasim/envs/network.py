@@ -63,7 +63,7 @@ class Network:
             return next_state, ActionResult(True)
         
         if not state.host_running(action.target):
-            result = ActionResult(False, 0.0, connection_error=True)
+            result = ActionResult(False, 0.0, running_error=True)
             return next_state, result
         
         if not state.host_reachable(action.target) \
@@ -113,6 +113,7 @@ class Network:
             return next_state, result
 
         discovered = {}
+        running = {}
         newly_discovered = {}
         discovery_reward = 0
         target_subnet = action.target[0]
@@ -122,6 +123,7 @@ class Network:
             if self.subnets_connected(target_subnet, h_addr[0]):
                 host = next_state.get_host(h_addr)
                 discovered[h_addr] = True
+                running[h_addr] = host.running
                 if not host.discovered:
                     newly_discovered[h_addr] = True
                     host.discovered = True
@@ -131,6 +133,7 @@ class Network:
             True,
             discovery_reward,
             discovered=discovered,
+            running=running,
             newly_discovered=newly_discovered
         )
         return next_state, obs
@@ -296,11 +299,11 @@ class Network:
         # Iterate over the list of addresses.
         for host_addr in address_list:
             host = temp_state.get_host(host_addr)
-            host.running = not host.running
+            host.running = 1.0 if host.running == 0 else 0
             host.compromised = False
-            host.access = AccessLevel.NONE
-            host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
-            host.discovered = host.reachable
+            #host.access = AccessLevel.NONE
+            #host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
+            #host.discovered = host.reachable
         return temp_state
     
     def perform_defensive(self, state, def_type="reboot"):
@@ -320,8 +323,8 @@ class Network:
 
         """
         address_list = []
-        if random.random() < 0.05:
-            shutdown_num = draw_random_normal_int(low=0, high=2)
+        if random.random() < 0.1:
+            shutdown_num = draw_random_normal_int(low=1, high=1)
         else:
             shutdown_num = 0
             return state
