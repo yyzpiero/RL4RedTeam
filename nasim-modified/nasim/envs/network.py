@@ -243,6 +243,21 @@ class Network:
     def get_subnet_depths(self):
         return min_subnet_depth(self.topology)
     
+    def get_num_running_hosts(self, state):
+        """Return the number of runing hosts in the network"""
+        total = 0
+        for host_addr in self.address_space:
+            total += state.get_host(host_addr).running
+        return int(total)
+
+    def get_num_inactive_hosts(self, state):
+        """Return the number of runing hosts in the network"""
+        total = 0
+        for host_addr in self.address_space:
+            total += state.get_host(host_addr).running
+        return int(len(self.address_space) - total)
+        
+    
     def reset_hosts(self, address_list, state):
         """ Resetting hosts from a provided address list
         Args:
@@ -305,7 +320,37 @@ class Network:
             #host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
             #host.discovered = host.reachable
         return temp_state
-    
+
+    def switch_single_hosts(self, address, state):
+        """ Reboot a single hosts from a provided address 
+        Args:
+        ---------
+            address_list (list) : A list of hosts address
+            state (State) : The current state in the NASim Environment.
+
+        Returns:
+        ---------
+            next_state (State) : The state after the defensive mechansim is performed 
+        """
+        # # copy the current state
+        temp_state = state.copy()
+        
+        # Define the hosts' addresses to be reset
+        if not isinstance(address, tuple):
+            raise TypeError("Not Single Address")
+        
+        if len(address) !=2:
+            warnings.warn("The input address is not in a correct format")
+
+        # Iterate over the list of addresses.        
+        host = temp_state.get_host(address)
+        host.running = 1.0 if host.running == 0 else 0
+        host.compromised = False
+        #host.access = AccessLevel.NONE
+        #host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
+        #host.discovered = host.reachable
+        return temp_state
+        
     def perform_defensive(self, state, def_type="reboot"):
         """Perform the defensive mechanism against the network.
 
@@ -322,6 +367,8 @@ class Network:
             next_state (State) : The state after the defensive mechansim is performed
 
         """
+        # testing
+        #print(self.get_num_running_hosts(state))
         address_list = []
         if random.random() < 0.02:
             shutdown_num = draw_random_normal_int(low=0, high=1)
@@ -351,6 +398,86 @@ class Network:
             final_state = self.reboot_hosts(address_list, temp_state)
 
         return final_state
+
+    def perform_ctrl_defensive(self, step, state, def_type="reboot", off_limit=0.8, p_affect=0.2, p_off=0.8):
+        """Perform the controlled defensive mechanism against the network.
+        NOTE: It is different from the random method, for controlled defensive operation:
+                For a network with N total hosts
+                20% of the total hosts are affected (turned on or off) at the operation step.
+                Each affected host has a 20% chance of being turned off.
+                    If it is not turned off, it is turned on.
+                The total number of inactive hosts is less than 20%.
+
+        Arguments
+        ---------
+            state (State) : The current state in the NASim Environment.
+
+        Returns
+        -------
+            next_state (State) : The state after the defensive mechansim is performed
+
+        """
+
+        # copy the current state
+        temp_state = state.copy()
+        
+        
+        num_on_host = self.get_num_running_hosts(state=state)
+        num_off_host = self.get_num_inactive_hosts(state=state)
+        num_host = len(self.hosts)
+        
+        on_hosts_list = self.address_space.copy()
+        # Calculate the number of hosts to turn off/on
+        num_affected = int(num_host * p_affect)
+        
+        address_list = []
+
+        # Randomly select number of hosts to turn off
+        hosts_to_turn_off_on = random.sample(self.address_space, num_affected)
+
+        for host in hosts_to_turn_off_on:
+            # Generate a random number between 0 and 1
+            rand_num = random.random()
+
+            # Turn off the host if the random number is less than 0.5
+            if rand_num < p_off:
+                if num_off_host >= num_host * off_limit:
+                    continue
+                if temp_state.get_host(host).running == True:
+                    #on_hosts_list.remove(host)
+                    #temp_state = self.switch_single_hosts(host, temp_state)
+                    temp_state.switch_host(host)
+                    num_off_host += 1
+                    #print("Turning off host {} at time step {}".format(host, step))
+                
+            # Turn on the host if the random number is greater than 0.5
+            else:
+                #if host not in on_hosts_list:
+                if temp_state.get_host(host).running == False:
+                    #temp_state = self.switch_single_hosts(host, temp_state)
+                    temp_state.switch_host(host)
+                    # on_hosts_list.append(host)
+                    # on_hosts_list = sorted(on_hosts_list)
+                    num_off_host -= 1
+                    #print("Turning on host {} at time step {}".format(host, step))
+                   
+        # idx = np.random.choice(host_num, shutdown_num, replace=False).astype(int)
+        # # print(idx)
+        # for i in idx:
+        #     address_list.append(self.address_space[i])
+        
+       
+
+        # if def_type.lower() == "none":
+        #     return final_state
+        # elif def_type.lower() == "reset":
+        #     final_state = self.reset_hosts(address_list, temp_state)
+        # elif def_type.lower() == "reboot":
+        #     final_state = self.reboot_hosts(address_list, temp_state)
+        #print("Number of offlined host at step {}: {}".format(step, num_off_host))
+
+        return temp_state
+
 
     def __str__(self):
         output = "\n--- Network ---\n"

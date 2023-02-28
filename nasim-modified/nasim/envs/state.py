@@ -246,6 +246,12 @@ class State:
 
     def set_host_running(self, host_addr):
         self.get_host(host_addr).running = True
+    
+    def set_host_inactive(self, host_addr):
+        self.get_host(host_addr).running = False
+
+    def switch_host(self, host_addr):
+        self.get_host(host_addr).running = False if self.get_host(host_addr).running == True else True
 
     def set_host_compromised(self, host_addr):
         self.get_host(host_addr).compromised = True

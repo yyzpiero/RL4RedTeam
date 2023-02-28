@@ -44,13 +44,13 @@ for t in range(T):
                 hosts_on.append(host)
                 hosts_on = sorted(hosts_on)
                 num_hosts_off -= 1
-                #print("Turning on host {} at time step {}".format(host, t))
+                print("Turning on host {} at time step {}".format(host, t))
         # if num_hosts_off >= N * 0.2:
         #     break
 
     # Check the list of on hosts
     # print("List of on hosts at step {}: {}".format(t, hosts_on))
-    print("Number of offed host at step {}: {}".format(t, num_hosts_off))
+    print("Number of offlined host at step {}: {}".format(t, num_hosts_off))
 
    
     
