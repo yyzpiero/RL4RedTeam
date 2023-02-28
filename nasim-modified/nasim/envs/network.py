@@ -399,7 +399,7 @@ class Network:
 
         return final_state
 
-    def perform_ctrl_defensive(self, step, state, def_type="reboot", off_limit=0.8, p_affect=0.2, p_off=0.8):
+    def perform_ctrl_defensive(self, step, state, def_type="reset", off_limit=0.2, p_affect=0.25, p_def_opt=0.5):
         """Perform the controlled defensive mechanism against the network.
         NOTE: It is different from the random method, for controlled defensive operation:
                 For a network with N total hosts
@@ -432,51 +432,48 @@ class Network:
         
         address_list = []
 
-        # Randomly select number of hosts to turn off
-        hosts_to_turn_off_on = random.sample(self.address_space, num_affected)
+        if def_type == "reboot":
+            # Randomly select number of hosts to turn off
+            hosts_to_turn_off_on = random.sample(self.address_space, num_affected)
 
-        for host in hosts_to_turn_off_on:
+            for host in hosts_to_turn_off_on:
+                # Generate a random number between 0 and 1
+                rand_num = random.random()
+                # Turn off the host if the random number is less than 0.5
+                if rand_num < p_def_opt:
+                    if num_off_host >= num_host * off_limit:
+                        continue
+                    if temp_state.get_host(host).running == True:
+                        #on_hosts_list.remove(host)
+                        #temp_state = self.switch_single_hosts(host, temp_state)
+                        temp_state.switch_host(host)
+                        num_off_host += 1
+                        #print("Turning off host {} at time step {}".format(host, step))
+                    
+                # Turn on the host if the random number is greater than 0.5
+                else:
+                    #if host not in on_hosts_list:
+                    if temp_state.get_host(host).running == False:
+                        #temp_state = self.switch_single_hosts(host, temp_state)
+                        temp_state.switch_host(host)
+                        # on_hosts_list.append(host)
+                        # on_hosts_list = sorted(on_hosts_list)
+                        num_off_host -= 1
+                        #print("Turning on host {} at time step {}".format(host, step))
+
+            return temp_state            
+
+        elif def_type == "reset":
+            # Randomly select number of hosts to turn off
+            hosts_to_reset = random.sample(self.address_space, num_affected)
             # Generate a random number between 0 and 1
             rand_num = random.random()
-
             # Turn off the host if the random number is less than 0.5
-            if rand_num < p_off:
-                if num_off_host >= num_host * off_limit:
-                    continue
-                if temp_state.get_host(host).running == True:
-                    #on_hosts_list.remove(host)
-                    #temp_state = self.switch_single_hosts(host, temp_state)
-                    temp_state.switch_host(host)
-                    num_off_host += 1
-                    #print("Turning off host {} at time step {}".format(host, step))
-                
-            # Turn on the host if the random number is greater than 0.5
+            if rand_num < p_def_opt:
+                return self.reset_hosts(hosts_to_reset, temp_state)
             else:
-                #if host not in on_hosts_list:
-                if temp_state.get_host(host).running == False:
-                    #temp_state = self.switch_single_hosts(host, temp_state)
-                    temp_state.switch_host(host)
-                    # on_hosts_list.append(host)
-                    # on_hosts_list = sorted(on_hosts_list)
-                    num_off_host -= 1
-                    #print("Turning on host {} at time step {}".format(host, step))
-                   
-        # idx = np.random.choice(host_num, shutdown_num, replace=False).astype(int)
-        # # print(idx)
-        # for i in idx:
-        #     address_list.append(self.address_space[i])
+                return temp_state
         
-       
-
-        # if def_type.lower() == "none":
-        #     return final_state
-        # elif def_type.lower() == "reset":
-        #     final_state = self.reset_hosts(address_list, temp_state)
-        # elif def_type.lower() == "reboot":
-        #     final_state = self.reboot_hosts(address_list, temp_state)
-        #print("Number of offlined host at step {}: {}".format(step, num_off_host))
-
-        return temp_state
 
 
     def __str__(self):

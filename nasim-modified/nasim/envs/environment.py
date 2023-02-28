@@ -58,7 +58,7 @@ class NASimEnv(gym.Env):
                  scenario,
                  fully_obs=False,
                  flat_actions=True,
-                 flat_obs=True, def_ops=True):
+                 flat_obs=True, def_ops=False):
         """
         Parameters
         ----------

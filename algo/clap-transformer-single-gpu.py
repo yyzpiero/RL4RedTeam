@@ -29,7 +29,7 @@ def parse_args():
         help="if toggled, `torch.backends.cudnn.deterministic=False`")
     parser.add_argument("--cuda", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="if toggled, cuda will be enabled by default")
-    parser.add_argument("--track", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
+    parser.add_argument("--track", type=lambda x: bool(strtobool(x)), default=False, nargs="?", const=True,
         help="if toggled, this experiment will be tracked with tensorboard")
     # parser.add_argument("--wandb-project-name", type=str, default="cleanRL",
     #     help="the wandb's project name")
@@ -39,7 +39,7 @@ def parse_args():
     #     help="weather to capture videos of the agent performances (check out `videos` folder)")
 
     # Algorithm specific arguments
-    parser.add_argument("--env-id", type=str, default="nasim:MediumPO2D-v0",
+    parser.add_argument("--env-id", type=str, default="nasim:LargeGenPO2D-v0",
         help="the id of the environment")
     parser.add_argument("--total-timesteps", type=int, default=1500000,
         help="total timesteps of the experiments")

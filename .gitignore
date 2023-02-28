@@ -6,3 +6,6 @@ trash_bin/
 .gitignore 
 .vscode/
 DefRuns/
+nohup.log
+nohup2.log
+requirements.yaml
