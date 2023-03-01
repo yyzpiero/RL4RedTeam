@@ -399,7 +399,7 @@ class Network:
 
         return final_state
 
-    def perform_ctrl_defensive(self, step, state, def_type="reset", off_limit=0.2, p_affect=0.25, p_def_opt=0.5):
+    def perform_ctrl_defensive(self, step, state, def_type="reboot", off_limit=0.1, p_affect=0.2, p_def_opt=0.2):
         """Perform the controlled defensive mechanism against the network.
         NOTE: It is different from the random method, for controlled defensive operation:
                 For a network with N total hosts
