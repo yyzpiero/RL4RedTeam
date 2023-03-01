@@ -282,11 +282,15 @@ class Network:
 
         # Iterate over the list of addresses.
         for host_addr in address_list:
-            host = temp_state.get_host(host_addr)
-            host.compromised = False
-            host.access = AccessLevel.NONE
-            host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
-            host.discovered = host.reachable
+            if not self.is_sensitive_host(host_addr):
+                host = temp_state.get_host(host_addr)
+                host.compromised = False
+                host.access = AccessLevel.NONE
+                #host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
+                host.discovered = host.reachable
+            else:
+                continue
+
         return temp_state
         
     def reboot_hosts(self, address_list, state):
@@ -313,12 +317,16 @@ class Network:
 
         # Iterate over the list of addresses.
         for host_addr in address_list:
-            host = temp_state.get_host(host_addr)
-            host.running = 1.0 if host.running == 0 else 0
-            host.compromised = False
-            #host.access = AccessLevel.NONE
-            #host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
-            #host.discovered = host.reachable
+            if not self.is_sensitive_host(host_addr):
+                host = temp_state.get_host(host_addr)
+                host.running = 1.0 if host.running == 0 else 0
+                host.compromised = False
+                #host.access = AccessLevel.NONE
+                #host.reachable = self.subnet_public(host_addr[0]) # Only reachable if host in the public subnet??
+                #host.discovered = host.reachable
+            else:
+                continue
+
         return temp_state
 
     def switch_single_hosts(self, address, state):
@@ -399,7 +407,7 @@ class Network:
 
         return final_state
 
-    def perform_ctrl_defensive(self, step, state, def_type="reboot", off_limit=0.1, p_affect=0.2, p_def_opt=0.2):
+    def perform_ctrl_defensive(self, step, state, def_type="reset", off_limit=0.2, p_affect=0.05, p_def_opt=0.1):
         """Perform the controlled defensive mechanism against the network.
         NOTE: It is different from the random method, for controlled defensive operation:
                 For a network with N total hosts

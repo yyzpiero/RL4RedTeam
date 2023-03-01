@@ -21,7 +21,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--exp-name", type=str, default=os.path.basename(__file__).rstrip(".py"),
         help="the name of this experiment")
-    parser.add_argument("--seed", type=int, default=1343,
+    parser.add_argument("--seed", type=int, default=13543,
         help="seed of the experiment")
     parser.add_argument("--torch-deterministic", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="if toggled, `torch.backends.cudnn.deterministic=False`")
@@ -99,7 +99,7 @@ class Agent_Memory(nn.Module):
             layer_init(nn.Linear(np.array(envs.observation_space.shape).prod(), hidden_size)),
             nn.Tanh(),
             layer_init(nn.Linear(hidden_size, hidden_size)),
-            nn.Tanh(),
+            nn.Tanh()
         )
 
         self.lstm = nn.LSTM(hidden_size, hidden_size)
